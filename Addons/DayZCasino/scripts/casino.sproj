@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project>
+    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/missionServer.c" />
+    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/missionGameplay.c" />
+    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/helper.c" />
+    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/menu/betDiceMenu.c" />
+    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/menu/baseMenu.c" />
+    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/collections/gameMenues.c" />
+    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/4_World/DayZPlayerImplement.c" />
+</project>

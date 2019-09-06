@@ -1,0 +1,241 @@
+FrameWidgetClass rootFrame {
+ visible 0
+ position -90.5612 -0.00002
+ size 859.15997 647.47705
+ halign center_ref
+ valign center_ref
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  PanelWidgetClass background {
+   ignorepointer 1
+   color 0 0 0 0.651
+   position 13.2515 13.2515
+   size 831.85895 619.10498
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   draggable 0
+   style DayZDefaultPanel
+   "no focus" 0
+   {
+    PanelWidgetClass boarder {
+     ignorepointer 1
+     color 0 0 0 0.7843
+     position 9.91395 6.60614
+     size 810.57703 600.96405
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style editor_selection
+     {
+      PanelWidgetClass PanelWidget1 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 8.26006 8.26004
+       size 789.065 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        TextWidgetClass TextWidget0 {
+         ignorepointer 1
+         position 8.26005 8.26003
+         size 767.55298 53.4799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Bold
+         text "Wette auf eine Zahl von 1 bis 6"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass boarderReason {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 413.57001 91.5116
+       size 382.98297 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        XComboBoxWidgetClass number {
+         position 8.26001 8.26005
+         size 366.46298 53.4799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         items "1;2;3;4;5;6;"
+        }
+       }
+      }
+      PanelWidgetClass boarderReport {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 7.52749 94.7892
+       size 397.76102 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        TextWidgetClass TextWidget1 {
+         ignorepointer 1
+         position 6.60655 8.25965
+         size 377.90298 53.4799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Bold
+         text "Waehle eine Zahl"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass boarderCancel {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 10.3836 505.10501
+       size 391.24301 79.3289
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass cancel {
+         color 0.502 0 0 1
+         position 8.25999 8.26005
+         size 374.72299 62.8088
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "genug gezockt"
+        }
+       }
+      }
+      PanelWidgetClass boarderCancel0 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 407.32098 505.10501
+       size 391.24301 79.3289
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass shuffel {
+         color 0 1 0.251 1
+         position 8.25999 8.26005
+         size 374.72299 62.8088
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "wuerfeln"
+        }
+       }
+      }
+      PanelWidgetClass boarderReport0 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 9.1814 175.83101
+       size 396.10699 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        TextWidgetClass TextWidget2 {
+         ignorepointer 1
+         position 6.60655 8.25965
+         size 376.24902 53.4799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Bold
+         text "Einsatz"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass boarderReason0 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 413.57001 178.041
+       size 383 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        XComboBoxWidgetClass rubel {
+         position 8.26001 8.26005
+         size 366.46298 53.4799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         items "1;5;10;25;50;100;250;500;1000;"
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget0 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 13.2515 259.08298
+       size 784.07404 166.07401
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        MultilineTextWidgetClass TextWidget3 {
+         ignorepointer 1
+         position 8.26005 8.26003
+         size 767.55298 144.562
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         text "Wenn du gewinnst, bekommst du das sechsfache deines Einsatzes. Wenn du verliest, gib es nichts. "
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
