@@ -80,7 +80,7 @@ class CfgVehicles
 			"Civilian",
 			"Work"
 		};
-		itemSize[]={1,2};
+		itemSize[]={1};
 		weight=1;
 		varQuantityInit=1;
 		varQuantityMin=0;

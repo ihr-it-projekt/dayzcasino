@@ -83,6 +83,10 @@ class BaseMenu extends UIScriptedMenu
 
 	protected int GetPlayerChipsAmount(DayZPlayer m_Player) 
 	{
+		if (!m_Player) {
+			return;
+		}
+		
 		DebugMessageCasino("GetPlayerChipsAmount");
 		int currencyAmount = 0;
 		
@@ -96,7 +100,7 @@ class BaseMenu extends UIScriptedMenu
 			Class.CastTo(item, itemsArray.Get(i));
 			DebugMessageCasino("has item " + item.GetType());
 			if(item && item.GetType() == "CasinoChips") {
-				DebugMessageCasino("Find chips ");
+				DebugMessageCasino("has found chips ");
 				currencyAmount += item.GetQuantity();
 			}
 		}
@@ -115,7 +119,7 @@ class BaseMenu extends UIScriptedMenu
 			Class.CastTo(item, itemsArray.Get(i));
 			DebugMessageCasino("has item " + item.GetType());
 			if(item && item.GetType() == "CasinoChips") {
-				DebugMessageCasino("Find chips ");
+				DebugMessageCasino("has found chips ");
 				int currencyAmount = item.GetQuantity() + chipsCount;
 				item.SetQuantity(currencyAmount);
 			}

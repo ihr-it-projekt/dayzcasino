@@ -4,7 +4,12 @@ modded class MissionGameplay
 	
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
+		GetDayZGame().Event_OnRPC.Insert(OnRPC);
 		m_gameMenues = new GameMenues;
+	}
+	
+	void ~MissionGameplay() {
+		GetDayZGame().Event_OnRPC.Remove(OnRPC);
 	}
 	
 	override void OnUpdate(float timeslice)
@@ -25,6 +30,10 @@ modded class MissionGameplay
 				currentGameMenu.CloseMenu();
 			}
 		}			
+	}
+	
+	void OnRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+		m_gameMenues.HandleEvents(sender, target, rpc_type, ctx);
 	}
 	
 }
