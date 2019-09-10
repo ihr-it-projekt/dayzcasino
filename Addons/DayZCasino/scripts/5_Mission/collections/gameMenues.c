@@ -1,9 +1,15 @@
 class GameMenues
 {
 	private ref BetDiceMenue betDiceMenue;
+	private ref CasinoConfig casinoConfig;
+	
 	
 	void GameMenues() {
 		DebugMessageCasino("Load GameMenues");
+		
+		casinoConfig = new CasinoConfig;
+		
+		JsonFileLoader<ref CasinoConfig>.JsonFileLoader("$profile:DayZCasion/config.json", casinoConfig);
 	}
 		
 	BaseMenu GetGameMenue(DayZPlayer player) {		
@@ -11,7 +17,7 @@ class GameMenues
 		
 		if (!betDiceMenue) {
 			DebugMessageCasino("No selectedMenue");
-			betDiceMenue = new BetDiceMenue();
+			betDiceMenue = new BetDiceMenue(casinoConfig.positionDice);
 		}
 		
 		betDiceMenue.Init();

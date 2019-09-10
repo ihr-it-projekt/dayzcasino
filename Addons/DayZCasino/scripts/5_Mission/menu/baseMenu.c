@@ -1,9 +1,24 @@
+static bool DAYZ_CASINO_DEBUG = true;
+
 class BaseMenu extends UIScriptedMenu
 {
 	bool isMenuOpen = false;
 	protected bool isDebug = true;
 	protected Widget widget;
 	protected DayZPlayer player;
+	protected vector position;
+	
+	void BaseMenu(vector pos) {
+		position = pos;
+		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+	}
+	
+	void ~BaseMenu() {
+		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
+	}
+	
+	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+	}
 	
 	override void OnHide()
 	{
@@ -70,7 +85,8 @@ class BaseMenu extends UIScriptedMenu
 	}
 	
 	vector GetPosition() {
-		return "4680.468750 340.209229 10311.168945";
+		DebugMessageCasino("position is " + position.ToString);
+		return position;
 	}
 	
 		
@@ -84,7 +100,7 @@ class BaseMenu extends UIScriptedMenu
 	protected int GetPlayerChipsAmount(DayZPlayer m_Player) 
 	{
 		if (!m_Player) {
-			return;
+			return 0;
 		}
 		
 		DebugMessageCasino("GetPlayerChipsAmount");
@@ -108,22 +124,77 @@ class BaseMenu extends UIScriptedMenu
 		return currencyAmount;
 	}
 	
-	protected void AddChipsToPlayer(DayZPlayer m_Player, int chipsCount) {
+	protected int AddChipsToPlayer(DayZPlayer m_Player, int chipsCount) {
 		array<EntityAI> itemsArray = new array<EntityAI>;
 		m_Player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, itemsArray);
 
 		ItemBase item;
 		
+		bool hasAddedAllChips = false;
+		
 		for (int i = 0; i < itemsArray.Count(); i++)
 		{
 			Class.CastTo(item, itemsArray.Get(i));
 			DebugMessageCasino("has item " + item.GetType());
-			if(item && item.GetType() == "CasinoChips") {
+			if (item && item.GetType() == "CasinoChips") {
 				DebugMessageCasino("has found chips ");
-				int currencyAmount = item.GetQuantity() + chipsCount;
-				item.SetQuantity(currencyAmount);
+				chipsCount = AddChips(chipsCount, item);
+				
+				if (chipsCount == 0) {
+					break;
+				}
 			}
 		}
+		
+		if (chipsCount) {
+			chipsCount = AddNewChipsItemToInevntory(chipsCount);
+		}
+		
+		return chipsCount;
+	}
+	
+	private int AddNewChipsItemToInevntory(int chipsCount) {
+		InventoryLocation inventoryLocation = new InventoryLocation;	
+		EntityAI entityInHands = this.GetHumanInventory().GetEntityInHands();	
+		if (player.GetInventory().FindFirstFreeLocationForNewEntity("CasinoChips", FindInventoryLocationType.ANY, inventoryLocation)) {
+			EntityAI entity = player.GetHumanInventory().CreateInInventory("CasinoChips");
+			chipsCount = AddChips(chipsCount, item);
+		} else if (!entityInHands) {
+			EntityAI entityInHands = this.GetHumanInventory().CreateInHands("CasinoChips");
+			chipsCount = AddChips(chipsCount, entityInHands);
+		} else {
+			EntityAI entity = player.SpawnEntityOnGroundPos("CasinoChips", player.GetPosition());
+			chipsCount = AddChips(chipsCount, entityInHands);
+		}
+		
+		if(chipsCount) {
+			chipsCount = AddNewChipsItemToInevntory(chipsCount);
+		}
+		
+		return chipsCount;
+	}
+	
+	private int AddChips(int chipsToAdd, EntityAI entity) {
+		ItemBase item;
+		ItemBase.CastTo(item, entity);
+		
+		int currencyAmount = item.GetQuantity();
+		int maxAmount = item.GetQuantityMax();
+		
+		int canAddedChipsCount = maxAmount - currencyAmount;
+		
+		if (canAddedChipsCount > 0) {
+			if (chipsToAdd > canAddedChipsCount) {
+				item.SetQuantity(maxAmount);
+				chipsToAdd -= canAddedChipsCount;
+				
+			} else {
+				item.SetQuantity(currencyAmount + chipsToAdd);
+				chipsToAdd = 0;
+			}
+		}
+		
+		return chipsToAdd;
 	}
 	
 }

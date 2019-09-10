@@ -69,9 +69,9 @@ class CfgVehicles
 	class CasinoChips: Inventory_Base
 	{
 		scope=2;
-		displayName="1 Casino Chip";
+		displayName="Casino Chip";
 		descriptionShort="With this chip you can play at casino games";
-		model="DayZCasino\chip.p3d";
+		model="DayZCasino\CasinoChips.p3d";
 		canBeSplit=1;
 		rotationFlags=16;
 		lootCategory="Materials";
@@ -88,66 +88,5 @@ class CfgVehicles
 		varQuantityDestroyOnMin=1;
 		destroyOnEmpty=1;
 		absorbency=1;
-		hiddenSelections[]=
-		{
-			"WholeObject"
-		};
-		hiddenSelectionsTextures[]=
-		{
-			"DayZCasino\data\chip_co.paa"
-		};
-		class DamageSystem
-		{
-			class GlobalHealth
-			{
-				class Health
-				{
-					hitpoints=100;
-					healthLevels[]=
-					{
-						
-						{
-							1,
-							
-							{
-								"DayZCasino\data\chip.rvmat"
-							}
-						},
-						
-						{
-							0.69999999,
-							
-							{
-								"DayZCasino\data\chip.rvmat"
-							}
-						},
-						
-						{
-							0.5,
-							
-							{
-								"DayZCasino\data\chip_damage.rvmat"
-							}
-						},
-						
-						{
-							0.30000001,
-							
-							{
-								"DayZCasino\data\chip_damage.rvmat"
-							}
-						},
-						
-						{
-							0,
-							
-							{
-								"DayZCasino\data\chip_destruct.rvmat"
-							}
-						}
-					};
-				};
-			};
-		};
 	};
 };

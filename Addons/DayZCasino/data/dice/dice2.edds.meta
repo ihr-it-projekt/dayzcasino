@@ -1,10 +1,10 @@
 MetaFileClass {
- Name "{808F99273A0A2507}Develop/dayzcasino/Addons/DayZCasino/data/dice1.png"
+ Name "{275476EAF0A86104}DayZCasino/data/dice/dice2.png"
  Author "laptop-100u5pjt"
- ChangeDate 90482472
+ ChangeDate 1445799720
  Configurations {
   PNGResourceClass PC {
-   SourceFile "dice1.png"
+   SourceFile "dice2.png"
   }
   PNGResourceClass XBOX_ONE : PC {
   }

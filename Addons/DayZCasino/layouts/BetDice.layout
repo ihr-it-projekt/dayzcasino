@@ -299,12 +299,30 @@ FrameWidgetClass rootFrame {
         }
         ImageWidgetClass diceImage {
          ignorepointer 1
-         position 494.599 198.44299
+         position 484.60699 193.599
          size 195 195
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        MultilineTextWidgetClass message {
+         ignorepointer 1
+         position 12.4436 332.961
+         size 379.59299 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
         }
        }
       }

@@ -1,7 +1,8 @@
 static int DAYZ_CASINO_SEND_MESSAGE_TO_PLAYER = 99995858587;
 static int DAYZ_CASINO_SHUFFEL_BET_DICE = 99995858588;
 static int DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE = 99995858589;
-static bool DAYZ_CASINO_DEBUG = true;
+static int DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE = 999958585;
+
 static int DAYZ_CASINO_DISTANCE_TO_GAME = 1;
 
 class BetDiceMenue extends BaseMenu
@@ -23,11 +24,14 @@ class BetDiceMenue extends BaseMenu
 	private XComboBoxWidget chipsBet;
 	private MultilineTextWidget countChips;
 	private MultilineTextWidget lastWin;
+	private MultilineTextWidget message;
 	private ImageWidget diceImage;
 	private ref Timer imageShufelTimer;
 	private int currentCountBeforSendShufel = 0;
+	private int winImageNumber;
+	private int lastWinChips;
+	private int currentAmmount;
 	ref Param3<int, int, DayZPlayer> parameterShuffel
-
 	
 	override Widget Init()
 	{
@@ -57,23 +61,11 @@ class BetDiceMenue extends BaseMenu
 			}
 			DebugMessageCasino("Has widget loaded");
 			shuffel = ButtonWidget.Cast( widget.FindAnyWidget( "shuffel" ));
-			
-			if (shuffel) {
-				DebugMessageCasino("Has shuffel loaded");
-				WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( shuffel,  this, "OnClick" );
-			} else {
-				DebugMessageCasino("Has shuffel NOT loaded");
-			}
-			
-			
+			DebugMessageCasino("Has shuffel loaded");
+			WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( shuffel,  this, "OnClick" );
 			cancel = ButtonWidget.Cast( widget.FindAnyWidget( "cancel" ));
-			if (cancel) {
-				DebugMessageCasino("Has cancel loaded");
-				WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( cancel,  this, "OnClick" );
-			} else {
-				DebugMessageCasino("Has cancel NOT loaded");
-			}
-			
+			DebugMessageCasino("Has cancel loaded");
+			WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( cancel,  this, "OnClick" );
 			number = XComboBoxWidget.Cast( widget.FindAnyWidget( "number" ));
 			DebugMessageCasino("Has number loaded");
 			chipsBet = XComboBoxWidget.Cast( widget.FindAnyWidget( "chipsBet" ));
@@ -82,6 +74,8 @@ class BetDiceMenue extends BaseMenu
 			DebugMessageCasino("Has countChips loaded");
 			lastWin = MultilineTextWidget.Cast( widget.FindAnyWidget( "lastWin" ));
 			DebugMessageCasino("Has lastWin loaded");
+			message = MultilineTextWidget.Cast( widget.FindAnyWidget( "message" ));
+			DebugMessageCasino("Has message loaded");
 			diceImage = ImageWidget.Cast( widget.FindAnyWidget( "diceImage" ));
 			DebugMessageCasino("Has diceImage loaded");
 			
@@ -99,18 +93,17 @@ class BetDiceMenue extends BaseMenu
 		}
 		
 		super.OnShow();
-		
-		countChips.SetText("" + GetPlayerChipsAmount(GetGame().GetPlayer()));
+		currentAmmount = GetPlayerChipsAmount(GetGame().GetPlayer());
+		countChips.SetText("" + currentAmmount);
 		lastWin.SetText("0");
-		diceImage.LoadImageFile(1, "DayZCasino\data\dice\dice1.edds");
-		diceImage.LoadImageFile(2, "DayZCasino\data\dice\dice2.edds");
-		diceImage.LoadImageFile(3, "DayZCasino\data\dice\dice3.edds");
-		diceImage.LoadImageFile(4, "DayZCasino\data\dice\dice4.edds");
-		diceImage.LoadImageFile(5, "DayZCasino\data\dice\dice5.edds");
-		diceImage.LoadImageFile(6, "DayZCasino\data\dice\dice6.edds");
-		diceImage.SetImage(1);
+		diceImage.LoadImageFile(0, "{79BC5FA94F25EF0B}DayZCasino/data/dice/dice1.edds");
+		diceImage.LoadImageFile(1, "{275476EAF0A86104}DayZCasino/data/dice/dice2.edds");
+		diceImage.LoadImageFile(2, "{D35C3172FD750970}DayZCasino/data/dice/dice3.edds");
+		diceImage.LoadImageFile(3, "{9A84246D8FB37D1A}DayZCasino/data/dice/dice4.edds");
+		diceImage.LoadImageFile(4, "{6E8C63F5826E156E}DayZCasino/data/dice/dice5.edds");
+		diceImage.LoadImageFile(5, "{30644AB63DE39B61}DayZCasino/data/dice/dice6.edds");
+		diceImage.SetImage(0);
 	}
-
 
 	override bool OnClick( Widget w, int x, int y, int button )	{
 		DebugMessageCasino("on click action super");
@@ -119,17 +112,21 @@ class BetDiceMenue extends BaseMenu
 		DebugMessageCasino("on click action");
 
 		if (w == cancel){
+			DebugMessageCasino("click cancel");
 			CloseMenu();
 		}
 		
 		if (w == shuffel){
+			DebugMessageCasino("click shuffel");
 			play();
-		}		
+		}	
+		
+		
 			
 		return true;
 	}
 	
-	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+	override void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_SHUFFEL_BET_DICE && IsServerCasino()) {
 			Param3<int, int, DayZPlayer> parameterShuffel;
 			if (ctx.Read(parameterShuffel)) {
@@ -153,68 +150,61 @@ class BetDiceMenue extends BaseMenu
 						winSum = -1 * parameterShuffel.param1;
 					}
 					
-					AddChipsToPlayer(player, winSum);
-					Param2<int, int> parameterResponse = new Param2<int, int>(luckNumber, winSum);
+					int currentChips = AddChipsToPlayer(player, winSum);
+					Param3<int, int, int> parameterResponse = new Param3<int, int, int>(luckNumber, winSum, currentChips);
 					
 					GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE, parameterResponse, true);
 					DebugMessageCasino("has message send to player");
+				} else {
+					GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE, new Param1<bool>(true), true);
 				}
 			}
 		}
 		if (rpc_type == DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE && false == IsServerCasino()) {
 			DebugMessageCasino("recive response shuffel");
-			Param2<int, int> parameterShuffelResponse;
+			Param3<int, int, int> parameterShuffelResponse;
 			if (ctx.Read(parameterShuffelResponse)) {
 				DebugMessageCasino("has recive response for bet dice");
-				lastWin.SetText("" + parameterShuffelResponse.param2);
-				imageShufelTimer.Stop();
-				diceImage.SetImage(parameterShuffelResponse.param1);
-				cancel.Show(true);
-				shuffel.Show(true);
+				
+				
+				//lastWin.SetColor(255,0,0);
+				//if (parameterShuffelResponse.param2 > 0)  {
+				//	lastWin.SetColor(0x008020);
+				//}
+				winImageNumber = parameterShuffelResponse.param1 - 1;
+				
+				
+				lastWinChips = parameterShuffelResponse.param2;
+				currentAmmount = parameterShuffelResponse.param3;
+
 			}
+		}
+		if (rpc_type == DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE && false == IsServerCasino()) {
+			DebugMessageCasino("recive not enough ballance");
+			imageShufelTimer.Stop();
+			cancel.Show(true);
+			shuffel.Show(true);
 		}
 	}
 
-	
-	override vector GetPosition() {
-		return "11810.3 4.25288 3415.5";
-	}
 
 	void play(){
 		if (player && isMenuOpen && number && chipsBet) {
-			cancel.Show(false);
-			shuffel.Show(false);
-			int chipsValue = 0;
+			int chipsValue = GetCurrenBet();
 			int numberValue = number.GetCurrentItem() + 1;
 			
-			
-			switch (chipsBet.GetCurrentItem())
-			{
-				case BET1:
-					chipsValue = 1;
-					break;
-				case BET5:
-					chipsValue = 5;
-					break;
-				case BET10:
-					chipsValue = 10;
-					break;
-				case BET25:
-					chipsValue = 25;
-				case BET50:
-					chipsValue = 50;
-				case BET100:
-					chipsValue = 100;
-				case BET250:
-					chipsValue = 250;
-				case BET500:
-					chipsValue = 500;
-				case BET1000:
-					chipsValue = 1000;
-				
-				default:
-					break;
+			if (chipsValue > currentAmmount) {
+				DebugMessageCasino("chipsValue" + chipsValue);
+				DebugMessageCasino("currentAmmount" + currentAmmount);
+				message.SetText("Nicht genug Chips vorhanden");
+				message.Show(true);
+				return;
 			}
+			message.Show(false);
+			
+			cancel.Show(false);
+			shuffel.Show(false);
+			
 			parameterShuffel = new Param3<int, int, DayZPlayer>(chipsValue, numberValue, player);
 			DebugMessageCasino("create timer");
 			currentCountBeforSendShufel = 0;
@@ -228,12 +218,67 @@ class BetDiceMenue extends BaseMenu
 	
 	void SwitchImage() {
 		DebugMessageCasino("change image");
-		diceImage.SetImage(Math.RandomInt(1, 6));
+		
 		if (currentCountBeforSendShufel == COUNT_SHUFFLE_BEFOR_SEND_TO_SERVER) {
 			GetGame().RPCSingleParam(player, DAYZ_CASINO_SHUFFEL_BET_DICE, parameterShuffel, true);
 			DebugMessageCasino("has send to server ");
 		}
+		
+		if (winImageNumber != 10) {
+			diceImage.SetImage(winImageNumber);
+			winImageNumber = 10;
+			lastWin.SetText("" + lastWinChips);
+			countChips.SetText("" + currentAmmount);
+			imageShufelTimer.Stop();
+			cancel.Show(true);
+			shuffel.Show(true);
+		}
+		diceImage.SetImage(Math.RandomInt(0, 5));
 		currentCountBeforSendShufel++;
+		if (10 == currentCountBeforSendShufel) {
+			DebugMessageCasino("No respons from Server");
+			imageShufelTimer.Stop();
+			cancel.Show(true);
+			shuffel.Show(true);
+		}
+	}
+	
+	private int GetCurrenBet() {
+		int chipsValue = 0;
+		DebugMessageCasino("" + chipsBet.GetCurrentItem());
+		switch (chipsBet.GetCurrentItem()){
+			case BET1:
+				chipsValue = 1;
+				break;
+			case BET5:
+				chipsValue = 5;
+				break;
+			case BET10:
+				chipsValue = 10;
+				break;
+			case BET25:
+				chipsValue = 25;
+				break;
+			case BET50:
+				chipsValue = 50;
+				break;
+			case BET100:
+				chipsValue = 100;
+				break;
+			case BET250:
+				chipsValue = 250;
+				break;
+			case BET500:
+				chipsValue = 500;
+				break;
+			case BET1000:
+				chipsValue = 1000;
+				break;
+			
+			default:
+				break;
+		}
+		return chipsValue;
 	}
 	
 }
