@@ -44,6 +44,14 @@ class GameMenues
 		return null;
 	}
 	
+	void CloseAllMenue(){
+		if (betDiceMenue) {
+			DebugMessageCasino("No selectedMenue");
+			betDiceMenue.Close();
+		}
+	
+	}
+	
 	
 	
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
