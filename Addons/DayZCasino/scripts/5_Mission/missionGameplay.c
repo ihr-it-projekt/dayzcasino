@@ -14,15 +14,19 @@ modded class MissionGameplay
 		
 		UAInput localInput = GetUApi().GetInputByName("UAInputPlayCasinoGame");	
 		
-		if(player && player.IsAlive() && localInput.LocalClick()) {
-			BaseMenu currentGameMenu = m_gameMenues.GetGameMenue(player);
-			DebugMessageCasino("key press");
-			if (GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen) {
-				DebugMessageCasino("key press open");
-				currentGameMenu.OnShow();
-			} else if (currentGameMenu && currentGameMenu.isMenuOpen && DAYZ_CASINO_DEBUG) {
-				DebugMessageCasino("key pres close");
-				currentGameMenu.CloseMenu();
+		if(player) {
+			if (localInput.LocalClick()){
+				BaseMenu currentGameMenu = m_gameMenues.GetGameMenue(player);
+				if (GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen && player.IsAlive()) {
+					DebugMessageCasino("key press open");
+					currentGameMenu.OnShow();
+				} else if (currentGameMenu && currentGameMenu.isMenuOpen) {
+					DebugMessageCasino("key pres close");
+					currentGameMenu.CloseMenu();
+				}
+			}
+			if (!player.IsAlive() && m_gameMenues){
+				m_gameMenues.CloseAllMenue();
 			}
 		}			
 	}
