@@ -85,7 +85,7 @@ class BaseMenu extends UIScriptedMenu
 	}
 	
 	vector GetPosition() {
-		DebugMessageCasino("position is " + position.ToString);
+		DebugMessageCasino("position is " + position.ToString());
 		return position;
 	}
 	
@@ -155,16 +155,16 @@ class BaseMenu extends UIScriptedMenu
 	
 	private int AddNewChipsItemToInevntory(int chipsCount) {
 		InventoryLocation inventoryLocation = new InventoryLocation;	
-		EntityAI entityInHands = this.GetHumanInventory().GetEntityInHands();	
+		
 		if (player.GetInventory().FindFirstFreeLocationForNewEntity("CasinoChips", FindInventoryLocationType.ANY, inventoryLocation)) {
-			EntityAI entity = player.GetHumanInventory().CreateInInventory("CasinoChips");
-			chipsCount = AddChips(chipsCount, item);
-		} else if (!entityInHands) {
-			EntityAI entityInHands = this.GetHumanInventory().CreateInHands("CasinoChips");
-			chipsCount = AddChips(chipsCount, entityInHands);
+			EntityAI entityInInventory = player.GetHumanInventory().CreateInInventory("CasinoChips");
+			chipsCount = AddChips(chipsCount - 1, entityInInventory);
+		} else if (!player.GetHumanInventory().GetEntityInHands()) {
+			EntityAI entityInHands = player.GetHumanInventory().CreateInHands("CasinoChips");
+			chipsCount = AddChips(chipsCount - 1, entityInHands);
 		} else {
-			EntityAI entity = player.SpawnEntityOnGroundPos("CasinoChips", player.GetPosition());
-			chipsCount = AddChips(chipsCount, entityInHands);
+			EntityAI entityToGround = player.SpawnEntityOnGroundPos("CasinoChips", player.GetPosition());
+			chipsCount = AddChips(chipsCount - 1, entityToGround);
 		}
 		
 		if(chipsCount) {

@@ -16,7 +16,7 @@ class BetDiceMenue extends BaseMenu
 	private static int BET250 = 6;
 	private static int BET500 = 7;
 	private static int BET1000 = 8;
-	private static int COUNT_SHUFFLE_BEFOR_SEND_TO_SERVER = 6;
+	private static int COUNT_SHUFFLE_BEFOR_SHOW_WIN_NUMBER = 12;
 
 	private ButtonWidget shuffel;
 	private ButtonWidget cancel;
@@ -121,8 +121,6 @@ class BetDiceMenue extends BaseMenu
 			play();
 		}	
 		
-		
-			
 		return true;
 	}
 	
@@ -150,7 +148,8 @@ class BetDiceMenue extends BaseMenu
 						winSum = -1 * parameterShuffel.param1;
 					}
 					
-					int currentChips = AddChipsToPlayer(player, winSum);
+					AddChipsToPlayer(player, winSum);
+					int currentChips = GetPlayerChipsAmount(player);
 					Param3<int, int, int> parameterResponse = new Param3<int, int, int>(luckNumber, winSum, currentChips);
 					
 					GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE, parameterResponse, true);
@@ -209,7 +208,7 @@ class BetDiceMenue extends BaseMenu
 			DebugMessageCasino("create timer");
 			currentCountBeforSendShufel = 0;
 			imageShufelTimer = new Timer();
-			imageShufelTimer.Run(0.5, this, "SwitchImage", null, true);
+			imageShufelTimer.Run(0.25, this, "SwitchImage", null, true);
 			
 			DebugMessageCasino("chipsBet value is " + chipsValue);
 			DebugMessageCasino("numberValue value is " + numberValue);
@@ -219,12 +218,12 @@ class BetDiceMenue extends BaseMenu
 	void SwitchImage() {
 		DebugMessageCasino("change image");
 		
-		if (currentCountBeforSendShufel == COUNT_SHUFFLE_BEFOR_SEND_TO_SERVER) {
+		if (currentCountBeforSendShufel == 0) {
 			GetGame().RPCSingleParam(player, DAYZ_CASINO_SHUFFEL_BET_DICE, parameterShuffel, true);
 			DebugMessageCasino("has send to server ");
 		}
 		
-		if (winImageNumber != 10) {
+		if (winImageNumber != 10 && COUNT_SHUFFLE_BEFOR_SHOW_WIN_NUMBER == currentCountBeforSendShufel) {
 			diceImage.SetImage(winImageNumber);
 			winImageNumber = 10;
 			lastWin.SetText("" + lastWinChips);
@@ -232,15 +231,19 @@ class BetDiceMenue extends BaseMenu
 			imageShufelTimer.Stop();
 			cancel.Show(true);
 			shuffel.Show(true);
+			return;
 		}
+		
 		diceImage.SetImage(Math.RandomInt(0, 5));
-		currentCountBeforSendShufel++;
-		if (10 == currentCountBeforSendShufel) {
+		
+		if (20 == currentCountBeforSendShufel) {
 			DebugMessageCasino("No respons from Server");
 			imageShufelTimer.Stop();
 			cancel.Show(true);
 			shuffel.Show(true);
 		}
+		
+		++currentCountBeforSendShufel;
 	}
 	
 	private int GetCurrenBet() {
