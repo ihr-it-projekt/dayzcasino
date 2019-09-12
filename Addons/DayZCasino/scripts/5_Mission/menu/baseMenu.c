@@ -1,5 +1,3 @@
-
-
 class BaseMenu extends UIScriptedMenu
 {
 	bool isMenuOpen = false;
