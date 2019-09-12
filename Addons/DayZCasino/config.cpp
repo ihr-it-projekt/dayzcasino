@@ -63,6 +63,39 @@ class CfgMods
 	};
 };
 
+class cfgSoundSets
+{
+	class DayZCasino_CLACK_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_CLACK_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
+};
+class cfgSoundShaders
+{
+	class DayZCasino_CLACK_SoundShader
+	{
+		samples[]=
+		{
+			
+			{
+				"DayZCasino\data\sounds\clack",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+};
+
 class CfgVehicles
 {
 	class Inventory_Base;

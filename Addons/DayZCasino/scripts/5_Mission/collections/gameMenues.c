@@ -1,15 +1,11 @@
 class GameMenues
 {
 	private ref BetDiceMenue betDiceMenue;
-	private ref CasinoConfig casinoConfig;
+	private CasinoConfig casinoConfig;
 	
-	
-	void GameMenues() {
+	void GameMenues(CasinoConfig casinoConfigExt) {
+		casinoConfig = casinoConfigExt;
 		DebugMessageCasino("Load GameMenues");
-		
-		casinoConfig = new CasinoConfig;
-		
-		//JsonFileLoader<ref CasinoConfig>.JsonFileLoader("$profile:DayZCasion/config.json", casinoConfig);
 	}
 		
 	BaseMenu GetGameMenue(DayZPlayer player) {		
@@ -17,7 +13,7 @@ class GameMenues
 		
 		if (!betDiceMenue) {
 			DebugMessageCasino("No selectedMenue");
-			betDiceMenue = new BetDiceMenue("11810.3 4.25288 3415.5");
+			betDiceMenue = new BetDiceMenue(casinoConfig.positionDice);
 		}
 		
 		betDiceMenue.Init();
@@ -51,8 +47,6 @@ class GameMenues
 		}
 	
 	}
-	
-	
 	
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (!betDiceMenue) {

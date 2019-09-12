@@ -1,4 +1,4 @@
-static bool DAYZ_CASINO_DEBUG = true;
+
 
 class BaseMenu extends UIScriptedMenu
 {

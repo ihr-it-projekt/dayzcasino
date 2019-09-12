@@ -1,9 +1,4 @@
-static int DAYZ_CASINO_SEND_MESSAGE_TO_PLAYER = 99995858587;
-static int DAYZ_CASINO_SHUFFEL_BET_DICE = 99995858588;
-static int DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE = 99995858589;
-static int DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE = 999958585;
 
-static int DAYZ_CASINO_DISTANCE_TO_GAME = 1;
 
 class BetDiceMenue extends BaseMenu
 {
@@ -32,7 +27,9 @@ class BetDiceMenue extends BaseMenu
 	private int lastWinChips;
 	private int currentAmmount;
 	ref Param3<int, int, DayZPlayer> parameterShuffel
-	
+	private EffectSound effect_sound;
+
+		
 	override Widget Init()
 	{
 		if (IsInitialized()) {
@@ -42,6 +39,7 @@ class BetDiceMenue extends BaseMenu
 		}
 		
 		super.Init();
+		
 		
 		DebugMessageCasino("init widget bet dice");
 		
@@ -103,6 +101,7 @@ class BetDiceMenue extends BaseMenu
 		diceImage.LoadImageFile(4, "{6E8C63F5826E156E}DayZCasino/data/dice/dice5.edds");
 		diceImage.LoadImageFile(5, "{30644AB63DE39B61}DayZCasino/data/dice/dice6.edds");
 		diceImage.SetImage(0);
+		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
 	}
 
 	override bool OnClick( Widget w, int x, int y, int button )	{
@@ -164,15 +163,7 @@ class BetDiceMenue extends BaseMenu
 			Param3<int, int, int> parameterShuffelResponse;
 			if (ctx.Read(parameterShuffelResponse)) {
 				DebugMessageCasino("has recive response for bet dice");
-				
-				
-				//lastWin.SetColor(255,0,0);
-				//if (parameterShuffelResponse.param2 > 0)  {
-				//	lastWin.SetColor(0x008020);
-				//}
 				winImageNumber = parameterShuffelResponse.param1 - 1;
-				
-				
 				lastWinChips = parameterShuffelResponse.param2;
 				currentAmmount = parameterShuffelResponse.param3;
 
@@ -193,7 +184,7 @@ class BetDiceMenue extends BaseMenu
 			int numberValue = number.GetCurrentItem() + 1;
 			
 			if (chipsValue > currentAmmount) {
-				DebugMessageCasino("chipsValue" + chipsValue);
+				DebugMessageCasino("chipsVaue" + chipsValue);
 				DebugMessageCasino("currentAmmount" + currentAmmount);
 				message.SetText("Nicht genug Chips vorhanden");
 				message.Show(true);
@@ -208,7 +199,9 @@ class BetDiceMenue extends BaseMenu
 			DebugMessageCasino("create timer");
 			currentCountBeforSendShufel = 0;
 			imageShufelTimer = new Timer();
+			
 			imageShufelTimer.Run(0.25, this, "SwitchImage", null, true);
+		
 			
 			DebugMessageCasino("chipsBet value is " + chipsValue);
 			DebugMessageCasino("numberValue value is " + numberValue);
@@ -217,11 +210,17 @@ class BetDiceMenue extends BaseMenu
 	
 	void SwitchImage() {
 		DebugMessageCasino("change image");
+		if (false == effect_sound.SoundPlay()) {
+			DebugMessageCasino("sound not loaded");
+		} else {
+			DebugMessageCasino("sound has played");
+		}
 		
 		if (currentCountBeforSendShufel == 0) {
 			GetGame().RPCSingleParam(player, DAYZ_CASINO_SHUFFEL_BET_DICE, parameterShuffel, true);
 			DebugMessageCasino("has send to server ");
 		}
+				
 		
 		if (winImageNumber != 10 && COUNT_SHUFFLE_BEFOR_SHOW_WIN_NUMBER == currentCountBeforSendShufel) {
 			diceImage.SetImage(winImageNumber);

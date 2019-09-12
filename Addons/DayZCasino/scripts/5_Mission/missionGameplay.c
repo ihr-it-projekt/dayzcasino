@@ -2,9 +2,29 @@ modded class MissionGameplay
 {
 	ref GameMenues m_gameMenues;
 	
+	
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
-		m_gameMenues = new GameMenues;
+		
+		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+		
+		Param1<PlayerBase> paramGetConfig = new Param1<PlayerBase>(GetGame().GetPlayer());
+	    GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG, paramGetConfig, true);
+	}
+	
+	void ~MissionGameplay() {
+		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
+	}
+	
+	
+	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+		if (rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE) {
+			DebugMessageCasino("recive config");
+			autoptr Param1 <CasinoConfig> casinoConfig;
+			if (ctx.Read(casinoConfig)){
+				m_gameMenues = new GameMenues(casinoConfig.param1);
+			}
+		}
 	}
 	
 	override void OnUpdate(float timeslice)
