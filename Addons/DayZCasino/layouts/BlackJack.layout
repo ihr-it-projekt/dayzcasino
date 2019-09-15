@@ -1,0 +1,294 @@
+FrameWidgetClass rootFrame {
+ visible 1
+ position -0.00002 0.00001
+ size 1248.42004 1010.20001
+ halign center_ref
+ valign center_ref
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  PanelWidgetClass background {
+   ignorepointer 1
+   color 0 0 0 0.651
+   position 13.2515 13.2515
+   size 1221.92004 983.69702
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   draggable 0
+   style DayZDefaultPanel
+   "no focus" 0
+   {
+    PanelWidgetClass boarder {
+     ignorepointer 1
+     color 0 0 0 0.7843
+     position 13.2515 13.2515
+     size 1198.75 957.19403
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     style editor_selection
+     {
+      PanelWidgetClass PanelWidget1 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 204.842 13.2515
+       size 789.065 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        TextWidgetClass TextWidget0 {
+         ignorepointer 1
+         position 8.26005 8.26003
+         size 767.55298 53.4799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Bold
+         text "Black Jack "
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass boarderCancel {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 13.2515 675.83704
+       size 378.78601 79.3289
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass cancel {
+         color 0.502 0 0 1
+         position 8.25993 8.25993
+         size 357.27502 62.8088
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "genug gezockt"
+        }
+       }
+      }
+      PanelWidgetClass boarderCancel0 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 405.289 675.83801
+       size 370.70602 79.3289
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass nextCard {
+         color 0 1 0.251 1
+         position 8.25999 8.26005
+         size 349.194 62.8088
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "naehste Karte"
+        }
+       }
+      }
+      PanelWidgetClass boarderReport0 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 13.2515 96.503
+       size 396.10699 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        TextWidgetClass TextWidget2 {
+         ignorepointer 1
+         position 6.60655 8.25965
+         size 376.24902 53.4799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Bold
+         text "Einsatz"
+         "text halign" center
+         "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass boarderReason0 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 802.49805 96.503
+       size 383 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        XComboBoxWidgetClass chipsBet {
+         position 8.26001 8.26005
+         size 366.46298 53.4799
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         items "1;5;10;25;50;100;250;500;1000;"
+        }
+       }
+      }
+      PanelWidgetClass PanelWidget0 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 13.2515 179.755
+       size 1172.25 482.83099
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        MultilineTextWidgetClass TextWidget3 {
+         ignorepointer 1
+         position 8.26005 8.26003
+         size 1150.73999 51.0365
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         text "Es gelte die normalen Black Jack Regelen"
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        MultilineTextWidgetClass TextWidget4 {
+         ignorepointer 1
+         position 13.2515 201.752
+         size 152.985 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         text "Chips"
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        MultilineTextWidgetClass countChips {
+         ignorepointer 1
+         position 179.48799 201.752
+         size 212.549 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        MultilineTextWidgetClass TextWidget5 {
+         ignorepointer 1
+         position 13.2515 266.80499
+         size 152.985 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         text "letzter Gewinn"
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        MultilineTextWidgetClass lastWin {
+         ignorepointer 1
+         position 179.48799 266.80499
+         size 212.549 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        ImageWidgetClass diceImage {
+         ignorepointer 1
+         position 488.625 97.70589
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+       }
+      }
+      PanelWidgetClass boarderCancel1 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 789.24597 675.83704
+       size 391.24301 79.3289
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass newGame {
+         color 0 1 0.251 1
+         position 8.25999 8.26005
+         size 374.72299 62.8088
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "neues Spiel"
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
