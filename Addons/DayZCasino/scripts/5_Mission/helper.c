@@ -10,8 +10,8 @@ static int DAYZ_CASINO_DISTANCE_TO_GAME = 2;
 
 static void DebugMessageCasino(string message) {
     if (DAYZ_CASINO_DEBUG) {
-        Print("[DayzCasino] " + message);
-        GetGame().AdminLog("[DayzCasino] " + message);
+        Print("[DayZCasino] " + message);
+        GetGame().AdminLog("[DayZCasino] " + message);
     }
 }
 

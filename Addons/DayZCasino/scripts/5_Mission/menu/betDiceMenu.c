@@ -28,6 +28,8 @@ class BetDiceMenue extends BaseMenu
 	private int currentAmmount;
 	ref Param3<int, int, DayZPlayer> parameterShuffel
 	private EffectSound effect_sound;
+	private EffectSound lose_sound;
+	private EffectSound win_sound;
 
 		
 	override Widget Init()
@@ -102,6 +104,8 @@ class BetDiceMenue extends BaseMenu
 		diceImage.LoadImageFile(5, "{30644AB63DE39B61}DayZCasino/data/dice/dice6.edds");
 		diceImage.SetImage(0);
 		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
+		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
+		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
 	}
 
 	override bool OnClick( Widget w, int x, int y, int button )	{
@@ -214,9 +218,7 @@ class BetDiceMenue extends BaseMenu
 	
 	void SwitchImage() {
 		DebugMessageCasino("change image");
-		if (false == effect_sound.SoundPlay()) {
-			DebugMessageCasino("sound not loaded");
-		}
+		
 		
 		if (currentCountBeforSendShufel == 0) {
 			GetGame().RPCSingleParam(player, DAYZ_CASINO_SHUFFEL_BET_DICE, parameterShuffel, true);
@@ -224,6 +226,17 @@ class BetDiceMenue extends BaseMenu
 		}
 				
 		if (winImageNumber != 10 && COUNT_SHUFFLE_BEFOR_SHOW_WIN_NUMBER == currentCountBeforSendShufel) {
+			
+			if (lastWinChips > 0){
+				if (false == win_sound.SoundPlay()) {
+					DebugMessageCasino("win sound not loaded");
+				}
+			} else {
+				if (false == lose_sound.SoundPlay()) {
+					DebugMessageCasino("lose sound not loaded");
+				}
+			}
+			
 			diceImage.SetImage(winImageNumber);
 			winImageNumber = 10;
 			lastWin.SetText("" + lastWinChips);
@@ -232,6 +245,10 @@ class BetDiceMenue extends BaseMenu
 			cancel.Show(true);
 			shuffel.Show(true);
 			return;
+		}
+		
+		if (false == effect_sound.SoundPlay()) {
+			DebugMessageCasino("sound not loaded");
 		}
 		
 		diceImage.SetImage(Math.RandomInt(0, 5));

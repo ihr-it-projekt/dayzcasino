@@ -77,6 +77,30 @@ class cfgSoundSets
 		doppler=0;
 		loop=0;
 	};
+	class DayZCasino_WIN_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_WIN_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
+	class DayZCasino_LOSE_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_LOSE_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
 };
 class cfgSoundShaders
 {
@@ -87,6 +111,34 @@ class cfgSoundShaders
 			
 			{
 				"DayZCasino\data\sounds\clack",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_WIN_SoundShader
+	{
+		samples[]=
+		{
+			
+			{
+				"DayZCasino\data\sounds\win",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_LOSE_SoundShader
+	{
+		samples[]=
+		{
+			
+			{
+				"DayZCasino\data\sounds\lose",
 				1
 			}
 		};
