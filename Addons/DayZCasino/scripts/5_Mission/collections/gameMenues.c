@@ -56,5 +56,4 @@ class GameMenues
 		
 		betDiceMenue.HandleEvents(sender, target, rpc_type, ctx);
 	}
-	
 }

@@ -15,7 +15,6 @@ modded class MissionServer {
 		GetDayZGame().Event_OnRPC.Remove(OnRPC);
 	}
 	
-	
 	void OnRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_SEND_MESSAGE_TO_PLAYER) {
 			autoptr Param2<PlayerBase, string> paramMessage;
@@ -41,7 +40,4 @@ modded class MissionServer {
 		
 		m_gameMenues.HandleEvents(sender, target, rpc_type, ctx);
 	}
-
-	
-
 };

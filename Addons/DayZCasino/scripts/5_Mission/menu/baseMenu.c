@@ -66,7 +66,6 @@ class BaseMenu extends UIScriptedMenu
 		isMenuOpen = true;
 	}
 	
-	
 	void CloseMenu(){
 		DebugMessageCasino("check is open");
 		if(isMenuOpen){
@@ -192,5 +191,4 @@ class BaseMenu extends UIScriptedMenu
 		
 		return chipsToAdd;
 	}
-	
 }

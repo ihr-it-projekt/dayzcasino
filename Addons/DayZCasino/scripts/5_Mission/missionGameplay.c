@@ -2,8 +2,7 @@ modded class MissionGameplay
 {
 	ref GameMenues m_gameMenues;
 	ref CasinoConfig casinoConfig;
-	
-	
+
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
 		

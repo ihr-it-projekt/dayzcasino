@@ -1,6 +1,4 @@
 class CasinoConfig {
 	
 	vector positionDice;
-	 
-
 }
