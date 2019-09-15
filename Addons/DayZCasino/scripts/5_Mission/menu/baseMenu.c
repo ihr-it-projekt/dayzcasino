@@ -112,9 +112,7 @@ class BaseMenu extends UIScriptedMenu
 		for (int i = 0; i < itemsArray.Count(); i++)
 		{
 			Class.CastTo(item, itemsArray.Get(i));
-			DebugMessageCasino("has item " + item.GetType());
 			if(item && item.GetType() == "CasinoChips") {
-				DebugMessageCasino("has found chips ");
 				currencyAmount += item.GetQuantity();
 			}
 		}
@@ -133,11 +131,8 @@ class BaseMenu extends UIScriptedMenu
 		for (int i = 0; i < itemsArray.Count(); i++)
 		{
 			Class.CastTo(item, itemsArray.Get(i));
-			DebugMessageCasino("has item " + item.GetType());
 			if (item && item.GetType() == "CasinoChips") {
-				DebugMessageCasino("has found chips ");
 				chipsCount = AddChips(chipsCount, item);
-				
 				if (chipsCount == 0) {
 					break;
 				}
@@ -190,6 +185,9 @@ class BaseMenu extends UIScriptedMenu
 				item.SetQuantity(currencyAmount + chipsToAdd);
 				chipsToAdd = 0;
 			}
+		} else {
+			item.SetQuantity(0);
+			chipsToAdd = currencyAmount + chipsToAdd;
 		}
 		
 		return chipsToAdd;

@@ -6,6 +6,7 @@ class GameMenues
 	void GameMenues(CasinoConfig casinoConfigExt) {
 		casinoConfig = casinoConfigExt;
 		DebugMessageCasino("Load GameMenues");
+		DebugMessageCasino("check config dice menue" + casinoConfig.positionDice);
 	}
 		
 	BaseMenu GetGameMenue(DayZPlayer player) {		
@@ -45,13 +46,12 @@ class GameMenues
 			DebugMessageCasino("No selectedMenue");
 			betDiceMenue.Close();
 		}
-	
 	}
 	
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (!betDiceMenue) {
 			DebugMessageCasino("No selectedMenue");
-			betDiceMenue = new BetDiceMenue("11810.3 4.25288 3415.5");
+			betDiceMenue = new BetDiceMenue(casinoConfig.positionDice);
 		}
 		
 		betDiceMenue.HandleEvents(sender, target, rpc_type, ctx);

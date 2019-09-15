@@ -1,14 +1,14 @@
 modded class MissionServer {
 
 	ref GameMenues m_gameMenues;
-	private CasinoConfig casinoConfig;
+	private ref CasinoConfig casinoConfig;
 	
 	void MissionServer()
 	{
 		DebugMessageCasino("loaded");
-		GetDayZGame().Event_OnRPC.Insert(OnRPC);
 		casinoConfig = GetCasinoConfig();
 		m_gameMenues = new GameMenues(casinoConfig);
+		GetDayZGame().Event_OnRPC.Insert(OnRPC);
 	}
 
 	void ~MissionServer() {
@@ -35,8 +35,7 @@ modded class MissionServer {
 			DebugMessageCasino("recive get config");
 			autoptr Param1<PlayerBase> paramGetConfig;
 			if (ctx.Read(paramGetConfig)){
-				Param1 <CasinoConfig> casinoConfigSend = new Param1<CasinoConfig>(casinoConfig);
-	        	GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE, casinoConfigSend, true, sender);
+	        	GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE, new Param1<ref CasinoConfig>(casinoConfig), true, sender);
 			}
 		}
 		

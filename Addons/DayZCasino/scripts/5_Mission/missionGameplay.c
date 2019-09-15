@@ -1,6 +1,7 @@
 modded class MissionGameplay 
 {
 	ref GameMenues m_gameMenues;
+	ref CasinoConfig casinoConfig;
 	
 	
 	void MissionGameplay() {
@@ -16,13 +17,14 @@ modded class MissionGameplay
 		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
 	}
 	
-	
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE) {
-			DebugMessageCasino("recive config");
-			autoptr Param1 <CasinoConfig> casinoConfig;
-			if (ctx.Read(casinoConfig)){
-				m_gameMenues = new GameMenues(casinoConfig.param1);
+			DebugMessageCasino("player recive config");
+			Param1 <ref CasinoConfig> casinoConfigParam;
+			if (ctx.Read(casinoConfigParam)){
+				casinoConfig = casinoConfigParam.param1;
+				DebugMessageCasino("player load config" + casinoConfig.positionDice);
+				m_gameMenues = new GameMenues(casinoConfig);
 			}
 		}
 	}
