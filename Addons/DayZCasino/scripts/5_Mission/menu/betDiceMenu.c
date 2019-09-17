@@ -193,7 +193,7 @@ class BetDiceMenue extends BaseMenu
 				DebugMessageCasino("chipsVaue" + chipsValue);
 				DebugMessageCasino("currentAmmount" + currentAmmount);
 				countChips.SetText("" + currentAmmount);
-				message.SetText("Nicht genug Chips vorhanden");
+				message.SetText("#Not_enough_chips_available");
 				message.Show(true);
 				
 				return;

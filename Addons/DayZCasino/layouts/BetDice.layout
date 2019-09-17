@@ -53,7 +53,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Bold
-         text "Wette auf eine Zahl von 1 bis 6"
+         text "#bet_on_number"
          "text halign" center
          "text valign" center
         }
@@ -101,7 +101,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Bold
-         text "Waehle eine Zahl"
+         text "#select_number"
          "text halign" center
          "text valign" center
         }
@@ -127,7 +127,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "genug gezockt"
+         text "#close_game"
         }
        }
       }
@@ -151,7 +151,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "wuerfeln"
+         text "#roll_dice"
         }
        }
       }
@@ -175,7 +175,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Bold
-         text "Einsatz"
+         text "#use"
          "text halign" center
          "text valign" center
         }
@@ -223,7 +223,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style DayZNormal
-         text "Wenn du gewinnst, bekommst du das sechsfache deines Einsatzes. Wenn du verliest, gib es nichts. "
+         text "#desc_bet_dice"
          "exact text" 0
          "text halign" center
          "text valign" center
@@ -240,7 +240,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style DayZNormal
-         text "Chips"
+         text "#chips"
          "exact text" 0
          "text halign" center
          "text valign" center
@@ -273,7 +273,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style DayZNormal
-         text "letzter Gewinn"
+         text "#last_win"
          "exact text" 0
          "text halign" center
          "text valign" center
