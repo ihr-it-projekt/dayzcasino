@@ -62,7 +62,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass boarderCancel {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 13.2515 675.83704
+       position 13.2515 864.61401
        size 378.78601 79.3289
        hexactpos 1
        vexactpos 1
@@ -79,14 +79,14 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "genug gezockt"
+         text "#close_game"
         }
        }
       }
       PanelWidgetClass boarderCancel0 {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 405.289 675.83801
+       position 405.289 864.61401
        size 370.70602 79.3289
        hexactpos 1
        vexactpos 1
@@ -103,7 +103,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "naehste Karte"
+         text "#next_card"
         }
        }
       }
@@ -127,7 +127,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Bold
-         text "Einsatz"
+         text "#use"
          "text halign" center
          "text valign" center
         }
@@ -159,7 +159,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        color 0 0 0 0.7843
        position 13.2515 179.755
-       size 1172.25 482.83099
+       size 1172.25 671.60699
        hexactpos 1
        vexactpos 1
        hexactsize 1
@@ -175,7 +175,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style DayZNormal
-         text "Es gelte die normalen Black Jack Regelen"
+         text "#desc_black_jack"
          "exact text" 0
          "text halign" center
          "text valign" center
@@ -185,14 +185,14 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass TextWidget4 {
          ignorepointer 1
-         position 13.2515 201.752
+         position 13.2515 606.55402
          size 152.985 51.8018
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style DayZNormal
-         text "Chips"
+         text "#chips"
          "exact text" 0
          "text halign" center
          "text valign" center
@@ -202,7 +202,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass countChips {
          ignorepointer 1
-         position 179.48799 201.752
+         position 179.48799 606.55402
          size 212.549 51.8018
          hexactpos 1
          vexactpos 1
@@ -218,14 +218,14 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass TextWidget5 {
          ignorepointer 1
-         position 13.2515 266.80499
+         position 780.21301 606.55402
          size 152.985 51.8018
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          style DayZNormal
-         text "letzter Gewinn"
+         text "#last_win"
          "exact text" 0
          "text halign" center
          "text valign" center
@@ -235,7 +235,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass lastWin {
          ignorepointer 1
-         position 179.48799 266.80499
+         position 946.44897 606.55402
          size 212.549 51.8018
          hexactpos 1
          vexactpos 1
@@ -249,9 +249,119 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-        ImageWidgetClass diceImage {
+        ImageWidgetClass bankCard1 {
          ignorepointer 1
-         position 488.625 97.70589
+         position 224.439 149.056
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass bankCard2 {
+         ignorepointer 1
+         position 360.33798 149.056
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass bankCard0 {
+         ignorepointer 1
+         position 89.744 149.056
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass bankCard3 {
+         ignorepointer 1
+         position 496.237 149.056
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass bankCard4 {
+         ignorepointer 1
+         position 632.13599 149.056
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass playerCard0 {
+         ignorepointer 1
+         position 89.744 335.80298
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass playerCard1 {
+         ignorepointer 1
+         position 225.64301 335.80298
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass playerCard2 {
+         ignorepointer 1
+         position 361.54202 335.80298
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass playerCard3 {
+         ignorepointer 1
+         position 496.237 335.80298
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass playerCard4 {
+         ignorepointer 1
+         position 632.13599 335.80298
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass cards {
+         ignorepointer 1
+         position 930.07599 233.60501
          size 122.647 169.099
          hexactpos 1
          vexactpos 1
@@ -265,7 +375,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass boarderCancel1 {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 789.24597 675.83704
+       position 789.24597 864.61401
        size 391.24301 79.3289
        hexactpos 1
        vexactpos 1
@@ -282,7 +392,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "neues Spiel"
+         text "new_game"
         }
        }
       }
