@@ -1,5 +1,15 @@
 class BaseMenu extends UIScriptedMenu
 {
+    protected static int BET1 = 0;
+    protected static int BET5 = 1;
+    protected static int BET10 = 2;
+    protected static int BET25 = 3;
+    protected static int BET50 = 4;
+    protected static int BET100 = 5;
+    protected static int BET250 = 6;
+    protected static int BET500 = 7;
+    protected static int BET1000 = 8;
+
 	bool isMenuOpen = false;
 	protected bool isDebug = true;
 	protected Widget widget;
