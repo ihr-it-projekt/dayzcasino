@@ -142,7 +142,7 @@ FrameWidgetClass rootFrame {
        vexactsize 1
        style editor_selection
        {
-        ButtonWidgetClass shuffel {
+        ButtonWidgetClass shuffle {
          color 0 1 0.251 1
          position 8.25999 8.26005
          size 374.72299 62.8088
