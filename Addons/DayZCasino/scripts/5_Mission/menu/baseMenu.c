@@ -5,8 +5,17 @@ class BaseMenu extends UIScriptedMenu
 	protected Widget widget;
 	protected DayZPlayer player;
 	protected vector position;
-	
-	void BaseMenu(vector pos) {
+    protected ButtonWidget cancel;
+    protected XComboBoxWidget chipsBet;
+    protected MultilineTextWidget lastWin;
+    protected MultilineTextWidget message;
+    protected MultilineTextWidget countChips;
+    protected int lastWinChips;
+    protected XComboBoxWidget number;
+    protected int currentAmmount;
+    protected string widgetPath;
+
+    void BaseMenu(vector pos) {
 		position = pos;
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 	}
@@ -17,6 +26,49 @@ class BaseMenu extends UIScriptedMenu
 	
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 	}
+
+    override Widget Init()
+    {
+        if (IsInitialized()) {
+            return widget;
+        }
+
+        super.Init();
+
+        if (IsServerCasino()){
+            DebugMessageCasino("can not init, is server");
+            return null;
+        }
+
+        if(!widget){
+            widget = GetGame().GetWorkspace().CreateWidgets(widgetPath);
+
+            cancel = ButtonWidget.Cast( widget.FindAnyWidget( "cancel" ));
+            WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( cancel,  this, "OnClick" );
+
+            number = XComboBoxWidget.Cast( widget.FindAnyWidget( "number" ));
+            chipsBet = XComboBoxWidget.Cast( widget.FindAnyWidget( "chipsBet" ));
+            countChips = MultilineTextWidget.Cast( widget.FindAnyWidget( "countChips" ));
+            lastWin = MultilineTextWidget.Cast( widget.FindAnyWidget( "lastWin" ));
+            message = MultilineTextWidget.Cast( widget.FindAnyWidget( "message" ));
+
+            widget.Show(false);
+        }
+
+        return widget;
+    }
+
+    override bool OnClick( Widget w, int x, int y, int button )	{
+        super.OnClick(w, x, y, button);
+
+        if (w == cancel){
+            DebugMessageCasino("click cancel");
+            CloseMenu();
+            return true;
+        }
+
+        return false;
+    }
 	
 	override void OnHide()
 	{
@@ -144,6 +196,44 @@ class BaseMenu extends UIScriptedMenu
 		
 		return chipsCount;
 	}
+
+    protected int GetCurrenBet() {
+        int chipsValue = 0;
+        DebugMessageCasino("" + chipsBet.GetCurrentItem());
+        switch (chipsBet.GetCurrentItem()){
+            case BET1:
+                chipsValue = 1;
+                break;
+            case BET5:
+                chipsValue = 5;
+                break;
+            case BET10:
+                chipsValue = 10;
+                break;
+            case BET25:
+                chipsValue = 25;
+                break;
+            case BET50:
+                chipsValue = 50;
+                break;
+            case BET100:
+                chipsValue = 100;
+                break;
+            case BET250:
+                chipsValue = 250;
+                break;
+            case BET500:
+                chipsValue = 500;
+                break;
+            case BET1000:
+                chipsValue = 1000;
+                break;
+
+            default:
+                break;
+        }
+        return chipsValue;
+    }
 	
 	private int AddNewChipsItemToInevntory(int chipsCount) {
 		InventoryLocation inventoryLocation = new InventoryLocation;	
