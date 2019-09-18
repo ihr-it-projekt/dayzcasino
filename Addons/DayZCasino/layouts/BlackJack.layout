@@ -127,7 +127,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style Bold
-         text "#use"
+         text "#chips_use"
          "text halign" center
          "text valign" center
         }
