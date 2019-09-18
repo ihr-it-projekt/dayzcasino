@@ -22,7 +22,7 @@ static CasinoConfig GetCasinoConfig() {
 		JsonFileLoader<CasinoConfig>.JsonLoadFile(CASINO_CONFIG_PATH, casinoConfig);
 		DebugMessageCasino("has config loaded" + casinoConfig.positionDice);
 	} else {
-		casinoConfig.positionDice = "7190.633789 254.161453 6966.459473";
+		casinoConfig.positionDice = "7247.358398 254.556000 6983.053223";
 		JsonFileLoader<CasinoConfig>.JsonSaveFile(CASINO_CONFIG_PATH, casinoConfig);
 		DebugMessageCasino("has created config" + casinoConfig.positionDice);
 	}
