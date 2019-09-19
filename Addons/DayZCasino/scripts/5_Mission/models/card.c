@@ -6,7 +6,7 @@ class Card {
 	
 	void Card(int cardValue, string cardImagePath, bool cardIsAss = false) {
 		value = cardValue;
-		imagePath = cardImagePathe;
+		imagePath = cardImagePath;
 		isAss = cardIsAss;
 
 	}
