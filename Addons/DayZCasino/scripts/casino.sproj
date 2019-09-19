@@ -8,7 +8,7 @@
     <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/collections/gameMenues.c" />
     <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/4_World/DayZPlayerImplement.c" />
     <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/models/casinoConfig.c" />
-    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/collections/cardMapping.c" />
     <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/models/card.c" />
     <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/menu/blackJackMenu.c" />
+    <file path="Develop/dayzcasino/Addons/DayZCasino/scripts/5_Mission/collections/cardCollection.c" />
 </project>
