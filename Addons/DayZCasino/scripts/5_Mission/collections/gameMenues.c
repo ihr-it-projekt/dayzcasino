@@ -1,11 +1,12 @@
 class GameMenues
 {
 	private ref BetDiceMenue betDiceMenue;
+	private ref BlackJackMenu blackJackMenu;
 	private CasinoConfig casinoConfig;
 	
 	void GameMenues(CasinoConfig casinoConfigExt) {
-		casinoConfig = casinoConfigExt;
 		DebugMessageCasino("Load GameMenues");
+		casinoConfig = casinoConfigExt;
 		DebugMessageCasino("check config dice menue" + casinoConfig.positionDice);
 	}
 		
@@ -16,25 +17,32 @@ class GameMenues
 			DebugMessageCasino("No selectedMenue");
 			betDiceMenue = new BetDiceMenue(casinoConfig.positionDice);
 		}
+		if (!blackJackMenu) {
+			DebugMessageCasino("No selectedMenue");
+			blackJackMenu = new BlackJackMenu(casinoConfig.positionBlackJack);
+		}
 		
 		betDiceMenue.Init();
 		
-		vector posPlay = betDiceMenue.GetPosition();
+		vector posPlayBetDice = betDiceMenue.GetPosition();
 		
-		if (!posPlayer) {
-			DebugMessageCasino("No player");
-		}
-		if (!posPlay) {
-			DebugMessageCasino("No gameposition");
-		}
-		
-		float playerDistanceToGamePosition = vector.Distance(posPlayer, posPlay);
+		float playerDistanceToGamePositionBetDice = vector.Distance(posPlayBetDice, posPlayer);
 
-		if (playerDistanceToGamePosition <= DAYZ_CASINO_DISTANCE_TO_GAME || DAYZ_CASINO_DEBUG)
+		if (playerDistanceToGamePositionBetDice <= DAYZ_CASINO_DISTANCE_TO_GAME)
 		{
-			DebugMessageCasino("in near of a game return position");
+			DebugMessageCasino("in near of bet dice");
 			
 			return betDiceMenue;
+		}
+		
+		vector posPlayBlackJack = blackJackMenu.GetPosition();
+		float playerDistanceToGamePositionBlackJack = vector.Distance(posPlayBlackJack, posPlayer);
+		
+		if (playerDistanceToGamePositionBlackJack <= DAYZ_CASINO_DISTANCE_TO_GAME || DAYZ_CASINO_DEBUG)
+		{
+			DebugMessageCasino("in near of black jack");
+			
+			return blackJackMenu;
 		}
 	
 		DebugMessageCasino("not in near of a game.");
