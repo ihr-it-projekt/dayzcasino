@@ -4,7 +4,7 @@
 "last_win","last win","last win","letzter Gewinn",
 "bet_on_number","Bet on a number from 1 to 6","Bet on a number from 1 to 6","Wette auf eine Zahl von 1 bis 6",
 "roll_dice","roll the dice","roll the dice","würfeln",
-"use","Use","Use","Einsatz",
+"chips_use","Use","Use","Einsatz",
 "chips","Chips","Chips","Chips",
-"desc_bet_dice","If you win, you get three times your stake. If you read, there is nothing.","If you win, you get three times your stake. If you read, there is nothing.","Wenn du gewinnst, bekommst du das dreifache deines Einsatzes. Wenn du verliest, gib es nichts.",
+"desc_bet_dice","If you win, you get three times your stake. If you read, there is nothing.","If you win, you get three times your stake. If you read, there is nothing.","Wenn du gewinnst, bekommst du das dreifache deines Einsatzes. Wenn du verliest, gibt es nichts.",
 "Not_enough_chips_available","Not enough chips available","Not enough chips available","Nicht genug Chips vorhanden"
