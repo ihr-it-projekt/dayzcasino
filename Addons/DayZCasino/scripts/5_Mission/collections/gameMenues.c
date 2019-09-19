@@ -16,13 +16,18 @@ class GameMenues
 		if (!betDiceMenue) {
 			DebugMessageCasino("No selectedMenue");
 			betDiceMenue = new BetDiceMenue(casinoConfig.positionDice);
+			if (!IsServerCasino()) {
+				betDiceMenue.Init();
+			}
 		}
 		if (!blackJackMenu) {
 			DebugMessageCasino("No selectedMenue");
 			blackJackMenu = new BlackJackMenu(casinoConfig.positionBlackJack);
+			
+			if (!IsServerCasino()) {
+				blackJackMenu.Init();
+			}
 		}
-		
-		betDiceMenue.Init();
 		
 		vector posPlayBetDice = betDiceMenue.GetPosition();
 		
@@ -54,6 +59,10 @@ class GameMenues
 			DebugMessageCasino("No selectedMenue");
 			betDiceMenue.Close();
 		}
+		if (blackJackMenu) {
+			DebugMessageCasino("No selectedMenue");
+			blackJackMenu.Close();
+		}
 	}
 	
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
@@ -61,7 +70,12 @@ class GameMenues
 			DebugMessageCasino("No selectedMenue");
 			betDiceMenue = new BetDiceMenue(casinoConfig.positionDice);
 		}
+		if (!blackJackMenu) {
+			DebugMessageCasino("No selectedMenue");
+			blackJackMenu = new BlackJackMenu(casinoConfig.positionBlackJack);
+		}
 		
 		betDiceMenue.HandleEvents(sender, target, rpc_type, ctx);
+		blackJackMenu.HandleEvents(sender, target, rpc_type, ctx);
 	}
 }
