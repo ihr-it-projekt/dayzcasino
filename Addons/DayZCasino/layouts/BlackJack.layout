@@ -361,7 +361,29 @@ FrameWidgetClass rootFrame {
         }
         ImageWidgetClass cards {
          ignorepointer 1
-         position 930.07599 233.60501
+         position 991.40002 233.60501
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass bankCard5 {
+         ignorepointer 1
+         position 766.96204 149.056
+         size 122.647 169.099
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         scaled 1
+         stretch 1
+        }
+        ImageWidgetClass playerCard5 {
+         ignorepointer 1
+         position 766.961 335.80298
          size 122.647 169.099
          hexactpos 1
          vexactpos 1
