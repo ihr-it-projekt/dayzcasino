@@ -396,6 +396,30 @@ FrameWidgetClass rootFrame {
         }
        }
       }
+      PanelWidgetClass boarderCancel2 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 459.30698 756.776
+       size 280.13699 79.3289
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass holdCard {
+         color 0 1 0.251 1
+         position 8.25999 8.26005
+         size 258.71503 62.8088
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "#hold_card"
+        }
+       }
+      }
      }
     }
    }
