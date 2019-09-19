@@ -5,10 +5,10 @@ modded class MissionServer {
 	
 	void MissionServer()
 	{
-		DebugMessageCasino("loaded");
 		casinoConfig = GetCasinoConfig();
 		m_gameMenues = new GameMenues(casinoConfig);
 		GetDayZGame().Event_OnRPC.Insert(OnRPC);
+		DebugMessageCasino("loaded");
 	}
 
 	void ~MissionServer() {

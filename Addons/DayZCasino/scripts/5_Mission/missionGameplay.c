@@ -8,7 +8,7 @@ modded class MissionGameplay
 		
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 		
-		Param1<PlayerBase> paramGetConfig = new Param1<PlayerBase>(GetGame().GetPlayer());
+		Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
 	    GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG, paramGetConfig, true);
 	}
 	
