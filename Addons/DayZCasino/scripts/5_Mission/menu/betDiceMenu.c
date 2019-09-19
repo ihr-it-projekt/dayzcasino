@@ -27,19 +27,17 @@ class BetDiceMenue extends BaseMenu
         widgetPath = "DayZCasino/layouts/BetDice.layout";
 		super.Init();
 
-		if(!widget){
-			shuffle = ButtonWidget.Cast( widget.FindAnyWidget( "shuffle" ));
-			WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( shuffle,  this, "OnClick" );
+		shuffle = ButtonWidget.Cast( widget.FindAnyWidget( "shuffle" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( shuffle,  this, "OnClick" );
 
-			diceImage = ImageWidget.Cast(widget.FindAnyWidget( "diceImage" ));
-            diceImage.LoadImageFile(0, "{79BC5FA94F25EF0B}DayZCasino/data/dice/dice1.edds");
-            diceImage.LoadImageFile(1, "{275476EAF0A86104}DayZCasino/data/dice/dice2.edds");
-            diceImage.LoadImageFile(2, "{D35C3172FD750970}DayZCasino/data/dice/dice3.edds");
-            diceImage.LoadImageFile(3, "{9A84246D8FB37D1A}DayZCasino/data/dice/dice4.edds");
-            diceImage.LoadImageFile(4, "{6E8C63F5826E156E}DayZCasino/data/dice/dice5.edds");
-            diceImage.LoadImageFile(5, "{30644AB63DE39B61}DayZCasino/data/dice/dice6.edds");
-		}
-		
+        diceImage = ImageWidget.Cast(widget.FindAnyWidget( "diceImage" ));
+        diceImage.LoadImageFile(0, "{79BC5FA94F25EF0B}DayZCasino/data/dice/dice1.edds");
+        diceImage.LoadImageFile(1, "{275476EAF0A86104}DayZCasino/data/dice/dice2.edds");
+        diceImage.LoadImageFile(2, "{D35C3172FD750970}DayZCasino/data/dice/dice3.edds");
+        diceImage.LoadImageFile(3, "{9A84246D8FB37D1A}DayZCasino/data/dice/dice4.edds");
+        diceImage.LoadImageFile(4, "{6E8C63F5826E156E}DayZCasino/data/dice/dice5.edds");
+        diceImage.LoadImageFile(5, "{30644AB63DE39B61}DayZCasino/data/dice/dice6.edds");
+
 		return widget;
 	}
 	
