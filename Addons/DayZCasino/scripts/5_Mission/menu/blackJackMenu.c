@@ -1,23 +1,26 @@
-
-
-class BlackJackMenue extends BaseMenu
+class BlackJackMenu extends BaseMenu
 {
-
-	private static int COUNT_SHUFFLE_BEFOR_SHOW_WIN_NUMBER = 12;
-
 	private ButtonWidget holdCard;
 	private ButtonWidget newGame;
 	private ButtonWidget nextCard;
-	private ImageWidget diceImage;
-	private ref Timer imageShufelTimer;
-	private int currentCountBeforSendShufel = 0;
-	private int winImageNumber;
-	ref Param3<int, int, DayZPlayer> parameterShuffel
-	private EffectSound effect_sound;
-	private EffectSound lose_sound;
-	private EffectSound win_sound;
+	private ImageWidget cards;
+	private ImageWidget playerCard0;
+	private ImageWidget playerCard1;
+	private ImageWidget playerCard2;
+	private ImageWidget playerCard3;
+	private ImageWidget playerCard4;
+	private ImageWidget playerCard5;
+	private ImageWidget bankCard0;
+	private ImageWidget bankCard1;
+	private ImageWidget bankCard2;
+	private ImageWidget bankCard3;
+	private ImageWidget bankCard4;
+	private ImageWidget bankCard5;
+	private TClassArray currentCardsPlayer;
+	private TClassArray currentCardsBank;
+	private TIntArray cardAllreadyUsed;
+	private ref CardCollection cardCollection;
 
-		
 	override Widget Init()
 	{
 		if (IsInitialized()) {
@@ -25,25 +28,47 @@ class BlackJackMenue extends BaseMenu
 			
 			return widget;
 		}
+		
+		
 
         widgetPath = "DayZCasino/layouts/BlackJack.layout";
 		super.Init();
 
-		if(!widget){
-//			shuffle = ButtonWidget.Cast( widget.FindAnyWidget( "shuffle" ));
-//			WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( shuffle,  this, "OnClick" );
+        cardCollection = new CardCollection();
+			
+        holdCard = ButtonWidget.Cast( widget.FindAnyWidget( "holdCard" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( holdCard,  this, "OnClick" );
 
-			diceImage = ImageWidget.Cast(widget.FindAnyWidget( "diceImage" ));
-            diceImage.LoadImageFile(0, "{79BC5FA94F25EF0B}DayZCasino/data/dice/dice1.edds");
-		}
-		
+        newGame = ButtonWidget.Cast( widget.FindAnyWidget( "newGame" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( newGame,  this, "OnClick" );
+
+        nextCard = ButtonWidget.Cast( widget.FindAnyWidget( "nextCard" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( newGame,  this, "OnClick" );
+
+        cards = ImageWidget.Cast(widget.FindAnyWidget( "cards" ));
+        cards.LoadImageFile(0, "DayZCasino/data/cards/blank_a.edds");
+        cards.SetImage(0);
+
+        bankCard0 = ImageWidget.Cast(widget.FindAnyWidget( "bankCard0" ));
+        bankCard1 = ImageWidget.Cast(widget.FindAnyWidget( "bankCard1" ));
+        bankCard2 = ImageWidget.Cast(widget.FindAnyWidget( "bankCard2" ));
+        bankCard3 = ImageWidget.Cast(widget.FindAnyWidget( "bankCard3" ));
+        bankCard4 = ImageWidget.Cast(widget.FindAnyWidget( "bankCard4" ));
+        bankCard5 = ImageWidget.Cast(widget.FindAnyWidget( "bankCard5" ));
+        playerCard0 = ImageWidget.Cast(widget.FindAnyWidget( "playerCard0" ));
+        playerCard1 = ImageWidget.Cast(widget.FindAnyWidget( "playerCard1" ));
+        playerCard2 = ImageWidget.Cast(widget.FindAnyWidget( "playerCard2" ));
+        playerCard3 = ImageWidget.Cast(widget.FindAnyWidget( "playerCard3" ));
+        playerCard4 = ImageWidget.Cast(widget.FindAnyWidget( "playerCard4" ));
+        playerCard5 = ImageWidget.Cast(widget.FindAnyWidget( "playerCard5" ));
+
 		return widget;
 	}
 	
 	override void OnShow()
 	{
 		if (isMenuOpen) {
-			DebugMessageCasino("Menue is already open");
+			DebugMessageCasino("Menu is already open");
 			return;
 		}
 		
@@ -51,19 +76,22 @@ class BlackJackMenue extends BaseMenu
 		currentAmmount = GetPlayerChipsAmount(GetGame().GetPlayer());
 		countChips.SetText("" + currentAmmount);
 		lastWin.SetText("0");
-		diceImage.SetImage(0);
-		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
-		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
-		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
+
+        HideCards();
 	}
 
 	override bool OnClick( Widget w, int x, int y, int button )	{
 		DebugMessageCasino("on click action super");
 		bool actionRuns = super.OnClick(w, x, y, button);
 
-        if (!actionRuns && w == shuffle){
-            DebugMessageCasino("click shuffle");
-            play();
+        if (!actionRuns && w == newGame){
+            DebugMessageCasino("click newGame");
+            Play();
+            return true;
+        }
+        if (!actionRuns && w == nextCard){
+            DebugMessageCasino("click nextCard");
+            NextCard();
             return true;
         }
 
@@ -71,70 +99,94 @@ class BlackJackMenue extends BaseMenu
 	}
 	
 	override void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
-		if (rpc_type == DAYZ_CASINO_SHUFFEL_BET_DICE && IsServerCasino()) {
-			Param3<int, int, DayZPlayer> parameterShuffel;
-			if (ctx.Read(parameterShuffel)) {
-				player = parameterShuffel.param3;
-				DebugMessageCasino("Check Player has chips");
-				if (PlayerHasEnoghChips(player, parameterShuffel.param1)){
-					int luckNumber = Math.RandomInt(1, 6);
-					
-					if (DAYZ_CASINO_DEBUG) {
-						luckNumber = 1;
-					}
-					
-					int winSum = 0;
-					
-					if (parameterShuffel.param2 == luckNumber) {
-						DebugMessageCasino("Win");
-						winSum = 3 * parameterShuffel.param1;
-						
-					} else {
-						DebugMessageCasino("lose");
-						winSum = -1 * parameterShuffel.param1;
-					}
-					
-					AddChipsToPlayer(player, winSum);
-					int currentChips = GetPlayerChipsAmount(player);
-					DebugMessageCasino("server: player has " + currentAmmount);
-					Param3<int, int, int> parameterResponse = new Param3<int, int, int>(luckNumber, winSum, currentChips);
-					
-					GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE, parameterResponse, true, player.GetIdentity());
-					DebugMessageCasino("has message send to player");
+		if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_GAME && IsServerCasino()) {
+			Param2 <int, DayZPlayer> startGame;
+			if (ctx.Read(startGame)) {
+				player = startGame.param2;
+				if (PlayerHasEnoghChips(player, startGame.param1)){
+					cardAllreadyUsed.Clear();
+					int firstCardPlayerServer = cardCollection.GetRandomCardIndex(cardAllreadyUsed);
+					int secondCardPlayerServer = cardCollection.GetRandomCardIndex(cardAllreadyUsed);
+					int firstCardBankServer = cardCollection.GetRandomCardIndex(cardAllreadyUsed);
+				
+					GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_START_GAME_RESPONSE, new Param3<int, int, int>(firstCardPlayerServer, secondCardPlayerServer, firstCardBankServer), true,  player.GetIdentity());
 				} else {
-					GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE, new Param1<bool>(true), true,  player.GetIdentity());
+					GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_NOT_ENOUGH_CHIPS, new Param1<bool>(true), true,  player.GetIdentity());
 				}
 			}
+			
 		}
-		if (rpc_type == DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE && false == IsServerCasino()) {
-			DebugMessageCasino("recive response shuffle");
-			Param3<int, int, int> parameterShuffelResponse;
-			if (ctx.Read(parameterShuffelResponse)) {
-				DebugMessageCasino("has recive response for bet dice");
-				winImageNumber = parameterShuffelResponse.param1 - 1;
-				lastWinChips = parameterShuffelResponse.param2;
-				currentAmmount += parameterShuffelResponse.param2;
-				DebugMessageCasino("new ammount is " + currentAmmount);
+		if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_GAME_RESPONSE && !IsServerCasino()) {
+			Param3 <int, int, int> responseStartGame;
+			if (ctx.Read(responseStartGame)) {
+				int firstCardPlayer = responseStartGame.param1;
+				int secondCardPlayer = responseStartGame.param2;
+				int firstCardBank = responseStartGame.param3;
+				Card firstCard = cardCollection.GetCardByIndex(firstCardPlayer);
+				Card secondCard = cardCollection.GetCardByIndex(secondCardPlayer);
+				Card firstCardB = cardCollection.GetCardByIndex(firstCardBank);
+				
+				cardAllreadyUsed.Clear();
+				cardAllreadyUsed.Insert(firstCardPlayer);
+				cardAllreadyUsed.Insert(secondCardPlayer);
+				cardAllreadyUsed.Insert(firstCardBank);
 
+                playerCard0.LoadImageFile(0, firstCard.GetImagePath());
+                playerCard0.SetImage(0);
+				playerCard0.Show(true);
+                playerCard1.LoadImageFile(0, secondCard.GetImagePath());
+                playerCard1.SetImage(0);
+				playerCard1.Show(true);
+                bankCard0.LoadImageFile(0, firstCardB.GetImagePath());
+                bankCard0.SetImage(0);
+				bankCard0.Show(true);
+				
+				currentCardsPlayer.Insert(firstCard);
+				currentCardsPlayer.Insert(secondCard);
+				currentCardsBank.Insert(firstCardB);
+				nextCard.Show(true);
 			}
 		}
-		if (rpc_type == DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE && false == IsServerCasino()) {
+		
+		if (rpc_type == DAYZ_CASINO_BLACK_JACK_NOT_ENOUGH_CHIPS && false == IsServerCasino()) {
 			DebugMessageCasino("recive not enough ballance");
-			imageShufelTimer.Stop();
 			cancel.Show(true);
-			shuffle.Show(true);
+			newGame.Show(true);
 		}
+		
+		
+	}
+
+	private void HideCards() {
+        holdCard.Show(false);
+
+        playerCard0.Show(false);
+        playerCard1.Show(false);
+        playerCard2.Show(false);
+        playerCard3.Show(false);
+        playerCard4.Show(false);
+        playerCard5.Show(false);
+
+        bankCard0.Show(false);
+        bankCard1.Show(false);
+        bankCard2.Show(false);
+        bankCard3.Show(false);
+        bankCard4.Show(false);
+        bankCard5.Show(false);
+	}
+	
+	private void NextCard() {
+		Param2 <int, DayZPlayer> nextCardParam = new Param2<int, DayZPlayer>(1, player);
+		
+		GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER, nextCardParam, true);
 	}
 
 
-	void play(){
-		if (player && isMenuOpen && number && chipsBet) {
+	void Play(){
+		if (player && isMenuOpen && chipsBet) {
 			int chipsValue = GetCurrenBet();
-			int numberValue = number.GetCurrentItem() + 1;
 			
 			if (chipsValue > currentAmmount) {
-				DebugMessageCasino("chipsVaue" + chipsValue);
-				DebugMessageCasino("currentAmmount" + currentAmmount);
 				countChips.SetText("" + currentAmmount);
 				message.SetText("#Not_enough_chips_available");
 				message.Show(true);
@@ -142,65 +194,12 @@ class BlackJackMenue extends BaseMenu
 				return;
 			}
 			message.Show(false);
-			
 			cancel.Show(false);
-			shuffle.Show(false);
+			newGame.Show(false);
 			
-			parameterShuffel = new Param3<int, int, DayZPlayer>(chipsValue, numberValue, player);
-			DebugMessageCasino("create timer");
-			currentCountBeforSendShufel = 0;
-			imageShufelTimer = new Timer();
-			
-			imageShufelTimer.Run(0.25, this, "SwitchImage", null, true);
+			Param2 <int, DayZPlayer> startGame = new Param2<int, DayZPlayer>(chipsValue, player);
+			GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_START_GAME, startGame, true);
 		
-			
-			DebugMessageCasino("chipsBet value is " + chipsValue);
-			DebugMessageCasino("numberValue value is " + numberValue);
 		}
-	}
-	
-	void SwitchImage() {
-		DebugMessageCasino("change image");
-
-		if (currentCountBeforSendShufel == 0) {
-			GetGame().RPCSingleParam(player, DAYZ_CASINO_SHUFFEL_BET_DICE, parameterShuffel, true);
-			DebugMessageCasino("has send to server ");
-		}
-				
-		if (winImageNumber != 10 && COUNT_SHUFFLE_BEFOR_SHOW_WIN_NUMBER == currentCountBeforSendShufel) {
-			if (lastWinChips > 0){
-				if (false == win_sound.SoundPlay()) {
-					DebugMessageCasino("win sound not loaded");
-				}
-			} else {
-				if (false == lose_sound.SoundPlay()) {
-					DebugMessageCasino("lose sound not loaded");
-				}
-			}
-			
-			diceImage.SetImage(winImageNumber);
-			winImageNumber = 10;
-			lastWin.SetText("" + lastWinChips);
-			countChips.SetText("" + currentAmmount);
-			imageShufelTimer.Stop();
-			cancel.Show(true);
-			shuffle.Show(true);
-			return;
-		}
-		
-		if (false == effect_sound.SoundPlay()) {
-			DebugMessageCasino("sound not loaded");
-		}
-		
-		diceImage.SetImage(Math.RandomInt(0, 5));
-		
-		if (20 == currentCountBeforSendShufel) {
-			DebugMessageCasino("No respons from Server");
-			imageShufelTimer.Stop();
-			cancel.Show(true);
-			shuffle.Show(true);
-		}
-		
-		++currentCountBeforSendShufel;
 	}
 }
