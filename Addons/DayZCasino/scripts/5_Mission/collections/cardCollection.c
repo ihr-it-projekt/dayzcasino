@@ -60,17 +60,19 @@ class CardCollection {
     	cardArray[13] = new Card(11, "DayZCasino/data/cards/pik_ass.edds", true);
 	}
 
-	int GetRandomCardIndex(array<int> cardAllreadyUsed) {
+	int GetRandomCardIndex(TIntArray cardAllreadyUsed) {
 	    int cardNumber = Math.RandomInt(0, 51);
 		
 		while (true) {
-			if (null == cardAllreadyUsed.Find(cardNumber)) {
-				DebugMessageCasino("has new card found");
-				break;
+			if (cardAllreadyUsed.Find(cardNumber)) {
+				cardNumber = Math.RandomInt(0, 51);
+				continue;
 			}
-			
-			cardNumber = Math.RandomInt(0, 51);
+			DebugMessageCasino("has new card found");
+			break;
 		}
+		
+		cardAllreadyUsed.Insert(cardNumber);
 		
 		return cardNumber;
 	}
