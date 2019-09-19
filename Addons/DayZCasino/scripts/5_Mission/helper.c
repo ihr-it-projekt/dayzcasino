@@ -1,4 +1,4 @@
-static bool DAYZ_CASINO_DEBUG = false;
+static bool DAYZ_CASINO_DEBUG = true;
 static string CASINO_CONFIG_PATH = "$profile:dayZCasinoConfig.json";
 static int DAYZ_CASINO_SEND_MESSAGE_TO_PLAYER = 99995858587;
 static int DAYZ_CASINO_SHUFFEL_BET_DICE = 99995858588;
