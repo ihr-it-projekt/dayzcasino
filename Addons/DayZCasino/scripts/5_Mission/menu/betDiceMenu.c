@@ -134,7 +134,7 @@ class BetDiceMenue extends BaseMenu
 				player = parameterShuffel.param3;
 				DebugMessageCasino("Check Player has chips");
 				if (PlayerHasEnoghChips(player, parameterShuffel.param1)){
-					int luckNumber = Math.RandomInt(1, 6);
+					int luckNumber = Math.RandomIntInclusive(1, 6);
 					
 					if (DAYZ_CASINO_DEBUG) {
 						luckNumber = 1;
