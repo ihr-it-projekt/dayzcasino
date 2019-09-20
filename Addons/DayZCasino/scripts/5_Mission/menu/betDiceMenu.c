@@ -225,7 +225,7 @@ class BetDiceMenue extends BaseMenu
 			DebugMessageCasino("has send to server ");
 		}
 				
-		if (winImageNumber != 10 && COUNT_SHUFFLE_BEFOR_SHOW_WIN_NUMBER == currentCountBeforSendShufel) {
+		if (winImageNumber != 10 && COUNT_SHUFFLE_BEFOR_SHOW_WIN_NUMBER <= currentCountBeforSendShufel) {
 			
 			if (lastWinChips > 0){
 				if (false == win_sound.SoundPlay()) {
@@ -253,7 +253,7 @@ class BetDiceMenue extends BaseMenu
 		
 		diceImage.SetImage(Math.RandomInt(0, 5));
 		
-		if (20 == currentCountBeforSendShufel) {
+		if (30 == currentCountBeforSendShufel) {
 			DebugMessageCasino("No respons from Server");
 			imageShufelTimer.Stop();
 			cancel.Show(true);
