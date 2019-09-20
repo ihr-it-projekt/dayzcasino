@@ -21,13 +21,17 @@ class BaseMenu extends UIScriptedMenu
     protected MultilineTextWidget message;
     protected MultilineTextWidget countChips;
     protected int lastWinChips;
-    protected XComboBoxWidget number;
     protected int currentAmmount;
     protected string widgetPath;
 
     void BaseMenu(vector pos) {
+		BaseConstrctor(pos);
+	}
+	
+	protected void BaseConstrctor(vector pos) {
 		position = pos;
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+		DebugMessageCasino("base menue is created");
 	}
 	
 	void ~BaseMenu() {
@@ -56,7 +60,7 @@ class BaseMenu extends UIScriptedMenu
             cancel = ButtonWidget.Cast( widget.FindAnyWidget( "cancel" ));
             WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( cancel,  this, "OnClick" );
 
-            number = XComboBoxWidget.Cast( widget.FindAnyWidget( "number" ));
+            
             chipsBet = XComboBoxWidget.Cast( widget.FindAnyWidget( "chipsBet" ));
             countChips = MultilineTextWidget.Cast( widget.FindAnyWidget( "countChips" ));
             lastWin = MultilineTextWidget.Cast( widget.FindAnyWidget( "lastWin" ));
