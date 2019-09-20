@@ -6,5 +6,5 @@
 "roll_dice","roll the dice","roll the dice","würfeln",
 "chips_use","Use","Use","Einsatz",
 "chips","Chips","Chips","Chips",
-"desc_bet_dice","If you win, you get three times your stake. If you read, there is nothing.","If you win, you get three times your stake. If you read, there is nothing.","Wenn du gewinnst, bekommst du das dreifache deines Einsatzes. Wenn du verliest, gibt es nichts.",
+"desc_bet_dice","If you win, you get five times your stake. If you read, there is nothing.","If you win, you get five times your stake. If you read, there is nothing.","Wenn du gewinnst, bekommst du das fünfache deines Einsatzes. Wenn du verliest, gibt es nichts.",
 "Not_enough_chips_available","Not enough chips available","Not enough chips available","Nicht genug Chips vorhanden"

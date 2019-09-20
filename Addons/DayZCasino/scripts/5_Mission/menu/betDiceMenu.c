@@ -144,7 +144,7 @@ class BetDiceMenue extends BaseMenu
 					
 					if (parameterShuffel.param2 == luckNumber) {
 						DebugMessageCasino("Win");
-						winSum = 3 * parameterShuffel.param1;
+						winSum = 5 * parameterShuffel.param1;
 						
 					} else {
 						DebugMessageCasino("lose");
