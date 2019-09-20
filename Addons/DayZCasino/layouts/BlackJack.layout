@@ -361,7 +361,7 @@ FrameWidgetClass rootFrame {
         }
         ImageWidgetClass cards {
          ignorepointer 1
-         position 991.40002 233.60501
+         position 991.40002 251.254
          size 122.647 169.099
          hexactpos 1
          vexactpos 1
@@ -391,6 +391,54 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          scaled 1
          stretch 1
+        }
+        MultilineTextWidgetClass pointBank {
+         ignorepointer 1
+         position 946.44897 160.97101
+         size 212.549 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        MultilineTextWidgetClass pointPlayer {
+         ignorepointer 1
+         position 946.44897 447.535
+         size 212.549 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        MultilineTextWidgetClass message {
+         ignorepointer 1
+         position 89.74409 72.5481
+         size 962.98004 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
         }
        }
       }
