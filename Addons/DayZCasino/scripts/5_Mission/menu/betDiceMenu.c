@@ -10,6 +10,7 @@ class BetDiceMenue extends BaseMenu
 	private ref Timer imageShufelTimer;
 	private int currentCountBeforSendShufel = 0;
 	private int winImageNumber;
+	private XComboBoxWidget number;
 	ref Param3<int, int, DayZPlayer> parameterShuffel
 	private EffectSound effect_sound;
 	private EffectSound lose_sound;
@@ -29,6 +30,7 @@ class BetDiceMenue extends BaseMenu
 
 		shuffle = ButtonWidget.Cast( widget.FindAnyWidget( "shuffle" ));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( shuffle,  this, "OnClick" );
+		number = XComboBoxWidget.Cast( widget.FindAnyWidget( "number" ));
 
         diceImage = ImageWidget.Cast(widget.FindAnyWidget( "diceImage" ));
         diceImage.LoadImageFile(0, "{79BC5FA94F25EF0B}DayZCasino/data/dice/dice1.edds");
