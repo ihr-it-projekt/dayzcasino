@@ -61,19 +61,22 @@ class CardCollection {
 	}
 
 	int GetRandomCardIndex(TIntArray cardAllreadyUsed) {
-	    int cardNumber = Math.RandomInt(0, 51);
+	    int cardNumber = Math.RandomIntInclusive(0, 51);
+		DebugMessageCasino("new card number" + cardNumber);
 		
-		while (true) {
-			if (cardAllreadyUsed.Find(cardNumber)) {
-				cardNumber = Math.RandomInt(0, 51);
-				continue;
+		foreach(int index, int usedCardNumber: cardAllreadyUsed){
+			DebugMessageCasino("index " + usedCardNumber);
+			DebugMessageCasino("used number " + usedCardNumber);
+			DebugMessageCasino("cardNumber " + cardNumber);
+			
+			if (cardNumber != usedCardNumber) {
+				DebugMessageCasino("has new card found");
+				break;
 			}
-			DebugMessageCasino("has new card found");
-			break;
+			cardNumber = Math.RandomIntInclusive(0, 51);
 		}
-		
-		cardAllreadyUsed.Insert(cardNumber);
-		
+
+		DebugMessageCasino("card number return" + cardNumber);
 		return cardNumber;
 	}
 	
