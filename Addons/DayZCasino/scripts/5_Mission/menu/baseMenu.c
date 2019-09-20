@@ -20,8 +20,9 @@ class BaseMenu extends UIScriptedMenu
     protected MultilineTextWidget lastWin;
     protected MultilineTextWidget message;
     protected MultilineTextWidget countChips;
-    protected int lastWinChips;
-    protected int currentAmmount;
+    ref protected DayZCasinoPlayerInventory inventory;
+    int lastWinChips;
+    int currentAmount;
     protected string widgetPath;
 
     void BaseMenu(vector pos) {
@@ -30,15 +31,8 @@ class BaseMenu extends UIScriptedMenu
 	
 	protected void BaseConstrctor(vector pos) {
 		position = pos;
-		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
-		DebugMessageCasino("base menue is created");
-	}
-	
-	void ~BaseMenu() {
-		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
-	}
-	
-	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+        inventory = new DayZCasinoPlayerInventory;
+		DebugMessageCasino("base menu is created");
 	}
 
     override Widget Init()
@@ -130,6 +124,9 @@ class BaseMenu extends UIScriptedMenu
 		GetGame().GetMission().GetHud().Show( false );
 		player = GetGame().GetPlayer();
 		isMenuOpen = true;
+        currentAmount =  inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
+        countChips.SetText("" + currentAmount);
+        lastWin.SetText("0");
 	}
 	
 	void CloseMenu(){
@@ -153,65 +150,7 @@ class BaseMenu extends UIScriptedMenu
 	}
 	
 		
-	protected bool PlayerHasEnoghChips(DayZPlayer player, int betSumme) {
-		int amount = GetPlayerChipsAmount(player);
-		DebugMessageCasino("Has amunt of " + amount);
-		
-		return betSumme <= amount;
-	}
-
-	protected int GetPlayerChipsAmount(DayZPlayer m_Player) 
-	{
-		if (!m_Player) {
-			return 0;
-		}
-		
-		DebugMessageCasino("GetPlayerChipsAmount");
-		int currencyAmount = 0;
-		
-		array<EntityAI> itemsArray = new array<EntityAI>;
-		m_Player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, itemsArray);
-
-		ItemBase item;
-		
-		for (int i = 0; i < itemsArray.Count(); i++)
-		{
-			Class.CastTo(item, itemsArray.Get(i));
-			if(item && item.GetType() == "CasinoChips") {
-				currencyAmount += item.GetQuantity();
-			}
-		}
-		
-		return currencyAmount;
-	}
-	
-	protected int AddChipsToPlayer(DayZPlayer m_Player, int chipsCount) {
-		array<EntityAI> itemsArray = new array<EntityAI>;
-		m_Player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, itemsArray);
-
-		ItemBase item;
-		
-		bool hasAddedAllChips = false;
-		
-		for (int i = 0; i < itemsArray.Count(); i++)
-		{
-			Class.CastTo(item, itemsArray.Get(i));
-			if (item && item.GetType() == "CasinoChips") {
-				chipsCount = AddChips(chipsCount, item);
-				if (chipsCount == 0) {
-					break;
-				}
-			}
-		}
-		
-		if (chipsCount) {
-			chipsCount = AddNewChipsItemToInevntory(chipsCount);
-		}
-		
-		return chipsCount;
-	}
-
-    protected int GetCurrenBet() {
+	int GetCurrenBet() {
         int chipsValue = 0;
         DebugMessageCasino("" + chipsBet.GetCurrentItem());
         switch (chipsBet.GetCurrentItem()){
@@ -249,50 +188,5 @@ class BaseMenu extends UIScriptedMenu
         return chipsValue;
     }
 	
-	private int AddNewChipsItemToInevntory(int chipsCount) {
-		InventoryLocation inventoryLocation = new InventoryLocation;	
-		
-		if (player.GetInventory().FindFirstFreeLocationForNewEntity("CasinoChips", FindInventoryLocationType.ANY, inventoryLocation)) {
-			EntityAI entityInInventory = player.GetHumanInventory().CreateInInventory("CasinoChips");
-			chipsCount = AddChips(chipsCount - 1, entityInInventory);
-		} else if (!player.GetHumanInventory().GetEntityInHands()) {
-			EntityAI entityInHands = player.GetHumanInventory().CreateInHands("CasinoChips");
-			chipsCount = AddChips(chipsCount - 1, entityInHands);
-		} else {
-			EntityAI entityToGround = player.SpawnEntityOnGroundPos("CasinoChips", player.GetPosition());
-			chipsCount = AddChips(chipsCount - 1, entityToGround);
-		}
-		
-		if(chipsCount) {
-			chipsCount = AddNewChipsItemToInevntory(chipsCount);
-		}
-		
-		return chipsCount;
-	}
-	
-	private int AddChips(int chipsToAdd, EntityAI entity) {
-		ItemBase item;
-		ItemBase.CastTo(item, entity);
-		
-		int currencyAmount = item.GetQuantity();
-		int maxAmount = item.GetQuantityMax();
-		
-		int canAddedChipsCount = maxAmount - currencyAmount;
-		
-		if (canAddedChipsCount > 0) {
-			if (chipsToAdd > canAddedChipsCount) {
-				item.SetQuantity(maxAmount);
-				chipsToAdd -= canAddedChipsCount;
-				
-			} else {
-				item.SetQuantity(currencyAmount + chipsToAdd);
-				chipsToAdd = 0;
-			}
-		} else {
-			item.SetQuantity(0);
-			chipsToAdd = currencyAmount + chipsToAdd;
-		}
-		
-		return chipsToAdd;
-	}
+
 }
