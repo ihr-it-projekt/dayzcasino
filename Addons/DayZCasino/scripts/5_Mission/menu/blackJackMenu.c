@@ -108,6 +108,8 @@ class BlackJackMenu extends BaseMenu
 					int firstCardPlayerServer = cardCollection.GetRandomCardIndex(cardAllreadyUsed);
 					int secondCardPlayerServer = cardCollection.GetRandomCardIndex(cardAllreadyUsed);
 					int firstCardBankServer = cardCollection.GetRandomCardIndex(cardAllreadyUsed);
+					
+					DebugMessageCasino("client first card is " + firstCardPlayerServer);
 				
 					GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_START_GAME_RESPONSE, new Param3<int, int, int>(firstCardPlayerServer, secondCardPlayerServer, firstCardBankServer), true,  player.GetIdentity());
 				} else {
@@ -122,6 +124,9 @@ class BlackJackMenu extends BaseMenu
 				int firstCardPlayer = responseStartGame.param1;
 				int secondCardPlayer = responseStartGame.param2;
 				int firstCardBank = responseStartGame.param3;
+				
+				DebugMessageCasino("client first card is " + firstCardPlayer);
+				
 				Card firstCard = cardCollection.GetCardByIndex(firstCardPlayer);
 				Card secondCard = cardCollection.GetCardByIndex(secondCardPlayer);
 				Card firstCardB = cardCollection.GetCardByIndex(firstCardBank);
