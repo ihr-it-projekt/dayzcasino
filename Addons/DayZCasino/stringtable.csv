@@ -7,6 +7,7 @@
 "desc_black_jack","The normal blackjack rules apply.","The normal blackjack rules apply.","Es gelte die normalen Black Jack Regeln",
 "hold_card","hold card","hold card","halten",
 "last_win","last win","last win","letzter Gewinn",
+"lose_game","Lost, try it again!","Lost, try it again!","Verloren, probieres es gleich noch einmal!",
 "next_card","next card","next card","nähste Karte",
 "new_game","new game","new game","neues Spiel",
 "Not_enough_chips_available","Not enough chips available","Not enough chips available","Nicht genug Chips vorhanden"

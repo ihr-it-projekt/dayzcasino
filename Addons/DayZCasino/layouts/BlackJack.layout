@@ -462,7 +462,7 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          style MenuDefault
-         text "new_game"
+         text "#new_game"
         }
        }
       }
