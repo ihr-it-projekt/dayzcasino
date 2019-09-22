@@ -7,6 +7,7 @@ class BlackJackServerEventHandler
     void BlackJackServerEventHandler() {
         inventory = new DayZCasinoPlayerInventory;
         cardCollection = new CardCollection();
+        DebugMessageCasino("Register BJSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }
 

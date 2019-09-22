@@ -37,31 +37,28 @@ class BaseMenu extends UIScriptedMenu
 
     override Widget Init()
     {
+        if (IsServerCasino()){
+            DebugMessageCasino("can not init, is server");
+            return null;
+        }
+
         if (IsInitialized()) {
             return widget;
         }
 
         super.Init();
 
-        if (IsServerCasino()){
-            DebugMessageCasino("can not init, is server");
-            return null;
-        }
+        widget = GetGame().GetWorkspace().CreateWidgets(widgetPath);
 
-        if(!widget){
-            widget = GetGame().GetWorkspace().CreateWidgets(widgetPath);
+        cancel = ButtonWidget.Cast( widget.FindAnyWidget( "cancel" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( cancel,  this, "OnClick" );
 
-            cancel = ButtonWidget.Cast( widget.FindAnyWidget( "cancel" ));
-            WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( cancel,  this, "OnClick" );
+        chipsBet = XComboBoxWidget.Cast( widget.FindAnyWidget( "chipsBet" ));
+        countChips = MultilineTextWidget.Cast( widget.FindAnyWidget( "countChips" ));
+        lastWin = MultilineTextWidget.Cast( widget.FindAnyWidget( "lastWin" ));
+        message = MultilineTextWidget.Cast( widget.FindAnyWidget( "message" ));
 
-            
-            chipsBet = XComboBoxWidget.Cast( widget.FindAnyWidget( "chipsBet" ));
-            countChips = MultilineTextWidget.Cast( widget.FindAnyWidget( "countChips" ));
-            lastWin = MultilineTextWidget.Cast( widget.FindAnyWidget( "lastWin" ));
-            message = MultilineTextWidget.Cast( widget.FindAnyWidget( "message" ));
-
-            widget.Show(false);
-        }
+        widget.Show(false);
 
         return widget;
     }

@@ -14,17 +14,15 @@ class GameMenu
         if (!betDiceMenu) {
             DebugMessageCasino("No selectedMenu");
             betDiceMenu = new BetDiceMenu(casinoConfig.positionDice);
-            betDiceMenu.Init();
         }
 
 	    return betDiceMenu;
 	}
 
     BlackJackMenu GetBlackJackMenu() {
-        if (!betDiceMenu) {
+        if (!blackJackMenu) {
             DebugMessageCasino("No selectedMenu");
-            blackJackMenu = new BlackJackMenu(casinoConfig.positionDice);
-            blackJackMenu.Init();
+            blackJackMenu = new BlackJackMenu(casinoConfig.positionBlackJack);
         }
 
 	    return blackJackMenu;
@@ -37,7 +35,6 @@ class GameMenu
         GetBlackJackMenu()
 		
 		vector posPlayBetDice = betDiceMenu.GetPosition();
-		
 		float playerDistanceToGamePositionBetDice = vector.Distance(posPlayBetDice, posPlayer);
 
 		if (playerDistanceToGamePositionBetDice <= DAYZ_CASINO_DISTANCE_TO_GAME || DAYZ_CASINO_DEBUG)

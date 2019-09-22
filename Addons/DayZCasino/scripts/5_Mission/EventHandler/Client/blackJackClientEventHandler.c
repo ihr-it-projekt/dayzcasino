@@ -3,25 +3,17 @@ class BlackJackClientEventHandler
     private ref TClassArray currentCardsPlayer;
     private ref TClassArray currentCardsBank;
     private ref CardCollection cardCollection;
-    private BlackJackMenu blackJackMenu;
+    private ref BlackJackMenu blackJackMenu;
     private DayZPlayer player;
 
-
-    void BlackJackClientEventHandler(BlackJackMenu blackJackMenu)
+    void BlackJackClientEventHandler()
     {
-        GetDayZGame().Event_OnRPC.Insert(HandleEvents);
-        this.blackJackMenu = blackJackMenu;
         cardCollection = new CardCollection();
     }
 
-    void ~BlackJackClientEventHandler()
-    {
-        GetDayZGame().Event_OnRPC.Remove(HandleEvents);
-    }
-
-    void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+    void HandleEvents(BlackJackMenu blackJackMenu, PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
         player = GetGame().GetPlayer();
-        if (IsServerCasino()) {
+        if (IsServerCasino() || !blackJackMenu.isMenuOpen) {
             return;
         }
         if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_GAME_RESPONSE) {

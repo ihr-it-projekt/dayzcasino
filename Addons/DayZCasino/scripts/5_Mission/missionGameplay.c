@@ -5,13 +5,12 @@ modded class MissionGameplay
 	private ref BlackJackClientEventHandler blackJackClientEventHandler;
 	private ref BetDiceClientEventHandler betDiceClientEventHandler;
 
+
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
 		
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
-
-
-		Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
+        Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
 	    GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG, paramGetConfig, true);
 	}
 	
@@ -28,9 +27,13 @@ modded class MissionGameplay
 				DebugMessageCasino("player load config" + casinoConfig.positionDice);
 				gameMenu = new GameMenu(casinoConfig);
 
-                blackJackClientEventHandler = BlackJackClientEventHandler(gameMenu.GetBlackJackMenu());
-                betDiceClientEventHandler = BetDiceClientEventHandler(gameMenu.GetBetDiceMenu());
+                blackJackClientEventHandler = new BlackJackClientEventHandler();
+                betDiceClientEventHandler = new BetDiceClientEventHandler();
 			}
+		}
+		if (HasClientEventHandler()) {
+            blackJackClientEventHandler.HandleEvents(gameMenu.GetBlackJackMenu(), sender, target, rpc_type, ctx);
+            betDiceClientEventHandler.HandleEvents(gameMenu.GetBetDiceMenu(), sender, target, rpc_type, ctx);
 		}
 	}
 	
@@ -46,6 +49,7 @@ modded class MissionGameplay
 				BaseMenu currentGameMenu = gameMenu.GetGameMenu(player);
 				if (GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen && player.IsAlive()) {
 					DebugMessageCasino("key press open");
+                    currentGameMenu.Init();
 					currentGameMenu.OnShow();
 				} else if (currentGameMenu && currentGameMenu.isMenuOpen) {
 					DebugMessageCasino("key pres close");
@@ -56,5 +60,9 @@ modded class MissionGameplay
 				gameMenu.CloseAllMenu();
 			}
 		}			
+	}
+
+	private bool HasClientEventHandler() {
+	    return null != blackJackClientEventHandler && null != betDiceClientEventHandler;
 	}
 }

@@ -4,6 +4,7 @@ class BetDiceServerEventHandler
 
     void BetDiceServerEventHandler() {
         inventory = new DayZCasinoPlayerInventory;
+        DebugMessageCasino("Register BDSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }
 
@@ -32,7 +33,7 @@ class BetDiceServerEventHandler
     
                     if (parameterShuffle.param2 == luckNumber) {
                         DebugMessageCasino("Win");
-                        winSum = 3 * parameterShuffle.param1;
+                        winSum = 5 * parameterShuffle.param1;
     
                     } else {
                         DebugMessageCasino("lose");

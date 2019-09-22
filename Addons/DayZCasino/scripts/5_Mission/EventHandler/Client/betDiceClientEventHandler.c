@@ -1,20 +1,7 @@
 class BetDiceClientEventHandler
 {
-    private BetDiceMenu betDiceMenu;
-
-    void BetDiceClientEventHandler(BetDiceMenu betDiceMenu)
-    {
-        GetDayZGame().Event_OnRPC.Insert(HandleEvents);
-        this.betDiceMenu = betDiceMenu;
-    }
-
-    void ~BetDiceClientEventHandler()
-    {
-        GetDayZGame().Event_OnRPC.Remove(HandleEvents);
-    }
-
-    void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
-        if (IsServerCasino()) {
+    void HandleEvents(BetDiceMenu betDiceMenu, PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+        if (IsServerCasino() || !betDiceMenu.isMenuOpen) {
             return;
         }
         if (rpc_type == DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE) {
@@ -30,7 +17,7 @@ class BetDiceClientEventHandler
         }
         if (rpc_type == DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE) {
             DebugMessageCasino("receive not enough balance");
-
+            betDiceMenu.EndGame();
         }
     }
 };

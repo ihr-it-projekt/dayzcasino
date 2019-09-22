@@ -27,8 +27,8 @@ class BetDiceMenu extends BaseMenu
         widgetPath = "DayZCasino/layouts/BetDice.layout";
 		super.Init();
 
-		shuffle = ButtonWidget.Cast( widget.FindAnyWidget( "shuffle" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( shuffle,  this, "OnClick" );
+		shuffle = ButtonWidget.Cast(widget.FindAnyWidget( "shuffle" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(shuffle,  this, "OnClick" );
 		number = XComboBoxWidget.Cast( widget.FindAnyWidget( "number" ));
 
         diceImage = ImageWidget.Cast(widget.FindAnyWidget( "diceImage" ));
@@ -138,7 +138,7 @@ class BetDiceMenu extends BaseMenu
 			DebugMessageCasino("sound not loaded");
 		}
 		
-		diceImage.SetImage(Math.RandomInt(0, 5));
+		diceImage.SetImage(Math.RandomInt(0, 6));
 		
 		if (20 == currentCountBeforeSendShuffle) {
 			DebugMessageCasino("No response from Server");
