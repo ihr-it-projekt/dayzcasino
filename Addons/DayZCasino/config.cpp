@@ -65,6 +65,18 @@ class CfgMods
 
 class cfgSoundSets
 {
+	class DayZCasino_FLIPCARD_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_FLIPCARD_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
 	class DayZCasino_CLACK_SoundSet
 	{
 		soundShaders[]=
@@ -111,6 +123,20 @@ class cfgSoundShaders
 			
 			{
 				"DayZCasino\data\sounds\clack",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_FLIPCARD_SoundShader
+	{
+		samples[]=
+		{
+
+			{
+				"DayZCasino\data\sounds\flipcard",
 				1
 			}
 		};
