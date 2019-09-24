@@ -136,7 +136,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass boarderReason0 {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 802.49805 96.503
+       position 790.901 98.15701
        size 383 70
        hexactpos 1
        vexactpos 1
@@ -145,13 +145,28 @@ FrameWidgetClass rootFrame {
        style editor_selection
        {
         XComboBoxWidgetClass chipsBet {
-         position 8.26001 8.26005
+         visible 1
+         position 8.26001 6.60614
          size 366.46298 53.4799
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          items "1;5;10;25;50;100;250;500;1000;"
+        }
+        TextWidgetClass frozenChipsBet {
+         visible 0
+         ignorepointer 1
+         position 11.5976 11.5976
+         size 358.151 45.1509
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Bold
+         text "1"
+         "text halign" center
+         "text valign" center
         }
        }
       }
