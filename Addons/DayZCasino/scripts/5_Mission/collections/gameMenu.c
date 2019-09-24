@@ -37,7 +37,7 @@ class GameMenu
 		vector posPlayBetDice = betDiceMenu.GetPosition();
 		float playerDistanceToGamePositionBetDice = vector.Distance(posPlayBetDice, posPlayer);
 
-		if (playerDistanceToGamePositionBetDice <= DAYZ_CASINO_DISTANCE_TO_GAME || DAYZ_CASINO_DEBUG)
+		if (playerDistanceToGamePositionBetDice <= DAYZ_CASINO_DISTANCE_TO_GAME)
 		{
 			DebugMessageCasino("in near of bet dice");
 			
@@ -47,7 +47,7 @@ class GameMenu
 		vector posPlayBlackJack = blackJackMenu.GetPosition();
 		float playerDistanceToGamePositionBlackJack = vector.Distance(posPlayBlackJack, posPlayer);
 		
-		if (playerDistanceToGamePositionBlackJack <= DAYZ_CASINO_DISTANCE_TO_GAME)
+		if (playerDistanceToGamePositionBlackJack <= DAYZ_CASINO_DISTANCE_TO_GAME || DAYZ_CASINO_DEBUG)
 		{
 			DebugMessageCasino("in near of black jack");
 			
