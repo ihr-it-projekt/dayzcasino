@@ -15,8 +15,7 @@ class BlackJackClientEventHandler
         player = GetGame().GetPlayer();
         if (IsServerCasino() || !blackJackMenu.isMenuOpen) {
             return;
-        }
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_GAME_RESPONSE) {
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_GAME_RESPONSE) {
             Param3 <int, int, int> responseStartGame;
             if (ctx.Read(responseStartGame)) {
                 int firstCardPlayer = responseStartGame.param1;
@@ -46,10 +45,14 @@ class BlackJackClientEventHandler
                 blackJackMenu.ShowPlayButtons();
 
                 blackJackMenu.RefreshCardValues(currentCardsPlayer, currentCardsBank);
-            }
-        }
 
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER_RESPONSE) {
+                if (blackJackMenu.cardValuePlayer == 21){
+                    DebugMessageCasino("player has black jack");
+                    GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_PLAYER_HAS_BLACKJACK, new Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
+                    blackJackMenu.HidePlayButtons();
+                }
+            }
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER_RESPONSE) {
             Param1 <int> responseGetNextPlayerCard;
             if (ctx.Read(responseGetNextPlayerCard)) {
                 int nextPlayerCardInt = responseGetNextPlayerCard.param1;
@@ -64,12 +67,11 @@ class BlackJackClientEventHandler
                 blackJackMenu.ShowPlayButtons();
 
                 if (blackJackMenu.cardValuePlayer > 21) {
-                    GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER, new Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
+                    GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER, new
+                    Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
                 }
             }
-        }
-
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_HOLD_CARD_RESPONSE) {
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_HOLD_CARD_RESPONSE) {
             Param1 <int> responseGetNextBankCard;
             if (ctx.Read(responseGetNextBankCard)) {
                 int nextBankCardInt = responseGetNextBankCard.param1;
@@ -82,47 +84,40 @@ class BlackJackClientEventHandler
                 blackJackMenu.usedCards.Insert(nextBankCardInt);
                 blackJackMenu.RefreshCardValues(currentCardsPlayer, currentCardsBank);
 
-                if (blackJackMenu.cardValuePlayer <= 21 && blackJackMenu.cardValueBank <= 21){
-                    if (blackJackMenu.cardValuePlayer > blackJackMenu.cardValueBank) {
-                        DebugMessageCasino("next card");
-                        blackJackMenu.HoldCardAction();
-                    } else if (blackJackMenu.cardValuePlayer < blackJackMenu.cardValueBank) {
+                if (blackJackMenu.cardValuePlayer <= 21 && blackJackMenu.cardValueBank <= 16) {
+                    DebugMessageCasino("next card");
+                    blackJackMenu.HoldCardAction();
+                } else if (blackJackMenu.cardValuePlayer < 22 && blackJackMenu.cardValueBank < 22){
+                    if (blackJackMenu.cardValuePlayer < blackJackMenu.cardValueBank) {
                         DebugMessageCasino("bank win");
-                        GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER, new
-                        Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
+                        GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER, new Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
                     } else if (blackJackMenu.cardValuePlayer == blackJackMenu.cardValueBank) {
-                        if (currentCardsPlayer.Count() >= currentCardsBank.Count()) {
-                            DebugMessageCasino("bank win with less or same card count");
-                            GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER, new
-                            Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
-                        } else if (currentCardsPlayer.Count() < currentCardsBank.Count()) {
-                            DebugMessageCasino("player win");
-                            GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_BANK_LOSE, new
-                            Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
-                        } else {
-                            DebugMessageCasino("no condition 2");
-                        }
+                        DebugMessageCasino("draw game");
+                        GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_DRAW_GAME, new Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
+                    } else if (blackJackMenu.cardValuePlayer == 21){
+                        DebugMessageCasino("player has black jack");
+                        GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_PLAYER_HAS_BLACKJACK, new Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
+                    } else if (blackJackMenu.cardValuePlayer > blackJackMenu.cardValueBank) {
+                        DebugMessageCasino("bank win");
+                        GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_BANK_LOSE, new Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
                     } else {
                         DebugMessageCasino("no condition 1");
                     }
                 } else if (blackJackMenu.cardValuePlayer <= 21 && blackJackMenu.cardValueBank > 21 && blackJackMenu.cardValuePlayer < blackJackMenu.cardValueBank) {
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_BANK_LOSE, new Param2<int, DayZPlayer>(blackJackMenu.GetCurrenBet(), player), true);
+                    DebugMessageCasino("bank has to much points");
                 }
             }
-        }
-
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_BANK_LOSE_RESPONSE) {
-            Param2 <int, int> looseBankResponseParam;
-            if (ctx.Read(looseBankResponseParam)) {
-                DebugMessageCasino("receive win amount of chips" + looseBankResponseParam.param1);
-                blackJackMenu.currentAmount = looseBankResponseParam.param1;
-                blackJackMenu.lastWinChips = looseBankResponseParam.param2;
+        }else if (rpc_type == DAYZ_CASINO_BLACK_JACK_BANK_LOSE_RESPONSE || rpc_type == DAYZ_CASINO_BLACK_JACK_DRAW_GAME_RESPONSE || rpc_type == DAYZ_CASINO_BLACK_JACK_PLAYER_HAS_BLACKJACK_RESPONSE) {
+            Param2 <int, int> endGameResponse;
+            if (ctx.Read(endGameResponse)) {
+                DebugMessageCasino("receive win amount of chips" + endGameResponse.param1);
+                blackJackMenu.currentAmount = endGameResponse.param1;
+                blackJackMenu.lastWinChips = endGameResponse.param2;
 
                 blackJackMenu.WinGame();
             }
-        }
-
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_LOSE_PLAYER_RESPONSE) {
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER_RESPONSE) {
             Param2 <int, int> looseGameResponseParam;
             if (ctx.Read(looseGameResponseParam)) {
                 DebugMessageCasino("receive lose amount of chips" + looseGameResponseParam.param1);
@@ -131,12 +126,9 @@ class BlackJackClientEventHandler
 
                 blackJackMenu.LoseGame();
             }
-        }
-
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_NOT_ENOUGH_CHIPS) {
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_NOT_ENOUGH_CHIPS) {
             DebugMessageCasino("receive not enough balance");
             blackJackMenu.EndGame();
         }
     }
-
 };

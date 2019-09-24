@@ -17,9 +17,7 @@ class BlackJackServerEventHandler
     void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
         if (!IsServerCasino()) {
             return;
-        }
-
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_GAME) {
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_GAME) {
             Param2<int, DayZPlayer> startGame;
             if (ctx.Read(startGame)) {
                 DayZPlayer player = startGame.param2;
@@ -42,9 +40,7 @@ class BlackJackServerEventHandler
                     Param1<bool>(true), true, player.GetIdentity());
                 }
             }
-        }
-
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER) {
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER) {
             Param2 <ref TIntArray, DayZPlayer> nextCardParam;
             if (ctx.Read(nextCardParam)) {
                 DayZPlayer playerNextCard = nextCardParam.param2;
@@ -58,9 +54,7 @@ class BlackJackServerEventHandler
                 GetGame().RPCSingleParam(playerNextCard, DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER_RESPONSE, new
                 Param1<int>(newPlayerCard), true, playerNextCard.GetIdentity());
             }
-        }
-
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_HOLD_CARD) {
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_HOLD_CARD) {
             Param2 < ref TIntArray, DayZPlayer > holdCardParam;
             if (ctx.Read(holdCardParam)) {
                 DayZPlayer playerHoldCard = holdCardParam.param2;
@@ -74,33 +68,36 @@ class BlackJackServerEventHandler
                 GetGame().RPCSingleParam(playerHoldCard, DAYZ_CASINO_BLACK_JACK_HOLD_CARD_RESPONSE, new
                 Param1<int>(newBankCard), true, playerHoldCard.GetIdentity());
             }
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER) {
+            EndGame(DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER_RESPONSE, -1, ctx, false);
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_BANK_LOSE) {
+            EndGame(DAYZ_CASINO_BLACK_JACK_BANK_LOSE_RESPONSE, 2, ctx, true);
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_PLAYER_HAS_BLACKJACK) {
+            EndGame(DAYZ_CASINO_BLACK_JACK_PLAYER_HAS_BLACKJACK_RESPONSE, 3, ctx, true);
+        } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_DRAW_GAME) {
+            EndGame(DAYZ_CASINO_BLACK_JACK_DRAW_GAME_RESPONSE, 1, ctx, true, false);
         }
 
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER) {
-            Param2<int, DayZPlayer> looseGameParam;
-            if (ctx.Read(looseGameParam)) {
-                DayZPlayer playerLoos = looseGameParam.param2;
+    }
 
-                DebugMessageCasino("receive lose game " + looseGameParam.param1);
+    private void EndGame(int EVENT_RESPONSE, int chipsAddFactor, ParamsReadContext ctx, bool addMoney, bool drawGame = false) {
+        Param2<int, DayZPlayer> winGameParam;
+        if (ctx.Read(winGameParam)) {
+            DayZPlayer playerWin = winGameParam.param2;
+            int winSum = winGameParam.param1 * chipsAddFactor
 
-                GetGame().RPCSingleParam(playerLoos, DAYZ_CASINO_BLACK_JACK_LOSE_PLAYER_RESPONSE, new
-                Param2<int, int>(inventory.GetPlayerChipsAmount(playerLoos), looseGameParam.param1 * -1), true, playerLoos.GetIdentity());
+            if (addMoney) {
+                inventory.AddChipsToPlayer(playerWin, winSum);
             }
-        }
 
-        if (rpc_type == DAYZ_CASINO_BLACK_JACK_BANK_LOSE) {
-            Param2<int, DayZPlayer> winGameParam;
-            if (ctx.Read(winGameParam)) {
-                DayZPlayer playerWin = winGameParam.param2;
-
-                inventory.AddChipsToPlayer(playerWin, winGameParam.param1 * 2);
-
-                DebugMessageCasino("receive bank lose game " + winGameParam.param1 * 2);
-
-                GetGame().RPCSingleParam(playerWin, DAYZ_CASINO_BLACK_JACK_BANK_LOSE_RESPONSE, new
-                Param2<int, int>(inventory.GetPlayerChipsAmount(playerWin), winGameParam.param1 * 2), true, playerWin.GetIdentity());
+            if (drawGame) {
+                winSum = 0;
             }
-        }
 
+            DebugMessageCasino("receive game end " + winSum);
+
+            GetGame().RPCSingleParam(playerWin, EVENT_RESPONSE, new
+            Param2<int, int>(inventory.GetPlayerChipsAmount(playerWin), winSum), true, playerWin.GetIdentity());
+        }
     }
 };
