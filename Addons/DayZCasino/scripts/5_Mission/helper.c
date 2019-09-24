@@ -13,17 +13,25 @@ static CasinoConfig GetCasinoConfig() {
 		JsonFileLoader<CasinoConfig>.JsonLoadFile(CASINO_CONFIG_PATH, casinoConfig);
 		
 		if (!casinoConfig.positionDice) {
-			casinoConfig.positionDice = "7247.358398 254.556000 6983.053223";
+            casinoConfig.positionDice = "7247.358398 254.556000 6983.053223";
+        }
+        if (!casinoConfig.orientationDice) {
+			casinoConfig.orientationDice =  "119.999916 0.000000 0.000000" ;
 		}
 		if (!casinoConfig.positionBlackJack) {
-			casinoConfig.positionBlackJack = "7237.358398 254.556000 6983.053223";
+            casinoConfig.positionBlackJack = "7246.056152 254.571564 6986.960938";
+        }
+        if (!casinoConfig.orientationBlackJack) {
+            casinoConfig.orientationBlackJack = "13.000005 0.000000 0.000000" ;
 		}
-		
+
 		DebugMessageCasino("has config loaded" + casinoConfig.positionDice);
 	} else {
 		DebugMessageCasino("config not exists, create new one");
 		casinoConfig.positionDice = "7247.358398 254.556000 6983.053223";
+        casinoConfig.orientationDice =  "119.999916 0.000000 0.000000" ;
 		casinoConfig.positionBlackJack = "7237.358398 254.556000 6983.053223";
+        casinoConfig.orientationBlackJack = "13.000005 0.000000 0.000000" ;
 	}
 	
 	JsonFileLoader<CasinoConfig>.JsonSaveFile(CASINO_CONFIG_PATH, casinoConfig);

@@ -145,8 +145,7 @@ class BaseMenu extends UIScriptedMenu
 		DebugMessageCasino("position is " + position.ToString());
 		return position;
 	}
-	
-		
+
 	int GetCurrenBet() {
         int chipsValue = 0;
         DebugMessageCasino("" + chipsBet.GetCurrentItem());

@@ -7,6 +7,8 @@ modded class MissionServer {
 	void MissionServer()
 	{
 		casinoConfig = GetCasinoConfig();
+        PlaceGame(casinoConfig.positionDice, casinoConfig.orientationDice);
+        PlaceGame(casinoConfig.positionBlackJack, casinoConfig.orientationBlackJack);
         blackJackServerEventHandler = BlackJackServerEventHandler();
         betDiceServerEventHandler = BetDiceServerEventHandler();
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
@@ -40,4 +42,16 @@ modded class MissionServer {
 			}
 		}
 	}
+
+    private void PlaceGame(vector pos, vector orientation) {
+        House game_obj = GetGame().CreateObject("Nehr_Gaming_01", pos);
+        game_obj.SetPosition( pos );
+        game_obj.SetOrientation( orientation );
+        game_obj.SetOrientation( game_obj.GetOrientation() ); //Collision fix
+        game_obj.Update();
+        game_obj.SetAffectPathgraph( true, false );
+        if( game_obj.CanAffectPathgraph() ) {
+            GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).CallLater( GetGame().UpdatePathgraphRegionByObject, 100, false, game_obj );
+        }
+    }
 };
