@@ -38,20 +38,24 @@ class DayZCasinoPlayerInventory
         player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, itemsArray);
 
         ItemBase item;
-        bool hasAddedAllChips = false;
-
         for (int i = 0; i < itemsArray.Count(); i++)
         {
             Class.CastTo(item, itemsArray.Get(i));
             if (item && item.GetType() == "CasinoChips") {
-                chipsCount = AddChips(chipsCount, item);
+                if (chipsCount > 0) {
+                    chipsCount = AddChips(chipsCount, item);
+                } else if(chipsCount < 0) {
+                    DebugMessageCasino("try remove chips");
+                    chipsCount = RemoveChips(chipsCount, item);
+                }
                 if (chipsCount == 0) {
+                    DebugMessageCasino("no chips to add");
                     break;
                 }
             }
         }
 
-        if (chipsCount) {
+        if (chipsCount > 0) {
             chipsCount = AddNewChipsItemToInventory(player, chipsCount);
         }
 
@@ -91,16 +95,34 @@ class DayZCasinoPlayerInventory
             if (chipsToAdd > canAddedChipsCount) {
                 item.SetQuantity(maxAmount);
                 chipsToAdd -= canAddedChipsCount;
-
             } else {
                 item.SetQuantity(currencyAmount + chipsToAdd);
                 chipsToAdd = 0;
             }
-        } else {
-            item.SetQuantity(0);
-            chipsToAdd = currencyAmount + chipsToAdd;
         }
 
         return chipsToAdd;
+    }
+
+    private int RemoveChips(int chipsToRemove, EntityAI entity) {
+        ItemBase item;
+        ItemBase.CastTo(item, entity);
+
+        int canRemoveChipsCount = item.GetQuantity();
+
+        DebugMessageCasino("has quantity " + canRemoveChipsCount);
+        DebugMessageCasino("chips should remove " + chipsToRemove);
+
+        if (canRemoveChipsCount > chipsToRemove) {
+            DebugMessageCasino("down count Quantity ");
+            item.AddQuantity(chipsToRemove);
+            chipsToRemove = 0;
+        } else {
+            item.SetQuantity(0);
+            DebugMessageCasino("destroy item " + chipsToRemove);
+            chipsToRemove += canRemoveChipsCount;
+        }
+
+        return chipsToRemove;
     }
 };
