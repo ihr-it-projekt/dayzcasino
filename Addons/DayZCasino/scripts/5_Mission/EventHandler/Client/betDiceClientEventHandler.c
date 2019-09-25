@@ -11,7 +11,7 @@ class BetDiceClientEventHandler
                 DebugMessageCasino("has receive response for bet dice");
                 betDiceMenu.winImageNumber = parameterShuffleResponse.param1 - 1;
                 betDiceMenu.lastWinChips = parameterShuffleResponse.param2;
-                betDiceMenu.currentAmount += parameterShuffleResponse.param2;
+                betDiceMenu.currentAmount = parameterShuffleResponse.param3;
                 DebugMessageCasino("new amount is " + betDiceMenu.currentAmount);
             }
         }
