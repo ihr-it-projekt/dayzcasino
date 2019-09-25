@@ -4,7 +4,7 @@
 "chips_use","Use","Use","Einsatz",
 "close_game","close","close","genug gezockt",
 "desc_bet_dice","If you win, you get five times your stake. If you read, there is nothing.","If you win, you get five times your stake. If you read, there is nothing.","Wenn du gewinnst, bekommst du das fünfache deines Einsatzes. Wenn du verliest, gibt es nichts.",
-"desc_black_jack","The normal blackjack rules apply.","The normal blackjack rules apply.","Es gelte die normalen Black Jack Regeln",
+"desc_black_jack","The normal blackjack rules apply.","The normal blackjack rules apply.","Es gelten die normalen Black Jack Regeln",
 "hold_card","hold card","hold card","halten",
 "last_win","last win","last win","letzter Gewinn",
 "lose_game","Lost, try it again!","Lost, try it again!","Verloren, probieres es gleich noch einmal!",
@@ -12,4 +12,4 @@
 "new_game","new game","new game","neues Spiel",
 "Not_enough_chips_available","Not enough chips available","Not enough chips available","Nicht genug Chips vorhanden"
 "roll_dice","roll the dice","roll the dice","würfeln",
-"select_number","chose you number","chose you number","Wähle eine Zahl",
+"select_number","chose your number","chose your number","Wähle eine Zahl",
