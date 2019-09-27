@@ -3,7 +3,7 @@ class BlackJackMenu extends BaseMenu
 	private ButtonWidget holdCard;
 	private ButtonWidget newGame;
 	private ButtonWidget nextCard;
-    private MultilineTextWidget frozenChipsBet;
+    private TextWidget frozenChipsBet;
 	private ImageWidget cards;
 	private ImageWidget playerCard0;
 	private ImageWidget playerCard1;

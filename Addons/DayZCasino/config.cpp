@@ -113,6 +113,30 @@ class cfgSoundSets
 		doppler=0;
 		loop=0;
 	};
+	class DayZCasino_JACKPOT_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_JACKPOT_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
+	class DayZCasino_FLAP_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_FLAP_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
 };
 class cfgSoundShaders
 {
@@ -165,6 +189,34 @@ class cfgSoundShaders
 			
 			{
 				"DayZCasino\data\sounds\lose",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_FLAP_SoundShader
+	{
+		samples[]=
+		{
+
+			{
+				"DayZCasino\data\sounds\flap",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_JACKPOT_SoundShader
+	{
+		samples[]=
+		{
+
+			{
+				"DayZCasino\data\sounds\jackpot",
 				1
 			}
 		};

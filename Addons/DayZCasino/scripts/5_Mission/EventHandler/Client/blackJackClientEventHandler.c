@@ -59,7 +59,7 @@ class BlackJackClientEventHandler
                 DebugMessageCasino("client next card is " + nextPlayerCardInt);
 
                 Card nextPlayerCard = cardCollection.GetCardByIndex(nextPlayerCardInt);
-                blackJackMenu.SetNextPlayerCard(currentCardsPlayer.Count() + 1, nextPlayerCard)
+                blackJackMenu.SetNextPlayerCard(currentCardsPlayer.Count() + 1, nextPlayerCard);
 
                 currentCardsPlayer.Insert(nextPlayerCard);
                 blackJackMenu.usedCards.Insert(nextPlayerCardInt);
@@ -78,7 +78,7 @@ class BlackJackClientEventHandler
                 DebugMessageCasino("client bank next card is " + nextBankCardInt);
 
                 Card nextBankCard = cardCollection.GetCardByIndex(nextBankCardInt);
-                blackJackMenu.SetNextBankCard(currentCardsBank.Count() + 1, nextBankCard)
+                blackJackMenu.SetNextBankCard(currentCardsBank.Count() + 1, nextBankCard);
 
                 currentCardsBank.Insert(nextBankCard);
                 blackJackMenu.usedCards.Insert(nextBankCardInt);

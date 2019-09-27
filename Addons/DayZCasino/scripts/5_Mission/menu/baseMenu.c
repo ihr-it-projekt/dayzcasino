@@ -120,6 +120,9 @@ class BaseMenu extends UIScriptedMenu
 		GetGame().GetInput().ChangeGameFocus( 1 );
 		GetGame().GetMission().GetHud().Show( false );
 		player = GetGame().GetPlayer();
+        if(DAYZ_CASINO_DEBUG_CHIPS) {
+            player.GetInventory().CreateInInventory("CasinoChips");
+        }
 		isMenuOpen = true;
         currentAmount =  inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
         countChips.SetText("" + currentAmount);

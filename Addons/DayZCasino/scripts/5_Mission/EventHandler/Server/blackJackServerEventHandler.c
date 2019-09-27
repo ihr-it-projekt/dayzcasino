@@ -84,7 +84,7 @@ class BlackJackServerEventHandler
         Param2<int, DayZPlayer> winGameParam;
         if (ctx.Read(winGameParam)) {
             DayZPlayer playerWin = winGameParam.param2;
-            int winSum = winGameParam.param1 * chipsAddFactor
+            int winSum = winGameParam.param1 * chipsAddFactor;
 
             if (addMoney) {
                 inventory.AddChipsToPlayer(playerWin, winSum);

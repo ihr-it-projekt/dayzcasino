@@ -3,14 +3,21 @@ modded class MissionServer {
 	private ref CasinoConfig casinoConfig;
 	private ref BlackJackServerEventHandler blackJackServerEventHandler;
 	private ref BetDiceServerEventHandler betDiceServerEventHandler;
+	private ref LuckyWheelServerEventHandler luckyWheelServerEventHandler;
+	private ref Jackpot jackpot;
 
 	void MissionServer()
 	{
 		casinoConfig = GetCasinoConfig();
-        PlaceGame(casinoConfig.positionDice, casinoConfig.orientationDice);
-        PlaceGame(casinoConfig.positionBlackJack, casinoConfig.orientationBlackJack);
+        jackpot = Jackpot(casinoConfig.minJackpotLuckyWheel);
+        PlaceGame(casinoConfig.positionDice, casinoConfig.orientationDice, casinoConfig.gameObjectDice);
+        PlaceGame(casinoConfig.positionBlackJack, casinoConfig.orientationBlackJack, casinoConfig.gameObjectBlackJack);
+        PlaceGame(casinoConfig.positionLuckyWheel, casinoConfig.orientationLuckyWheel, casinoConfig.gameObjectLuckyWheel);
         blackJackServerEventHandler = BlackJackServerEventHandler();
         betDiceServerEventHandler = BetDiceServerEventHandler();
+        luckyWheelServerEventHandler = LuckyWheelServerEventHandler();
+        luckyWheelServerEventHandler.SetConfig(casinoConfig);
+        luckyWheelServerEventHandler.SetJackpot(jackpot);
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 		DebugMessageCasino("loaded");
 	}
@@ -35,7 +42,7 @@ modded class MissionServer {
 		}
 		
 		if (rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG) {
-			DebugMessageCasino("recive get config");
+			DebugMessageCasino("receive get config");
 			autoptr Param1<PlayerBase> paramGetConfig;
 			if (ctx.Read(paramGetConfig)){
 	        	GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE, new Param1<ref CasinoConfig>(casinoConfig), true, sender);
@@ -43,8 +50,9 @@ modded class MissionServer {
 		}
 	}
 
-    private void PlaceGame(vector pos, vector orientation) {
-        House game_obj = GetGame().CreateObject("Nehr_Gaming_01", pos);
+    private void PlaceGame(vector pos, vector orientation, string gameObjectName) {
+        DebugMessageCasino("create object " + gameObjectName);
+        House game_obj = Building.Cast(GetGame().CreateObject(gameObjectName, pos));
         game_obj.SetPosition( pos );
         game_obj.SetOrientation( orientation );
         game_obj.SetOrientation( game_obj.GetOrientation() ); //Collision fix
