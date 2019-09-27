@@ -1,21 +1,25 @@
 modded class MissionServer {
 
-	ref GameMenues m_gameMenues;
 	private ref CasinoConfig casinoConfig;
-	
+	private ref BlackJackServerEventHandler blackJackServerEventHandler;
+	private ref BetDiceServerEventHandler betDiceServerEventHandler;
+
 	void MissionServer()
 	{
-		DebugMessageCasino("loaded");
 		casinoConfig = GetCasinoConfig();
-		m_gameMenues = new GameMenues(casinoConfig);
-		GetDayZGame().Event_OnRPC.Insert(OnRPC);
+        PlaceGame(casinoConfig.positionDice, casinoConfig.orientationDice);
+        PlaceGame(casinoConfig.positionBlackJack, casinoConfig.orientationBlackJack);
+        blackJackServerEventHandler = BlackJackServerEventHandler();
+        betDiceServerEventHandler = BetDiceServerEventHandler();
+        GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+		DebugMessageCasino("loaded");
 	}
 
 	void ~MissionServer() {
-		GetDayZGame().Event_OnRPC.Remove(OnRPC);
+		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
 	}
 	
-	void OnRPC(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_SEND_MESSAGE_TO_PLAYER) {
 			autoptr Param2<PlayerBase, string> paramMessage;
 			if (ctx.Read(paramMessage))
@@ -37,7 +41,17 @@ modded class MissionServer {
 	        	GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE, new Param1<ref CasinoConfig>(casinoConfig), true, sender);
 			}
 		}
-		
-		m_gameMenues.HandleEvents(sender, target, rpc_type, ctx);
 	}
+
+    private void PlaceGame(vector pos, vector orientation) {
+        House game_obj = GetGame().CreateObject("Nehr_Gaming_01", pos);
+        game_obj.SetPosition( pos );
+        game_obj.SetOrientation( orientation );
+        game_obj.SetOrientation( game_obj.GetOrientation() ); //Collision fix
+        game_obj.Update();
+        game_obj.SetAffectPathgraph( true, false );
+        if( game_obj.CanAffectPathgraph() ) {
+            GetGame().GetCallQueue( CALL_CATEGORY_SYSTEM ).CallLater( GetGame().UpdatePathgraphRegionByObject, 100, false, game_obj );
+        }
+    }
 };

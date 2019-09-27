@@ -1,14 +1,16 @@
 modded class MissionGameplay 
 {
-	ref GameMenues m_gameMenues;
-	ref CasinoConfig casinoConfig;
+	private ref GameMenu gameMenu;
+	private ref CasinoConfig casinoConfig;
+	private ref BlackJackClientEventHandler blackJackClientEventHandler;
+	private ref BetDiceClientEventHandler betDiceClientEventHandler;
+
 
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
 		
 		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
-		
-		Param1<PlayerBase> paramGetConfig = new Param1<PlayerBase>(GetGame().GetPlayer());
+        Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
 	    GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG, paramGetConfig, true);
 	}
 	
@@ -18,13 +20,20 @@ modded class MissionGameplay
 	
 	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE) {
-			DebugMessageCasino("player recive config");
+			DebugMessageCasino("player receive config");
 			Param1 <ref CasinoConfig> casinoConfigParam;
 			if (ctx.Read(casinoConfigParam)){
 				casinoConfig = casinoConfigParam.param1;
 				DebugMessageCasino("player load config" + casinoConfig.positionDice);
-				m_gameMenues = new GameMenues(casinoConfig);
+				gameMenu = new GameMenu(casinoConfig);
+
+                blackJackClientEventHandler = new BlackJackClientEventHandler();
+                betDiceClientEventHandler = new BetDiceClientEventHandler();
 			}
+		}
+		if (HasClientEventHandler()) {
+            blackJackClientEventHandler.HandleEvents(gameMenu.GetBlackJackMenu(), sender, target, rpc_type, ctx);
+            betDiceClientEventHandler.HandleEvents(gameMenu.GetBetDiceMenu(), sender, target, rpc_type, ctx);
 		}
 	}
 	
@@ -37,18 +46,23 @@ modded class MissionGameplay
 		
 		if(player) {
 			if (localInput.LocalClick()){
-				BaseMenu currentGameMenu = m_gameMenues.GetGameMenue(player);
+				BaseMenu currentGameMenu = gameMenu.GetGameMenu(player);
 				if (GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen && player.IsAlive()) {
 					DebugMessageCasino("key press open");
+                    currentGameMenu.Init();
 					currentGameMenu.OnShow();
 				} else if (currentGameMenu && currentGameMenu.isMenuOpen) {
 					DebugMessageCasino("key pres close");
 					currentGameMenu.CloseMenu();
 				}
 			}
-			if (!player.IsAlive() && m_gameMenues){
-				m_gameMenues.CloseAllMenue();
+			if (!player.IsAlive() && gameMenu){
+				gameMenu.CloseAllMenu();
 			}
 		}			
+	}
+
+	private bool HasClientEventHandler() {
+	    return null != blackJackClientEventHandler && null != betDiceClientEventHandler;
 	}
 }
