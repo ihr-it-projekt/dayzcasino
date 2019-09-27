@@ -23,7 +23,7 @@ class BetDiceServerEventHandler
                 DayZPlayer player = parameterShuffle.param3;
                 DebugMessageCasino("Check Player has chips");
                 if (inventory.PlayerHasEnoughChips(player, parameterShuffle.param1)){
-                    int luckNumber = Math.RandomInt(1, 6);
+                    int luckNumber = Math.RandomIntInclusive(1, 6);
     
                     if (DAYZ_CASINO_DEBUG) {
                         luckNumber = 1;
