@@ -47,7 +47,9 @@ class BlackJackServerEventHandler
 
                 DebugMessageCasino("receive next card" + nextCardParam.param1);
 
-                int newPlayerCard = cardCollection.GetRandomCardIndex(nextCardParam.param1);
+                TIntArray cardUsedCollection = TIntArray.Cast(nextCardParam.param1);
+
+                int newPlayerCard = cardCollection.GetRandomCardIndex(cardUsedCollection);
 
                 DebugMessageCasino("new card server is " + newPlayerCard);
 
@@ -61,7 +63,9 @@ class BlackJackServerEventHandler
 
                 DebugMessageCasino("receive new bank card" + holdCardParam.param1);
 
-                int newBankCard = cardCollection.GetRandomCardIndex(holdCardParam.param1);
+                TIntArray cardUsedCollectionBank = TIntArray.Cast(holdCardParam.param1);
+
+                int newBankCard = cardCollection.GetRandomCardIndex(cardUsedCollectionBank);
 
                 DebugMessageCasino("new card server is " + newPlayerCard);
 
