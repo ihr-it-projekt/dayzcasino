@@ -58,8 +58,7 @@ class CfgMods
 				value = "";
 				files[] = {"DayZCasino/scripts/5_Mission"};
 			};
-		}
-		
+		};
 	};
 };
 

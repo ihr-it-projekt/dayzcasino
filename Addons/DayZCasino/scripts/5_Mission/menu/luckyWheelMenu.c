@@ -14,7 +14,7 @@ class LuckyWheelMenu extends BaseMenu
     private ref LuckyWheelMapping luckyWheelMapping;
 
     private MultilineTextWidget jackpotWidget;
-    private MultilineTextWidget winView;
+    private TextWidget winView;
     private int currentDegree;
 
     int winDegree = 500;
@@ -36,11 +36,11 @@ class LuckyWheelMenu extends BaseMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(rotate,  this, "OnClick");
 
         jackpotWidget = MultilineTextWidget.Cast(widget.FindAnyWidget( "jackpot" ));
-        winView = MultilineTextWidget.Cast(widget.FindAnyWidget( "winView" ));
+        winView = TextWidget.Cast(widget.FindAnyWidget( "winView" ));
         arrow = ImageWidget.Cast(widget.FindAnyWidget( "arrow" ));
         arrow.LoadImageFile(0, "DayZCasino/data/luckywheel/arrow.edds");
         luckyWheel = ImageWidget.Cast(widget.FindAnyWidget( "luckyWheel" ));
-        luckyWheel.LoadImageFile(0, "DayZCasino/data/luckywheel/wheel.edds");
+        luckyWheel.LoadImageFile(0, "DayZCasino/data/luckywheel/luckywheel.edds");
 
 		return widget;
 	}
@@ -155,7 +155,7 @@ class LuckyWheelMenu extends BaseMenu
 			int index = currentDegree / 10;
 
             LuckyWheelWin currentSelected = luckyWheelMapping.GetLuckyWheelWinByIndex(index);
-            string selectedWinAmount = "" + currentSelected.GetWinAmmount();
+            string selectedWinAmount = "" + currentSelected.GetWinAmmount() + "x";
 
             if (currentSelected.GetLuckyDegree() == DAYZ_CASINO_LUCKY_WHEEL_JACKPOT_DEGREE) {
                 selectedWinAmount = "#jackpot";

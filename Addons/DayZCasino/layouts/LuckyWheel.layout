@@ -203,8 +203,8 @@ FrameWidgetClass rootFrame {
         }
         ImageWidgetClass luckyWheel {
          ignorepointer 1
-         position 534.46899 292.70602
-         size 479.61603 383.64401
+         position 556.73102 253.55301
+         size 450 450
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -230,8 +230,8 @@ FrameWidgetClass rootFrame {
         }
         ImageWidgetClass arrow {
          ignorepointer 1
-         position 755.15399 188.5
-         size 38.246 108.629
+         position 766.73102 181.88501
+         size 30 80
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -273,21 +273,30 @@ FrameWidgetClass rootFrame {
          "condense whitespace" 1
          "strip newlines" 1
         }
-        MultilineTextWidgetClass winView {
+       }
+      }
+      PanelWidgetClass PanelWidget2 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 687.23407 681.50598
+       size 227.09399 68.3461
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        TextWidgetClass winView {
          ignorepointer 1
-         position 668.00201 548.547
-         size 212.549 51.8018
+         position 13.2515 8.26003
+         size 200.59 50.1721
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
-         style DayZNormal
-         "exact text" 0
+         style Bold
          "text halign" center
          "text valign" center
-         wrap 1
-         "condense whitespace" 1
-         "strip newlines" 1
         }
        }
       }
