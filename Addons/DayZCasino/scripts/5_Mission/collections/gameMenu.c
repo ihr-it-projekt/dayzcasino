@@ -3,6 +3,7 @@ class GameMenu
 	private ref BetDiceMenu betDiceMenu;
 	private ref BlackJackMenu blackJackMenu;
 	private ref LuckyWheelMenu luckyWheelMenu;
+	private ref GameHint gameHint;
 	private CasinoConfig casinoConfig;
 	
 	void GameMenu(CasinoConfig casinoConfigExt) {
@@ -23,7 +24,7 @@ class GameMenu
     LuckyWheelMenu GetLuckyWheelMenu() {
         if (!luckyWheelMenu) {
             DebugMessageCasino("No selectedMenu");
-            luckyWheelMenu = new LuckyWheelMenu(casinoConfig.positionDice);
+            luckyWheelMenu = new LuckyWheelMenu(casinoConfig.positionLuckyWheel);
             luckyWheelMenu.SetConfig(casinoConfig);
         }
 
@@ -39,6 +40,16 @@ class GameMenu
 	    return blackJackMenu;
 	}
 
+    GameHint GetGameHintMenu() {
+        if (!gameHint) {
+            DebugMessageCasino("No selectedMenu");
+            gameHint = new GameHint();
+            gameHint.Init();
+        }
+
+	    return gameHint;
+	}
+
 	BaseMenu GetGameMenu(DayZPlayer player) {
 		vector posPlayer = player.GetPosition();
 
@@ -46,9 +57,7 @@ class GameMenu
         GetLuckyWheelMenu();
         GetBlackJackMenu();
 		
-		vector posPlayBetDice = betDiceMenu.GetPosition();
-		float playerDistanceToGamePositionBetDice = vector.Distance(posPlayBetDice, posPlayer);
-
+		float playerDistanceToGamePositionBetDice = vector.Distance(betDiceMenu.GetPosition(), posPlayer);
 		if (casinoConfig.enabledDice && playerDistanceToGamePositionBetDice <= DAYZ_CASINO_DISTANCE_TO_GAME)
 		{
 			DebugMessageCasino("in near of bet dice");
@@ -56,8 +65,7 @@ class GameMenu
 			return betDiceMenu;
 		}
 		
-		vector posPlayBlackJack = blackJackMenu.GetPosition();
-		float playerDistanceToGamePositionBlackJack = vector.Distance(posPlayBlackJack, posPlayer);
+		float playerDistanceToGamePositionBlackJack = vector.Distance( blackJackMenu.GetPosition(), posPlayer);
 		
 		if (casinoConfig.enabledBlackJack && playerDistanceToGamePositionBlackJack <= DAYZ_CASINO_DISTANCE_TO_GAME)
 		{
@@ -66,10 +74,9 @@ class GameMenu
 			return blackJackMenu;
 		}
 
-        vector posLuckyWheelMenu= luckyWheelMenu.GetPosition();
-        float playerDistanceToGamePositionLuckyWheelMenu = vector.Distance(posLuckyWheelMenu, posPlayer);
+        float playerDistanceToGamePositionLuckyWheelMenu = vector.Distance(luckyWheelMenu.GetPosition(), posPlayer);
 
-        if (casinoConfig.enabledLuckyWheel && playerDistanceToGamePositionLuckyWheelMenu <= DAYZ_CASINO_DISTANCE_TO_GAME || DAYZ_CASINO_DEBUG)
+        if (casinoConfig.enabledLuckyWheel && playerDistanceToGamePositionLuckyWheelMenu <= DAYZ_CASINO_DISTANCE_TO_GAME)
         {
             DebugMessageCasino("in near of lucky wheel");
 
@@ -78,6 +85,21 @@ class GameMenu
 
 		DebugMessageCasino("not in near of a game.");
 		return null;
+	}
+
+	bool CanOpenHintToOpenGameMenu(DayZPlayer player) {
+        vector posPlayer = player.GetPosition();
+        GetBetDiceMenu();
+        GetLuckyWheelMenu();
+        GetBlackJackMenu();
+
+        float playerDistanceToGamePositionBlackJack = vector.Distance(blackJackMenu.GetPosition(), posPlayer);
+        float playerDistanceToGamePositionBetDice = vector.Distance(betDiceMenu.GetPosition(), posPlayer);
+        float playerDistanceToGamePositionLuckyWheelMenu = vector.Distance(luckyWheelMenu.GetPosition(), posPlayer);
+
+        DebugMessageCasino("can open hint");
+
+        return false; // (casinoConfig.enabledDice && playerDistanceToGamePositionBetDice <= DAYZ_CASINO_DISTANCE_TO_GAME) || (casinoConfig.enabledBlackJack && playerDistanceToGamePositionBlackJack <= DAYZ_CASINO_DISTANCE_TO_GAME) || (casinoConfig.enabledLuckyWheel && playerDistanceToGamePositionLuckyWheelMenu <= DAYZ_CASINO_DISTANCE_TO_GAME);
 	}
 	
 	void CloseAllMenu(){

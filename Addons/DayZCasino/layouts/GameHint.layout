@@ -1,0 +1,35 @@
+FrameWidgetClass rootFrame {
+ position 1109.19995 936.93207
+ size 353.43799 129.81599
+ hexactpos 1
+ vexactpos 1
+ hexactsize 1
+ vexactsize 1
+ {
+  PanelWidgetClass background {
+   ignorepointer 1
+   color 0 0 0 0.651
+   position 13.2515 13.2515
+   size 326.935 119.87701
+   hexactpos 1
+   vexactpos 1
+   hexactsize 1
+   vexactsize 1
+   draggable 0
+   style DayZDefaultPanel
+   "no focus" 0
+   {
+    MultilineTextWidgetClass message {
+     ignorepointer 1
+     position 13.2515 13.2515
+     size 300.43201 93.3739
+     hexactpos 1
+     vexactpos 1
+     hexactsize 1
+     vexactsize 1
+     text "#hintCanOpenGame"
+    }
+   }
+  }
+ }
+}

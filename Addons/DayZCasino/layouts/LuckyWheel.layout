@@ -120,8 +120,8 @@ FrameWidgetClass rootFrame {
        {
         MultilineTextWidgetClass TextWidget3 {
          ignorepointer 1
-         position 8.26005 8.26003
-         size 1240.90002 180.239
+         position 13.2515 13.2515
+         size 604.70203 405.10699
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -137,7 +137,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass TextWidget4 {
          ignorepointer 1
-         position 13.2515 201.752
+         position 13.2516 496.66299
          size 152.985 51.8018
          hexactpos 1
          vexactpos 1
@@ -154,7 +154,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass countChips {
          ignorepointer 1
-         position 179.48799 201.752
+         position 179.48799 496.66299
          size 212.549 51.8018
          hexactpos 1
          vexactpos 1
@@ -170,7 +170,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass TextWidget5 {
          ignorepointer 1
-         position 13.2515 266.80499
+         position 13.2515 561.716
          size 152.985 51.8018
          hexactpos 1
          vexactpos 1
@@ -187,7 +187,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass lastWin {
          ignorepointer 1
-         position 179.48799 266.80499
+         position 179.48799 561.716
          size 212.549 51.8018
          hexactpos 1
          vexactpos 1
@@ -202,14 +202,20 @@ FrameWidgetClass rootFrame {
          "strip newlines" 1
         }
         ImageWidgetClass luckyWheel {
+         disabled 0
+         inheritalpha 0
          ignorepointer 1
-         position 556.73102 253.55301
-         size 450 450
+         position 631.20502 91.8224
+         size 600 600
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          scaled 1
+         draggable 0
+         imageTexture ""
+         mode blend
+         "src alpha" 1
          stretch 1
         }
         MultilineTextWidgetClass message {
@@ -230,19 +236,21 @@ FrameWidgetClass rootFrame {
         }
         ImageWidgetClass arrow {
          ignorepointer 1
-         position 766.73102 181.88501
+         position 916.20502 38.5709
          size 30 80
          hexactpos 1
          vexactpos 1
          hexactsize 1
          vexactsize 1
          scaled 1
-         "src alpha" 0
+         imageTexture ""
+         mode blend
+         "src alpha" 1
          stretch 1
         }
         MultilineTextWidgetClass TextWidget1 {
          ignorepointer 1
-         position 13.2515 331.85797
+         position 13.2516 431.61002
          size 152.985 51.8018
          hexactpos 1
          vexactpos 1
@@ -259,7 +267,40 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass jackpot {
          ignorepointer 1
-         position 179.48799 331.85797
+         position 179.48799 431.61002
+         size 212.549 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        MultilineTextWidgetClass TextWidget2 {
+         ignorepointer 1
+         position 13.2516 626.76898
+         size 152.985 51.8018
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style DayZNormal
+         text "#bet_per_roll"
+         "exact text" 0
+         "text halign" center
+         "text valign" center
+         wrap 1
+         "condense whitespace" 1
+         "strip newlines" 1
+        }
+        MultilineTextWidgetClass betPerRoll {
+         ignorepointer 1
+         position 179.48799 626.76898
          size 212.549 51.8018
          hexactpos 1
          vexactpos 1
@@ -278,7 +319,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass PanelWidget2 {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 687.23407 681.50598
+       position 830.5 645.06403
        size 227.09399 68.3461
        hexactpos 1
        vexactpos 1
@@ -288,7 +329,7 @@ FrameWidgetClass rootFrame {
        {
         TextWidgetClass winView {
          ignorepointer 1
-         position 13.2515 8.26003
+         position 13.2515 13.2516
          size 200.59 50.1721
          hexactpos 1
          vexactpos 1

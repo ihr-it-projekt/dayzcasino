@@ -27,7 +27,7 @@ class LuckyWheelServerEventHandler
                     player.GetInventory().CreateInInventory("CasinoChips");
                 }
                 DebugMessageCasino("Check Player has chips");
-                if (inventory.PlayerHasEnoughChips(player, casinoConfig.chipsValueLuckyWheel)){
+                if (inventory.PlayerHasEnoughChips(player, casinoConfig.chipsBetLuckyWheel)){
                     LuckyWheelWin win = luckyWheelMapping.GetLuckyWheelWin();
 
                     int winAmmount = win.GetWinAmmount();
@@ -39,8 +39,8 @@ class LuckyWheelServerEventHandler
                     }
 
                     if (winAmmount == 0) {
-                        winAmmount = casinoConfig.chipsValueLuckyWheel * -1;
-                        jackpot.UpdateLuckyWheelJackpot(casinoConfig.chipsValueLuckyWheel / 2 + jackpot.GetJackpotLuckyWheel());
+                        winAmmount = casinoConfig.chipsBetLuckyWheel * -1;
+                        jackpot.UpdateLuckyWheelJackpot(casinoConfig.chipsBetLuckyWheel / 2 + jackpot.GetJackpotLuckyWheel());
                     }
 
                     inventory.AddChipsToPlayer(player, winAmmount);

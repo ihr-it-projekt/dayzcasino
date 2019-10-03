@@ -4,7 +4,7 @@ class LuckyWheelMapping
     private int chipsValue;
 
     void LuckyWheelMapping(CasinoConfig config) {
-        chipsValue = config.chipsValueLuckyWheel;
+        chipsValue = config.chipsBetLuckyWheel;
 
         int i = 0;
         while (i < 36)

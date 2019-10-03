@@ -9,15 +9,23 @@ modded class MissionServer {
 	void MissionServer()
 	{
 		casinoConfig = GetCasinoConfig();
-        jackpot = Jackpot(casinoConfig.minJackpotLuckyWheel);
-        PlaceGame(casinoConfig.positionDice, casinoConfig.orientationDice, casinoConfig.gameObjectDice);
-        PlaceGame(casinoConfig.positionBlackJack, casinoConfig.orientationBlackJack, casinoConfig.gameObjectBlackJack);
-        PlaceGame(casinoConfig.positionLuckyWheel, casinoConfig.orientationLuckyWheel, casinoConfig.gameObjectLuckyWheel);
-        blackJackServerEventHandler = BlackJackServerEventHandler();
-        betDiceServerEventHandler = BetDiceServerEventHandler();
-        luckyWheelServerEventHandler = LuckyWheelServerEventHandler();
-        luckyWheelServerEventHandler.SetConfig(casinoConfig);
-        luckyWheelServerEventHandler.SetJackpot(jackpot);
+
+        if (casinoConfig.enabledDice) {
+            PlaceGame(casinoConfig.positionDice, casinoConfig.orientationDice, casinoConfig.gameObjectDice);
+            betDiceServerEventHandler = BetDiceServerEventHandler();
+        }
+        if (casinoConfig.enabledBlackJack) {
+            PlaceGame(casinoConfig.positionBlackJack, casinoConfig.orientationBlackJack, casinoConfig.gameObjectBlackJack);
+            blackJackServerEventHandler = BlackJackServerEventHandler();
+        }
+        if (casinoConfig.enabledLuckyWheel) {
+            PlaceGame(casinoConfig.positionLuckyWheel, casinoConfig.orientationLuckyWheel, casinoConfig.gameObjectLuckyWheel);
+            luckyWheelServerEventHandler = LuckyWheelServerEventHandler();
+            luckyWheelServerEventHandler.SetConfig(casinoConfig);
+            jackpot = Jackpot(casinoConfig.minJackpotLuckyWheel);
+            luckyWheelServerEventHandler.SetJackpot(jackpot);
+        }
+
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
 		DebugMessageCasino("loaded");
 	}

@@ -14,6 +14,7 @@ class LuckyWheelMenu extends BaseMenu
     private ref LuckyWheelMapping luckyWheelMapping;
 
     private MultilineTextWidget jackpotWidget;
+    private MultilineTextWidget betPerRoll;
     private TextWidget winView;
     private int currentDegree;
 
@@ -36,6 +37,7 @@ class LuckyWheelMenu extends BaseMenu
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(rotate,  this, "OnClick");
 
         jackpotWidget = MultilineTextWidget.Cast(widget.FindAnyWidget( "jackpot" ));
+        betPerRoll = MultilineTextWidget.Cast(widget.FindAnyWidget( "betPerRoll" ));
         winView = TextWidget.Cast(widget.FindAnyWidget( "winView" ));
         arrow = ImageWidget.Cast(widget.FindAnyWidget( "arrow" ));
         arrow.LoadImageFile(0, "DayZCasino/data/luckywheel/arrow.edds");
@@ -54,12 +56,13 @@ class LuckyWheelMenu extends BaseMenu
 		
 		super.OnShow();
 
+        betPerRoll.SetText("" + casinoConfig.chipsBetLuckyWheel);
         arrow.SetImage(0);
         luckyWheel.SetImage(0);
 		effect_sound = SEffectManager.CreateSound("DayZCasino_FLAP_SoundSet", player.GetPosition());
 		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
 		jackpot_sound = SEffectManager.CreateSound("DayZCasino_JACKPOT_SoundSet", player.GetPosition());
-		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition())
+		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
         GetGame().RPCSingleParam(player, DAYZ_CASINO_LUCKY_WHEEL_GET_JACKPOT,  new Param1<DayZPlayer>(player), true);
 	}
 
@@ -95,7 +98,7 @@ class LuckyWheelMenu extends BaseMenu
 	private void Play(){
 		if (player && isMenuOpen) {
 			int currentAmount = inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
-			if (casinoConfig.chipsValueLuckyWheel > currentAmount) {
+			if (casinoConfig.chipsBetLuckyWheel > currentAmount) {
 				countChips.SetText("" + currentAmount);
 				message.SetText("#Not_enough_chips_available");
 				message.Show(true);
@@ -155,7 +158,7 @@ class LuckyWheelMenu extends BaseMenu
 			int index = currentDegree / 10;
 
             LuckyWheelWin currentSelected = luckyWheelMapping.GetLuckyWheelWinByIndex(index);
-            string selectedWinAmount = "" + currentSelected.GetWinAmmount() + "x";
+            string selectedWinAmount = "" + currentSelected.GetWinAmmount() + " Chips";
 
             if (currentSelected.GetLuckyDegree() == DAYZ_CASINO_LUCKY_WHEEL_JACKPOT_DEGREE) {
                 selectedWinAmount = "#jackpot";

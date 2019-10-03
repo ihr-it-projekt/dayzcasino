@@ -46,11 +46,10 @@ modded class MissionGameplay
 	{
 		super.OnUpdate(timeslice);
 		autoptr DayZPlayer player = GetGame().GetPlayer();
-		
-		UAInput localInput = GetUApi().GetInputByName("UAInputPlayCasinoGame");	
-		
-		if(player) {
-			if (localInput.LocalClick()){
+
+        if(player) {
+            UAInput localInput = GetUApi().GetInputByName("UAInputPlayCasinoGame");
+            if (localInput.LocalClick()){
 				BaseMenu currentGameMenu = gameMenu.GetGameMenu(player);
 				if (GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen && player.IsAlive()) {
 					DebugMessageCasino("key press open");
@@ -64,7 +63,13 @@ modded class MissionGameplay
 			if (!player.IsAlive() && gameMenu){
 				gameMenu.CloseAllMenu();
 			}
-		}			
+
+			if (gameMenu.CanOpenHintToOpenGameMenu(player)){
+                gameMenu.GetGameHintMenu().OnShow();
+			} else {
+                gameMenu.GetGameHintMenu().OnHide();
+			}
+		}
 	}
 
 	private bool HasClientEventHandler() {
