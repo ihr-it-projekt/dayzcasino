@@ -44,7 +44,6 @@ class GameMenu
         if (!gameHint) {
             DebugMessageCasino("No selectedMenu");
             gameHint = new GameHint();
-            gameHint.Init();
         }
 
 	    return gameHint;
@@ -97,9 +96,7 @@ class GameMenu
         float playerDistanceToGamePositionBetDice = vector.Distance(betDiceMenu.GetPosition(), posPlayer);
         float playerDistanceToGamePositionLuckyWheelMenu = vector.Distance(luckyWheelMenu.GetPosition(), posPlayer);
 
-        DebugMessageCasino("can open hint");
-
-        return false; // (casinoConfig.enabledDice && playerDistanceToGamePositionBetDice <= DAYZ_CASINO_DISTANCE_TO_GAME) || (casinoConfig.enabledBlackJack && playerDistanceToGamePositionBlackJack <= DAYZ_CASINO_DISTANCE_TO_GAME) || (casinoConfig.enabledLuckyWheel && playerDistanceToGamePositionLuckyWheelMenu <= DAYZ_CASINO_DISTANCE_TO_GAME);
+        return (casinoConfig.enabledDice && playerDistanceToGamePositionBetDice <= DAYZ_CASINO_DISTANCE_TO_GAME) || (casinoConfig.enabledBlackJack && playerDistanceToGamePositionBlackJack <= DAYZ_CASINO_DISTANCE_TO_GAME) || (casinoConfig.enabledLuckyWheel && playerDistanceToGamePositionLuckyWheelMenu <= DAYZ_CASINO_DISTANCE_TO_GAME);
 	}
 	
 	void CloseAllMenu(){

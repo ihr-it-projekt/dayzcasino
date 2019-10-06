@@ -1,31 +1,29 @@
 class GameHint extends UIScriptedMenu
 {
-    private Widget widget;
+    private Widget hintWidget;
     private bool isOpen  = false;
     private MultilineTextWidget message;
 
     override Widget Init()
     {
         if (IsServerCasino()){
-            DebugMessageCasino("can not init, is server");
             return null;
         }
 
         if (IsInitialized()) {
-            return widget;
+            return hintWidget;
         }
 
         super.Init();
 
-        widget = GetGame().GetWorkspace().CreateWidgets("DayZCasino/layouts/GameHint");
-        message = MultilineTextWidget.Cast( widget.FindAnyWidget( "message" ));
-
+        hintWidget = GetGame().GetWorkspace().CreateWidgets("DayZCasino/layouts/GameHint.layout");
+        message = MultilineTextWidget.Cast( hintWidget.FindAnyWidget( "message" ));
+        message.SetText("#hint_can_open_game");
 
         isOpen = false;
-        widget.Show(isOpen);
-        message.Show(isOpen);
+        toggleWidget();
 
-        return widget;
+        return hintWidget;
     }
 
     override void OnHide()
@@ -37,29 +35,29 @@ class GameHint extends UIScriptedMenu
         super.OnHide();
 
         isOpen = false;
-        widget.Show(isOpen);
-        message.Show(isOpen);
+        toggleWidget();
     }
 
 
     override void OnShow()
     {
         if (isOpen) {
-            DebugMessageCasino("Menu is already open");
             return;
         }
 
         super.OnShow();
 
-        DebugMessageCasino("show game hint");
-
         isOpen = true;
-        widget.Show(isOpen);
-        message.Show(isOpen);
+        toggleWidget();
     }
 
 
     bool IsInitialized() {
-        return !!widget;
+        return !!hintWidget;
+    }
+
+    private void toggleWidget() {
+        DebugMessageCasino("toggle hint " + isOpen);
+        hintWidget.Show(isOpen);
     }
 };

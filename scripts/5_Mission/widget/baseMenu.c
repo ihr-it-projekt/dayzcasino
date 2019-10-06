@@ -101,7 +101,7 @@ class BaseMenu extends UIScriptedMenu
 	override void OnShow()
 	{
 		if (isMenuOpen) {
-			DebugMessageCasino("Menue is already open");
+			DebugMessageCasino("Menu is already open");
 			return;
 		}
 		
@@ -145,7 +145,6 @@ class BaseMenu extends UIScriptedMenu
 	}
 	
 	vector GetPosition() {
-		DebugMessageCasino("position is " + position.ToString());
 		return position;
 	}
 

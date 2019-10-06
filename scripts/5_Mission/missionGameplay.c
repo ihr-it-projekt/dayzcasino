@@ -65,6 +65,7 @@ modded class MissionGameplay
 			}
 
 			if (gameMenu.CanOpenHintToOpenGameMenu(player)){
+                gameMenu.GetGameHintMenu().Init();
                 gameMenu.GetGameHintMenu().OnShow();
 			} else {
                 gameMenu.GetGameHintMenu().OnHide();
