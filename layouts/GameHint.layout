@@ -1,7 +1,7 @@
 FrameWidgetClass rootFrame {
  visible 1
- position 19.1394 -485.677
- size 327.41202 82.1423
+ position -73.2039 -468.841
+ size 516.17999 115.815
  halign center_ref
  valign center_ref
  hexactpos 1
@@ -13,7 +13,7 @@ FrameWidgetClass rootFrame {
    ignorepointer 1
    color 0 0 0 0.651
    position 13.2515 13.2515
-   size 314.836 64.31901
+   size 489.677 89.312
    hexactpos 1
    vexactpos 1
    hexactsize 1
@@ -26,7 +26,7 @@ FrameWidgetClass rootFrame {
      ignorepointer 1
      color 0 0 0 0.7843
      position 7.7473 7.3239
-     size 297.63699 58.1613
+     size 468.67801 68.7366
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -35,8 +35,8 @@ FrameWidgetClass rootFrame {
      {
       MultilineTextWidgetClass message {
        ignorepointer 1
-       position 5.2069 6.0537
-       size 285.57901 46.0649
+       position 13.2515 13.2515
+       size 450.22 42.2336
        hexactpos 1
        vexactpos 1
        hexactsize 1

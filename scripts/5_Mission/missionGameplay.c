@@ -6,7 +6,6 @@ modded class MissionGameplay
 	private ref BetDiceClientEventHandler betDiceClientEventHandler;
 	private ref LuckyWheelClientEventHandler luckyWheelClientEventHandler;
 
-
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
 		
@@ -56,7 +55,7 @@ modded class MissionGameplay
                     currentGameMenu.Init();
 					currentGameMenu.OnShow();
 				} else if (currentGameMenu && currentGameMenu.isMenuOpen) {
-					DebugMessageCasino("key pres close");
+					DebugMessageCasino("key press close");
 					currentGameMenu.CloseMenu();
 				}
 			}
