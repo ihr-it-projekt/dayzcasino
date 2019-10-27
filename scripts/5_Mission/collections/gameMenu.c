@@ -16,6 +16,7 @@ class GameMenu
         if (!betDiceMenu) {
             DebugMessageCasino("No selectedMenu");
             betDiceMenu = new BetDiceMenu(casinoConfig.positionDice);
+			betDiceMenu.SetWinFactor(casinoConfig.diceWinFactor);
         }
 
 	    return betDiceMenu;

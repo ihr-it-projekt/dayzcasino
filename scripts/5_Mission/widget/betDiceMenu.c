@@ -6,12 +6,14 @@ class BetDiceMenu extends BaseMenu
 	private ButtonWidget shuffle;
 	private ImageWidget diceImage;
 	private XComboBoxWidget number;
+	private TextWidget winFactor;
 	ref Param3<int, int, DayZPlayer> parameterShuffel
 	private EffectSound effect_sound;
 	private EffectSound lose_sound;
 	private EffectSound win_sound;
     private ref Timer imageShuffleTimer;
     private int currentCountBeforeSendShuffle = 0;
+	private int winFactorInt = 2;
 
     int winImageNumber;
 
@@ -30,6 +32,7 @@ class BetDiceMenu extends BaseMenu
 		shuffle = ButtonWidget.Cast(widget.FindAnyWidget( "shuffle" ));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(shuffle,  this, "OnClick" );
 		number = XComboBoxWidget.Cast( widget.FindAnyWidget( "number" ));
+		winFactor = TextWidget.Cast( widget.FindAnyWidget( "winFactor" ));
 
         diceImage = ImageWidget.Cast(widget.FindAnyWidget( "diceImage" ));
         diceImage.LoadImageFile(0, "{79BC5FA94F25EF0B}DayZCasino/data/dice/dice1.edds");
@@ -52,6 +55,8 @@ class BetDiceMenu extends BaseMenu
 		super.OnShow();
 
 		diceImage.SetImage(0);
+		winFactor.SetText(winFactorInt.ToString());
+		
 		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
 		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
 		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
@@ -68,6 +73,10 @@ class BetDiceMenu extends BaseMenu
         }
 
 		return false;
+	}
+	
+	void SetWinFactor(int winF) {
+		winFactorInt = winF;
 	}
 
     void EndGame() {
@@ -138,7 +147,7 @@ class BetDiceMenu extends BaseMenu
 			DebugMessageCasino("sound not loaded");
 		}
 		
-		diceImage.SetImage(Math.RandomInt(0, 6));
+		diceImage.SetImage(Math.RandomIntInclusive(0, 6));
 		
 		if (30 == currentCountBeforeSendShuffle) {
 			DebugMessageCasino("No response from Server");

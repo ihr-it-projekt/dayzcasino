@@ -13,6 +13,7 @@ modded class MissionServer {
         if (casinoConfig.enabledDice) {
             PlaceGame(casinoConfig.positionDice, casinoConfig.orientationDice, casinoConfig.gameObjectDice);
             betDiceServerEventHandler = BetDiceServerEventHandler();
+			betDiceServerEventHandler.SetConfig(casinoConfig);
         }
         if (casinoConfig.enabledBlackJack) {
             PlaceGame(casinoConfig.positionBlackJack, casinoConfig.orientationBlackJack, casinoConfig.gameObjectBlackJack);

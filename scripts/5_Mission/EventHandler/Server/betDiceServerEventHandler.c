@@ -1,6 +1,7 @@
 class BetDiceServerEventHandler
 {
     ref DayZCasinoPlayerInventory inventory;
+	private CasinoConfig casinoConfig;
 
     void BetDiceServerEventHandler() {
         inventory = new DayZCasinoPlayerInventory;
@@ -33,7 +34,7 @@ class BetDiceServerEventHandler
     
                     if (parameterShuffle.param2 == luckNumber) {
                         DebugMessageCasino("Win");
-                        winSum = 5 * parameterShuffle.param1;
+                        winSum = casinoConfig.diceWinFactor * parameterShuffle.param1;
     
                     } else {
                         DebugMessageCasino("lose");
@@ -51,6 +52,10 @@ class BetDiceServerEventHandler
                 }
             }
         }
+    }
+	
+    void SetConfig(CasinoConfig casinoConfigExt) {
+        casinoConfig = casinoConfigExt;
     }
 
 };

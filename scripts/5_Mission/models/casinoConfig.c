@@ -14,4 +14,5 @@ class CasinoConfig {
     int chipsBetLuckyWheel = 50;
     int maxJackpotLuckyWheel = 1000000;
     int minJackpotLuckyWheel = 500;
+    int diceWinFactor = 2;
 }

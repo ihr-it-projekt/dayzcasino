@@ -12,9 +12,14 @@ static CasinoConfig GetCasinoConfig() {
 		DebugMessageCasino("try load config");
 		JsonFileLoader<CasinoConfig>.JsonLoadFile(CASINO_CONFIG_PATH, casinoConfig);
 	}
+	
+	if (casinoConfig.diceWinFactor == 0) {
+		casinoConfig.diceWinFactor = 2;
+	}
 
     JsonFileLoader<CasinoConfig>.JsonSaveFile(CASINO_CONFIG_PATH, casinoConfig);
 	DebugMessageCasino("config has loaded");
+	
 	return casinoConfig;
 }
 

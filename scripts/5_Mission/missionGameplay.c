@@ -54,9 +54,6 @@ modded class MissionGameplay
 					DebugMessageCasino("key press open");
                     currentGameMenu.Init();
 					currentGameMenu.OnShow();
-				} else if (currentGameMenu && currentGameMenu.isMenuOpen) {
-					DebugMessageCasino("key press close");
-					currentGameMenu.CloseMenu();
 				}
 			}
 			if (!player.IsAlive() && gameMenu){

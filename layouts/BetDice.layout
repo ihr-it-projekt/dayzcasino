@@ -1,7 +1,7 @@
 FrameWidgetClass rootFrame {
  visible 1
- position -0.00002 -0.00001
- size 859.15997 814.77802
+ position -0.00002 -33.1288
+ size 859.15997 748.52002
  halign center_ref
  valign center_ref
  hexactpos 1
@@ -13,7 +13,7 @@ FrameWidgetClass rootFrame {
    ignorepointer 1
    color 0 0 0 0.651
    position 13.2515 13.2515
-   size 831.85895 788.27502
+   size 831.85895 726.98706
    hexactpos 1
    vexactpos 1
    hexactsize 1
@@ -26,7 +26,7 @@ FrameWidgetClass rootFrame {
      ignorepointer 1
      color 0 0 0 0.7843
      position 9.91395 6.60614
-     size 810.57703 768.41705
+     size 810.57703 710.44202
      hexactpos 1
      vexactpos 1
      hexactsize 1
@@ -110,7 +110,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass boarderCancel {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 13.2515 675.83704
+       position 13.2515 619.51801
        size 391.24301 79.3289
        hexactpos 1
        vexactpos 1
@@ -134,7 +134,7 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass boarderCancel0 {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 405.289 675.83704
+       position 405.289 619.51801
        size 391.24301 79.3289
        hexactpos 1
        vexactpos 1
@@ -207,7 +207,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        color 0 0 0 0.7843
        position 13.2515 259.08298
-       size 784.07404 403.50299
+       size 784.07404 347.18399
        hexactpos 1
        vexactpos 1
        hexactsize 1
@@ -216,8 +216,8 @@ FrameWidgetClass rootFrame {
        {
         MultilineTextWidgetClass TextWidget3 {
          ignorepointer 1
-         position 8.26005 8.26003
-         size 767.55298 180.239
+         position 13.2515 13.2516
+         size 666.35498 76.0426
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -233,7 +233,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass TextWidget4 {
          ignorepointer 1
-         position 13.2515 201.752
+         position 13.2515 116.901
          size 152.985 51.8018
          hexactpos 1
          vexactpos 1
@@ -250,7 +250,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass countChips {
          ignorepointer 1
-         position 179.48799 201.752
+         position 179.48799 116.901
          size 212.549 51.8018
          hexactpos 1
          vexactpos 1
@@ -266,7 +266,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass TextWidget5 {
          ignorepointer 1
-         position 13.2515 266.80499
+         position 13.2515 181.95399
          size 152.985 51.8018
          hexactpos 1
          vexactpos 1
@@ -283,7 +283,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass lastWin {
          ignorepointer 1
-         position 179.48799 266.80499
+         position 179.48799 181.95399
          size 212.549 51.8018
          hexactpos 1
          vexactpos 1
@@ -299,7 +299,7 @@ FrameWidgetClass rootFrame {
         }
         ImageWidgetClass diceImage {
          ignorepointer 1
-         position 484.60699 193.599
+         position 497.85797 130.15302
          size 195 195
          hexactpos 1
          vexactpos 1
@@ -310,7 +310,7 @@ FrameWidgetClass rootFrame {
         }
         MultilineTextWidgetClass message {
          ignorepointer 1
-         position 12.4436 332.961
+         position 13.2515 247.007
          size 379.59299 51.8018
          hexactpos 1
          vexactpos 1
@@ -323,6 +323,19 @@ FrameWidgetClass rootFrame {
          wrap 1
          "condense whitespace" 1
          "strip newlines" 1
+        }
+        TextWidgetClass winFactor {
+         ignorepointer 1
+         position 692.85797 13.2515
+         size 77.9635 78.04
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style Normal
+         "exact text" 0
+         "text halign" center
+         "text valign" center
         }
        }
       }
