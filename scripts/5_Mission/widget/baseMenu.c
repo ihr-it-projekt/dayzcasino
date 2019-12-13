@@ -89,7 +89,7 @@ class BaseMenu extends UIScriptedMenu
 		GetGame().GetUIManager().ShowCursor(false);
 		GetGame().GetUIManager().ShowUICursor(false);
 		GetGame().GetInput().ResetGameFocus();
-		GetGame().GetMission().PlayerControlEnable();
+		GetGame().GetMission().PlayerControlEnable(true);
 		GetGame().GetUIManager().Back();
 		GetGame().GetMission().GetHud().Show( true );
 
