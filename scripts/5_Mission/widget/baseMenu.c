@@ -1,38 +1,20 @@
 class BaseMenu extends UIScriptedMenu
 {
-    protected static int BET1 = 0;
-    protected static int BET5 = 1;
-    protected static int BET10 = 2;
-    protected static int BET25 = 3;
-    protected static int BET50 = 4;
-    protected static int BET100 = 5;
-    protected static int BET250 = 6;
-    protected static int BET500 = 7;
-    protected static int BET1000 = 8;
-
-	bool isMenuOpen = false;
-	protected bool isDebug = true;
-	protected Widget widget;
+    protected bool isDebug = DAYZ_CASINO_DEBUG;
 	protected DayZPlayer player;
-	protected vector position;
     protected ButtonWidget cancel;
-    protected XComboBoxWidget chipsBet;
     protected MultilineTextWidget lastWin;
     protected MultilineTextWidget message;
     protected MultilineTextWidget countChips;
+	protected CasinoConfig casinoConfig;
+	bool isMenuOpen = false;
     ref protected DayZCasinoPlayerInventory inventory;
     int lastWinChips;
     int currentAmount;
     protected string widgetPath;
-
-    void BaseMenu(vector pos) {
-		BaseConstrctor(pos);
-	}
 	
-	protected void BaseConstrctor(vector pos) {
-		position = pos;
-        inventory = new DayZCasinoPlayerInventory;
-		DebugMessageCasino("base menu is created");
+	void SetConfig(CasinoConfig casinoConfigExt) {
+        casinoConfig = casinoConfigExt;
 	}
 
     override Widget Init()
@@ -43,28 +25,34 @@ class BaseMenu extends UIScriptedMenu
         }
 
         if (IsInitialized()) {
-            return widget;
+            return layoutRoot;
         }
 
         super.Init();
+		
+        inventory = new DayZCasinoPlayerInventory;
+		player = GetGame().GetPlayer();
 
-        widget = GetGame().GetWorkspace().CreateWidgets(widgetPath);
+        layoutRoot = GetGame().GetWorkspace().CreateWidgets(widgetPath);
 
-        cancel = ButtonWidget.Cast( widget.FindAnyWidget( "cancel" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( cancel,  this, "OnClick" );
+        cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "cancel" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(cancel,  this, "OnClick");
 
-        chipsBet = XComboBoxWidget.Cast( widget.FindAnyWidget( "chipsBet" ));
-        countChips = MultilineTextWidget.Cast( widget.FindAnyWidget( "countChips" ));
-        lastWin = MultilineTextWidget.Cast( widget.FindAnyWidget( "lastWin" ));
-        message = MultilineTextWidget.Cast( widget.FindAnyWidget( "message" ));
+        countChips = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("countChips"));
+        lastWin = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("lastWin"));
+        message = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("message"));
 
-        widget.Show(false);
+        layoutRoot.Show(false);
 
-        return widget;
+        return layoutRoot;
     }
 
     override bool OnClick( Widget w, int x, int y, int button )	{
-        super.OnClick(w, x, y, button);
+        bool actionRuns = super.OnClick(w, x, y, button);
+
+        if (actionRuns) {
+            return actionRuns;
+        }
 
         if (w == cancel){
             DebugMessageCasino("click cancel");
@@ -111,80 +99,48 @@ class BaseMenu extends UIScriptedMenu
 		
 		PPEffects.SetBlurMenu(0.5);
 
-		SetFocus( widget );
-		widget.Show(true);
+		SetFocus( layoutRoot );
+		layoutRoot.Show(true);
 
 		GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_INVENTORY);
 		GetGame().GetUIManager().ShowUICursor(true);
 		GetGame().GetUIManager().ShowCursor(true);
 		GetGame().GetInput().ChangeGameFocus( 1 );
 		GetGame().GetMission().GetHud().Show( false );
-		player = GetGame().GetPlayer();
         if(DAYZ_CASINO_DEBUG_CHIPS) {
             player.GetInventory().CreateInInventory("CasinoChips");
         }
 		isMenuOpen = true;
-        currentAmount =  inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
-        countChips.SetText("" + currentAmount);
+        currentAmount =  inventory.GetPlayerChipsAmount(player);
+        countChips.SetText(currentAmount.ToString());
         lastWin.SetText("0");
 	}
+
+    void Play() {
+        cancel.Show(false);
+    }
+
+    void EndGame() {
+        cancel.Show(true);
+    }
+	
+	protected bool CanPlayGame() {
+        return player && isMenuOpen;
+    }
 	
 	void CloseMenu(){
 		DebugMessageCasino("check is open");
 		if(isMenuOpen){
-			DebugMessageCasino("try close menue");
+			DebugMessageCasino("try close menu");
 			SetFocus(NULL);
 			OnHide();
-			widget.Show(false);
+			layoutRoot.Show(false);
 			isMenuOpen = false;
 		}	
 	}
 	
 	bool IsInitialized() {
-		return !!widget;
+		return !!layoutRoot;
 	}
-	
-	vector GetPosition() {
-		return position;
-	}
-
-	int GetCurrenBet() {
-        int chipsValue = 0;
-        DebugMessageCasino("" + chipsBet.GetCurrentItem());
-        switch (chipsBet.GetCurrentItem()){
-            case BET1:
-                chipsValue = 1;
-                break;
-            case BET5:
-                chipsValue = 5;
-                break;
-            case BET10:
-                chipsValue = 10;
-                break;
-            case BET25:
-                chipsValue = 25;
-                break;
-            case BET50:
-                chipsValue = 50;
-                break;
-            case BET100:
-                chipsValue = 100;
-                break;
-            case BET250:
-                chipsValue = 250;
-                break;
-            case BET500:
-                chipsValue = 500;
-                break;
-            case BET1000:
-                chipsValue = 1000;
-                break;
-
-            default:
-                break;
-        }
-        return chipsValue;
-    }
-	
 
 }

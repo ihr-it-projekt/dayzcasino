@@ -133,43 +133,6 @@ FrameWidgetClass rootFrame {
         }
        }
       }
-      PanelWidgetClass boarderReason0 {
-       ignorepointer 1
-       color 0 0 0 0.7843
-       position 790.901 98.15701
-       size 383 70
-       hexactpos 1
-       vexactpos 1
-       hexactsize 1
-       vexactsize 1
-       style editor_selection
-       {
-        XComboBoxWidgetClass chipsBet {
-         visible 1
-         position 8.26001 6.60614
-         size 366.46298 53.4799
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         items "1;5;10;25;50;100;250;500;1000;"
-        }
-        TextWidgetClass frozenChipsBet {
-         visible 0
-         ignorepointer 1
-         position 11.5976 11.5976
-         size 358.151 45.1509
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         style Bold
-         text "1"
-         "text halign" center
-         "text valign" center
-        }
-       }
-      }
       PanelWidgetClass PanelWidget0 {
        ignorepointer 1
        color 0 0 0 0.7843
@@ -502,6 +465,110 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          style MenuDefault
          text "#hold_card"
+        }
+       }
+      }
+      PanelWidgetClass boarderChipsUse {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 419.056 96.503
+       size 481.75 70
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass sub100ChipsBet {
+         position 60.0068 13.2515
+         size 45.1102 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text "<<<"
+         text_proportion 0.5
+        }
+        ButtonWidgetClass sub10ChipsBet {
+         position 106.672 13.2515
+         size 37.2515 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text "<<"
+         text_proportion 0.5
+        }
+        ButtonWidgetClass add100ChipsBet {
+         position 377.28 13.2515
+         size 46.2013 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text ">>>"
+         text_proportion 0.5
+        }
+        ButtonWidgetClass add10ChipsBet {
+         position 338.099 13.2515
+         size 37.7337 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text ">>"
+         text_proportion 0.5
+        }
+        TextWidgetClass chipsBet {
+         ignorepointer 1
+         position 182.64101 13.2515
+         size 116.22299 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         "text halign" center
+         "text valign" center
+        }
+        ButtonWidgetClass add1ChipsBet {
+         position 302.21802 13.2515
+         size 34.7485 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text ">"
+         text_proportion 0.5
+        }
+        ButtonWidgetClass sub1ChipsBet {
+         position 146.02701 13.2515
+         size 33.092 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text "<"
+         text_proportion 0.5
+        }
+        ButtonWidgetClass add1000ChipsBet {
+         position 424.99799 13.2515
+         size 46.2013 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text ">>>>"
+         text_proportion 0.5
+        }
+        ButtonWidgetClass sub1000ChipsBet {
+         position 13.2515 13.2515
+         size 44.3004 48
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         text "<<<<"
+         text_proportion 0.5
         }
        }
       }

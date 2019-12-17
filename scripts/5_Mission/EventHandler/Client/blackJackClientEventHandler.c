@@ -3,7 +3,6 @@ class BlackJackClientEventHandler
     private ref TClassArray currentCardsPlayer;
     private ref TClassArray currentCardsBank;
     private ref CardCollection cardCollection;
-    private ref BlackJackMenu blackJackMenu;
     private DayZPlayer player;
 
     void BlackJackClientEventHandler()

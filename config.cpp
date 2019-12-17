@@ -5,7 +5,11 @@ class CfgPatches
 		units[]={"CasinoChips",};
         weapons[]={};
         requiredVersion=1.0;
-        requiredAddons[]={"DZ_Data"};
+        requiredAddons[]={
+            "DZ_Data",
+            "DZ_Scripts",
+            "JM_CF_Scripts"
+        };
 	};
 };
 
@@ -28,10 +32,6 @@ class CfgMods
 	{
 		inputs = "DayZCasino\inputs.xml";
 		dir = "DayZCasino";
-		picture = "";
-		action = "";
-		hideName = 1;
-		hidePicture = 1;
 		name = "DayZCasino";
 		credits = "TheBuster";
 		author = "TheBuster";
@@ -40,23 +40,24 @@ class CfgMods
 		extra = 0;
 		type = "mod";
 		
-		dependencies[] = { "Mission"};
-		
-		class worldScriptModule
-			{
-				value="";
-				files[]=
-				{
-					"DayZCasino/scripts/4_World"
-				};
-			};
+		dependencies[] = {"Game", "Mission"};
 		
 		class defs
 		{
+            class gameScriptModule
+            {
+                value="";
+                files[]=
+                {
+                    "DayZCasino/scripts/3_Game"
+                };
+            };
 			class missionScriptModule
 			{
 				value = "";
-				files[] = {"DayZCasino/scripts/5_Mission"};
+				files[] = {
+				        "DayZCasino/scripts/5_Mission"
+				};
 			};
 		};
 	};

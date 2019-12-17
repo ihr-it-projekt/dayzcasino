@@ -9,7 +9,6 @@ class LuckyWheelMenu extends BaseMenu
 	private EffectSound win_sound;
 	private EffectSound jackpot_sound;
     private ref Timer imageRotateTimer;
-    private CasinoConfig casinoConfig;
     private int currentCountBeforeGoToWin;
     private ref LuckyWheelMapping luckyWheelMapping;
 
@@ -27,24 +26,24 @@ class LuckyWheelMenu extends BaseMenu
 		if (IsInitialized()) {
 			DebugMessageCasino("Widget is all ready initialized");
 			
-			return widget;
+			return layoutRoot;
 		}
 
         widgetPath = "DayZCasino/layouts/LuckyWheel.layout";
 		super.Init();
 
-        rotate = ButtonWidget.Cast(widget.FindAnyWidget( "rotate" ));
+        rotate = ButtonWidget.Cast(layoutRoot.FindAnyWidget( "rotate" ));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(rotate,  this, "OnClick");
 
-        jackpotWidget = MultilineTextWidget.Cast(widget.FindAnyWidget( "jackpot" ));
-        betPerRoll = MultilineTextWidget.Cast(widget.FindAnyWidget( "betPerRoll" ));
-        winView = TextWidget.Cast(widget.FindAnyWidget( "winView" ));
-        arrow = ImageWidget.Cast(widget.FindAnyWidget( "arrow" ));
+        jackpotWidget = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget( "jackpot" ));
+        betPerRoll = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget( "betPerRoll" ));
+        winView = TextWidget.Cast(layoutRoot.FindAnyWidget( "winView" ));
+        arrow = ImageWidget.Cast(layoutRoot.FindAnyWidget( "arrow" ));
         arrow.LoadImageFile(0, "DayZCasino/data/luckywheel/arrow.edds");
-        luckyWheel = ImageWidget.Cast(widget.FindAnyWidget( "luckyWheel" ));
+        luckyWheel = ImageWidget.Cast(layoutRoot.FindAnyWidget( "luckyWheel" ));
         luckyWheel.LoadImageFile(0, "DayZCasino/data/luckywheel/luckywheel.edds");
 
-		return widget;
+		return layoutRoot;
 	}
 	
 	override void OnShow()
@@ -79,14 +78,13 @@ class LuckyWheelMenu extends BaseMenu
 		return false;
 	}
 
-	void SetConfig(CasinoConfig casinoConfigExt) {
-        casinoConfig = casinoConfigExt;
+	override void SetConfig(CasinoConfig casinoConfigExt) {
+		super.SetConfig(casinoConfigExt);
         luckyWheelMapping = new LuckyWheelMapping(casinoConfig);
 	}
 
-    void EndGame() {
-    imageRotateTimer.Stop();
-        cancel.Show(true);
+    override void EndGame() {
+    	imageRotateTimer.Stop();
         rotate.Show(true);
     }
 
@@ -95,11 +93,11 @@ class LuckyWheelMenu extends BaseMenu
         jackpotWidget.SetText("" + jackpot);
 	}
 	
-	private void Play(){
-		if (player && isMenuOpen) {
-			int currentAmount = inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
-			if (casinoConfig.chipsBetLuckyWheel > currentAmount) {
-				countChips.SetText("" + currentAmount);
+	override void Play(){
+		if (CanPlayGame()) {
+			int currentAmountLocal = inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
+			if (casinoConfig.chipsBetLuckyWheel > currentAmountLocal) {
+				countChips.SetText(currentAmountLocal.ToString());
 				message.SetText("#Not_enough_chips_available");
 				message.Show(true);
 				

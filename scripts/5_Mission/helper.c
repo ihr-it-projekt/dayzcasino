@@ -17,6 +17,14 @@ static CasinoConfig GetCasinoConfig() {
 		casinoConfig.diceWinFactor = 2;
 	}
 
+	if (casinoConfig.diceMaxChipsUse == 0) {
+		casinoConfig.diceMaxChipsUse = 10000;
+	}
+	
+	if (casinoConfig.blackJackMaxChipsUse == 0) {
+		casinoConfig.blackJackMaxChipsUse = 10000;
+	}
+
     JsonFileLoader<CasinoConfig>.JsonSaveFile(CASINO_CONFIG_PATH, casinoConfig);
 	DebugMessageCasino("config has loaded");
 	

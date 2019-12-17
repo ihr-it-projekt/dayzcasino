@@ -1,11 +1,17 @@
-class BetDiceMenu extends BaseMenu
+class BetDiceMenu extends GameBetBaseMenu
 {
 
     private static int COUNT_SHUFFLE_BEFORE_SHOW_WIN_NUMBER = 12;
 
 	private ButtonWidget shuffle;
-	private ImageWidget diceImage;
-	private XComboBoxWidget number;
+	private ButtonWidget sub1Number;
+	private ButtonWidget sub10Number;
+	private ButtonWidget add1Number;
+	private ButtonWidget add10Number;
+	private ImageWidget diceImage1;
+	private ImageWidget diceImage2;
+	private TextWidget number;
+	private int currentNumber = 2;
 	private TextWidget winFactor;
 	ref Param3<int, int, DayZPlayer> parameterShuffel
 	private EffectSound effect_sound;
@@ -15,7 +21,8 @@ class BetDiceMenu extends BaseMenu
     private int currentCountBeforeSendShuffle = 0;
 	private int winFactorInt = 2;
 
-    int winImageNumber;
+    int winImageNumber1;
+    int winImageNumber2;
 
 
 	override Widget Init()
@@ -23,26 +30,55 @@ class BetDiceMenu extends BaseMenu
 		if (IsInitialized()) {
 			DebugMessageCasino("Widget is all ready initialized");
 			
-			return widget;
+			return layoutRoot;
 		}
 
         widgetPath = "DayZCasino/layouts/BetDice.layout";
 		super.Init();
 
-		shuffle = ButtonWidget.Cast(widget.FindAnyWidget( "shuffle" ));
+		shuffle = ButtonWidget.Cast(layoutRoot.FindAnyWidget( "shuffle" ));
         WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(shuffle,  this, "OnClick" );
-		number = XComboBoxWidget.Cast( widget.FindAnyWidget( "number" ));
-		winFactor = TextWidget.Cast( widget.FindAnyWidget( "winFactor" ));
+		number = TextWidget.Cast( layoutRoot.FindAnyWidget( "number" ));
+		number.SetText(currentNumber.ToString());
+		
+		sub1Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub1Number" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub1Number,  this, "OnClick" );
+        sub10Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub10Number" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub10Number,  this, "OnClick" );
+        add1Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add1Number" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add1Number,  this, "OnClick" );
+        add10Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add10Number" ));
+        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add10Number,  this, "OnClick" );
+		
+		
+		winFactor = TextWidget.Cast( layoutRoot.FindAnyWidget( "winFactor" ));
 
-        diceImage = ImageWidget.Cast(widget.FindAnyWidget( "diceImage" ));
-        diceImage.LoadImageFile(0, "{79BC5FA94F25EF0B}DayZCasino/data/dice/dice1.edds");
-        diceImage.LoadImageFile(1, "{275476EAF0A86104}DayZCasino/data/dice/dice2.edds");
-        diceImage.LoadImageFile(2, "{D35C3172FD750970}DayZCasino/data/dice/dice3.edds");
-        diceImage.LoadImageFile(3, "{9A84246D8FB37D1A}DayZCasino/data/dice/dice4.edds");
-        diceImage.LoadImageFile(4, "{6E8C63F5826E156E}DayZCasino/data/dice/dice5.edds");
-        diceImage.LoadImageFile(5, "{30644AB63DE39B61}DayZCasino/data/dice/dice6.edds");
+        diceImage1 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "diceImage1" ));
+        diceImage1.LoadImageFile(0, "DayZCasino/data/dice/dice1.edds");
+        diceImage1.LoadImageFile(1, "DayZCasino/data/dice/dice2.edds");
+        diceImage1.LoadImageFile(2, "DayZCasino/data/dice/dice3.edds");
+        diceImage1.LoadImageFile(3, "DayZCasino/data/dice/dice4.edds");
+        diceImage1.LoadImageFile(4, "DayZCasino/data/dice/dice5.edds");
+        diceImage1.LoadImageFile(5, "DayZCasino/data/dice/dice6.edds");
 
-		return widget;
+        diceImage2 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "diceImage2" ));
+        diceImage2.LoadImageFile(0, "DayZCasino/data/dice/dice1.edds");
+        diceImage2.LoadImageFile(1, "DayZCasino/data/dice/dice2.edds");
+        diceImage2.LoadImageFile(2, "DayZCasino/data/dice/dice3.edds");
+        diceImage2.LoadImageFile(3, "DayZCasino/data/dice/dice4.edds");
+        diceImage2.LoadImageFile(4, "DayZCasino/data/dice/dice5.edds");
+        diceImage2.LoadImageFile(5, "DayZCasino/data/dice/dice6.edds");
+		
+		diceImage1.SetImage(0);
+		diceImage2.SetImage(0);
+		winFactor.SetText(winFactorInt.ToString());
+        maxChipsUse = casinoConfig.diceMaxChipsUse;
+		
+		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
+		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
+		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
+
+		return layoutRoot;
 	}
 	
 	override void OnShow()
@@ -53,56 +89,67 @@ class BetDiceMenu extends BaseMenu
 		}
 		
 		super.OnShow();
-
-		diceImage.SetImage(0);
-		winFactor.SetText(winFactorInt.ToString());
-		
-		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
-		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
-		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
 	}
 
 	override bool OnClick( Widget w, int x, int y, int button )	{
 		DebugMessageCasino("on click action super");
 		bool actionRuns = super.OnClick(w, x, y, button);
 
-        if (!actionRuns && w == shuffle){
+        if (actionRuns) {
+            return actionRuns;
+        }
+
+        if (w == shuffle){
             DebugMessageCasino("click shuffle");
             Play();
+            return true;
+        } else if (w == add1Number){
+            UpdateNumber(1);
+            return true;
+        } else if (w == add10Number){
+            UpdateNumber(10);
+            return true;
+        }else if (w == sub1Number){
+            UpdateNumber(-1);
+            return true;
+        } else if (w == sub10Number){
+            UpdateNumber(-10);
             return true;
         }
 
 		return false;
 	}
 	
+	private void UpdateNumber(int addNumber) {
+        currentNumber += addNumber;
+
+        if (currentNumber < 2) {
+            currentNumber = 2;
+        } else if (currentNumber > 12) {
+            currentNumber = 12;
+        }
+
+        number.SetText(currentNumber.ToString());
+    }
+
+	
 	void SetWinFactor(int winF) {
 		winFactorInt = winF;
 	}
 
-    void EndGame() {
+    override void EndGame() {
+		super.EndGame();
         imageShuffleTimer.Stop();
-        cancel.Show(true);
         shuffle.Show(true);
     }
 	
-	private void Play(){
-		if (player && isMenuOpen && number && chipsBet) {
-			int chipsValue = GetCurrenBet();
-			int numberValue = number.GetCurrentItem() + 1;
-			int currentAmount = inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
-			if (chipsValue > currentAmount) {
-				countChips.SetText("" + currentAmount);
-				message.SetText("#Not_enough_chips_available");
-				message.Show(true);
-				
-				return;
-			}
+	override protected void Play(){
+		if (CanPlayGame()) {
 			message.Show(false);
-			
 			cancel.Show(false);
 			shuffle.Show(false);
 			
-			parameterShuffel = new Param3<int, int, DayZPlayer>(chipsValue, numberValue, player);
+			parameterShuffel = new Param3<int, int, DayZPlayer>(chipsValue, currentNumber, player);
 			DebugMessageCasino("create timer");
 			currentCountBeforeSendShuffle = 0;
 			imageShuffleTimer = new Timer();
@@ -110,7 +157,7 @@ class BetDiceMenu extends BaseMenu
 			imageShuffleTimer.Run(0.25, this, "SwitchImage", null, true);
 
 			DebugMessageCasino("chipsBet value is " + chipsValue);
-			DebugMessageCasino("numberValue value is " + numberValue);
+			DebugMessageCasino("numberValue value is " + currentNumber);
 		}
 	}
 	
@@ -122,7 +169,7 @@ class BetDiceMenu extends BaseMenu
 			DebugMessageCasino("has send to server ");
 		}
 				
-		if (winImageNumber != 10 && COUNT_SHUFFLE_BEFORE_SHOW_WIN_NUMBER <= currentCountBeforeSendShuffle) {
+		if (winImageNumber1 != 10 && COUNT_SHUFFLE_BEFORE_SHOW_WIN_NUMBER <= currentCountBeforeSendShuffle) {
 			if (lastWinChips > 0){
 				if (false == win_sound.SoundPlay()) {
 					DebugMessageCasino("win sound not loaded");
@@ -133,8 +180,10 @@ class BetDiceMenu extends BaseMenu
 				}
 			}
 			
-			diceImage.SetImage(winImageNumber);
-			winImageNumber = 10;
+			diceImage1.SetImage(winImageNumber1);
+			diceImage2.SetImage(winImageNumber2);
+			winImageNumber1 = 10;
+			winImageNumber2 = 10;
 			lastWin.SetText("" + lastWinChips);
 			countChips.SetText("" + currentAmount);
 			imageShuffleTimer.Stop();
@@ -147,8 +196,9 @@ class BetDiceMenu extends BaseMenu
 			DebugMessageCasino("sound not loaded");
 		}
 		
-		diceImage.SetImage(Math.RandomIntInclusive(0, 6));
-		
+		diceImage1.SetImage(Math.RandomIntInclusive(0, 6));
+		diceImage2.SetImage(Math.RandomIntInclusive(0, 6));
+
 		if (30 == currentCountBeforeSendShuffle) {
 			DebugMessageCasino("No response from Server");
 			imageShuffleTimer.Stop();

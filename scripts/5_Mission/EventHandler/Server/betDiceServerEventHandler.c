@@ -24,15 +24,17 @@ class BetDiceServerEventHandler
                 DayZPlayer player = parameterShuffle.param3;
                 DebugMessageCasino("Check Player has chips");
                 if (inventory.PlayerHasEnoughChips(player, parameterShuffle.param1)){
-                    int luckNumber = Math.RandomIntInclusive(1, 6);
-    
+                    int luckNumber1 = Math.RandomIntInclusive(1, 6);
+                    int luckNumber2 = Math.RandomIntInclusive(1, 6);
+
                     if (DAYZ_CASINO_DEBUG) {
-                        luckNumber = 1;
+                        luckNumber1 = 1;
+                        luckNumber2 = 1;
                     }
     
                     int winSum = 0;
     
-                    if (parameterShuffle.param2 == luckNumber) {
+                    if (parameterShuffle.param2 == luckNumber1 + luckNumber2) {
                         DebugMessageCasino("Win");
                         winSum = casinoConfig.diceWinFactor * parameterShuffle.param1;
     
@@ -45,7 +47,7 @@ class BetDiceServerEventHandler
                     int currentChips = inventory.GetPlayerChipsAmount(player);
                     DebugMessageCasino("server: player has " + currentChips);
     
-                    GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE, new Param3<int, int, int>(luckNumber, winSum, currentChips), true, player.GetIdentity());
+                    GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE, new Param4<int, int, int, int>(luckNumber1,luckNumber2, winSum, currentChips), true, player.GetIdentity());
                     DebugMessageCasino("has message send to player");
                 } else {
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE, new Param1<bool>(true), true,  player.GetIdentity());
