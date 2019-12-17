@@ -92,12 +92,14 @@ class GameBetBaseMenu extends BaseMenu
 		
 		DebugMessageCasino("new chipsValue " + chipsValue.ToString());
 
-        if (chipsValue < 0) {
-            chipsValue = 0;
+        if (chipsValue < 1) {
+            chipsValue = 1;
         } else if (chipsValue > maxChipsUse) {
             chipsValue = maxChipsUse;
-        } else if (chipsValue > currentAmount) {
+        } else if (chipsValue > currentAmount && currentAmount != 0) {
             chipsValue = currentAmount;
+        } else if (chipsValue > currentAmount && currentAmount == 0) {
+            chipsValue = 1;
         }
 
         chipsBet.SetText(chipsValue.ToString());
@@ -111,7 +113,7 @@ class GameBetBaseMenu extends BaseMenu
     override protected bool CanPlayGame() {
         if (super.CanPlayGame()) {
             int currentAmountLocal = inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
-            if (chipsValue > currentAmountLocal) {
+            if (0 == currentAmountLocal || chipsValue > currentAmountLocal) {
                 countChips.SetText(currentAmountLocal.ToString());
                 message.SetText("#Not_enough_chips_available");
                 message.Show(true);

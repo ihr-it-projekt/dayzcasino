@@ -97,9 +97,7 @@ class BetDiceMenu extends GameBetBaseMenu
 
         if (actionRuns) {
             return actionRuns;
-        }
-
-        if (w == shuffle){
+        } else if (w == shuffle){
             DebugMessageCasino("click shuffle");
             Play();
             return true;
@@ -145,8 +143,7 @@ class BetDiceMenu extends GameBetBaseMenu
 	
 	override protected void Play(){
 		if (CanPlayGame()) {
-			message.Show(false);
-			cancel.Show(false);
+			super.Play();
 			shuffle.Show(false);
 			
 			parameterShuffel = new Param3<int, int, DayZPlayer>(chipsValue, currentNumber, player);

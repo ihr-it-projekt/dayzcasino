@@ -118,6 +118,7 @@ class BaseMenu extends UIScriptedMenu
 
     void Play() {
         cancel.Show(false);
+		message.Show(false);
     }
 
     void EndGame() {

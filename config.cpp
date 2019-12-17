@@ -27,21 +27,25 @@ class CfgAddons
 };
 
 class CfgMods
-{	
+{
 	class DayZCasino
 	{
 		inputs = "DayZCasino\inputs.xml";
 		dir = "DayZCasino";
+		picture = "";
+		action = "";
+		hideName = 1;
+		hidePicture = 1;
 		name = "DayZCasino";
 		credits = "TheBuster";
 		author = "TheBuster";
-		authorID = "0"; 
-		version = "0.1"; 
+		authorID = "0";
+		version = "0.1";
 		extra = 0;
 		type = "mod";
 		
 		dependencies[] = {"Game", "Mission"};
-		
+
 		class defs
 		{
             class gameScriptModule
@@ -137,6 +141,18 @@ class cfgSoundSets
 		doppler=0;
 		loop=0;
 	};
+	class DayZCasino_RACE_BACKGROUND_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_RACE_BACKGROUND_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
 };
 class cfgSoundShaders
 {
@@ -144,7 +160,6 @@ class cfgSoundShaders
 	{
 		samples[]=
 		{
-			
 			{
 				"DayZCasino\data\sounds\clack",
 				1
@@ -158,7 +173,6 @@ class cfgSoundShaders
 	{
 		samples[]=
 		{
-
 			{
 				"DayZCasino\data\sounds\flipcard",
 				1
@@ -172,7 +186,6 @@ class cfgSoundShaders
 	{
 		samples[]=
 		{
-			
 			{
 				"DayZCasino\data\sounds\win",
 				1
@@ -186,7 +199,7 @@ class cfgSoundShaders
 	{
 		samples[]=
 		{
-			
+
 			{
 				"DayZCasino\data\sounds\lose",
 				1
@@ -224,12 +237,26 @@ class cfgSoundShaders
 		range=10;
 		limitation=0;
 	};
+	class DayZCasino_RACE_BACKGROUND_SoundShader
+	{
+		samples[]=
+		{
+
+			{
+				"DayZCasino\data\sounds\race_background",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
 };
 
 class CfgVehicles
 {
-	class Inventory_Base;
-	class CasinoChips: Inventory_Base
+	class Ammunition_Base;
+	class CasinoChips: Ammunition_Base
 	{
 		scope=2;
 		displayName="Casino Chip";

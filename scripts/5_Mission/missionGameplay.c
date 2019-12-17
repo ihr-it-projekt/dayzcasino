@@ -5,6 +5,7 @@ modded class MissionGameplay
 	private ref BlackJackClientEventHandler blackJackClientEventHandler;
 	private ref BetDiceClientEventHandler betDiceClientEventHandler;
 	private ref LuckyWheelClientEventHandler luckyWheelClientEventHandler;
+	private ref RatRaceClientEventHandler ratRaceClientEventHandler;
 
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
@@ -30,12 +31,14 @@ modded class MissionGameplay
                 blackJackClientEventHandler = new BlackJackClientEventHandler();
                 betDiceClientEventHandler = new BetDiceClientEventHandler();
                 luckyWheelClientEventHandler = new LuckyWheelClientEventHandler();
+				ratRaceClientEventHandler = new RatRaceClientEventHandler();
 			}
 		}
 		if (HasClientEventHandler()) {
             blackJackClientEventHandler.HandleEvents(gameMenu.GetBlackJackMenu(), sender, target, rpc_type, ctx);
             betDiceClientEventHandler.HandleEvents(gameMenu.GetBetDiceMenu(), sender, target, rpc_type, ctx);
             luckyWheelClientEventHandler.HandleEvents(gameMenu.GetLuckyWheelMenu(), sender, target, rpc_type, ctx);
+            ratRaceClientEventHandler.HandleEvents(gameMenu.GetRatRaceMenu(), sender, target, rpc_type, ctx);
 		} else {
             DebugMessageCasino("NO game event handler registered");
 		}

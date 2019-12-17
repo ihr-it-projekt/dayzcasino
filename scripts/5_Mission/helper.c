@@ -12,20 +12,30 @@ static CasinoConfig GetCasinoConfig() {
 		DebugMessageCasino("try load config");
 		JsonFileLoader<CasinoConfig>.JsonLoadFile(CASINO_CONFIG_PATH, casinoConfig);
 	}
-	
-	if (casinoConfig.diceWinFactor == 0) {
-		casinoConfig.diceWinFactor = 2;
-	}
 
-	if (casinoConfig.diceMaxChipsUse == 0) {
-		casinoConfig.diceMaxChipsUse = 10000;
+	bool saveConfig = true;
+	
+//	if (casinoConfig.diceWinFactor == 0) {
+//		casinoConfig.diceWinFactor = 2;
+//		saveConfig = true;
+//	}
+//
+//	if (casinoConfig.version < 1) {
+//		casinoConfig.diceMaxChipsUse = 10000;
+//		casinoConfig.blackJackMaxChipsUse = 10000;
+//	 	casinoConfig.positionRatRace = "8349.441406 293.181458 5966.501953";
+//	 	casinoConfig.orientationRatRace = "97.000015 0.000000 0.000000";
+//        casinoConfig.gameObjectRatRace = "Land_FuelStation_Feed";
+//        casinoConfig.enabledRatRace = true;
+//        casinoConfig.ratRaceMaxChipsUse = 10000;
+//        casinoConfig.version = 1;
+//		saveConfig = true;
+//	}
+	
+	if (saveConfig) {
+		JsonFileLoader<CasinoConfig>.JsonSaveFile(CASINO_CONFIG_PATH, casinoConfig);
 	}
 	
-	if (casinoConfig.blackJackMaxChipsUse == 0) {
-		casinoConfig.blackJackMaxChipsUse = 10000;
-	}
-
-    JsonFileLoader<CasinoConfig>.JsonSaveFile(CASINO_CONFIG_PATH, casinoConfig);
 	DebugMessageCasino("config has loaded");
 	
 	return casinoConfig;

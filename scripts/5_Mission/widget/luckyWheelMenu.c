@@ -69,7 +69,9 @@ class LuckyWheelMenu extends BaseMenu
 		DebugMessageCasino("on click action super");
 		bool actionRuns = super.OnClick(w, x, y, button);
 
-        if (!actionRuns && w == rotate){
+        if (actionRuns) {
+            return actionRuns;
+        } else if (w == rotate){
             DebugMessageCasino("click shuffle");
             Play();
             return true;

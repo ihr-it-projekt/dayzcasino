@@ -98,9 +98,7 @@ class BlackJackMenu extends GameBetBaseMenu
 
         if (actionRuns) {
             return actionRuns;
-        }
-
-        if (w == newGame){
+        } else if (w == newGame){
             DebugMessageCasino("click newGame");
             Play();
             return true;

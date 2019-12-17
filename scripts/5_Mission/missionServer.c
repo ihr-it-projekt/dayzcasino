@@ -2,6 +2,7 @@ modded class MissionServer {
 
 	private ref CasinoConfig casinoConfig;
 	private ref BlackJackServerEventHandler blackJackServerEventHandler;
+	private ref RatRaceServerEventHandler ratRaceServerEventHandler;
 	private ref BetDiceServerEventHandler betDiceServerEventHandler;
 	private ref LuckyWheelServerEventHandler luckyWheelServerEventHandler;
 	private ref Jackpot jackpot;
@@ -18,6 +19,10 @@ modded class MissionServer {
         if (casinoConfig.enabledBlackJack) {
             PlaceGame(casinoConfig.positionBlackJack, casinoConfig.orientationBlackJack, casinoConfig.gameObjectBlackJack);
             blackJackServerEventHandler = BlackJackServerEventHandler();
+        }
+        if (casinoConfig.enabledRatRace) {
+            PlaceGame(casinoConfig.positionRatRace, casinoConfig.orientationRatRace, casinoConfig.gameObjectRatRace);
+            ratRaceServerEventHandler = RatRaceServerEventHandler();
         }
         if (casinoConfig.enabledLuckyWheel) {
             PlaceGame(casinoConfig.positionLuckyWheel, casinoConfig.orientationLuckyWheel, casinoConfig.gameObjectLuckyWheel);
@@ -54,6 +59,8 @@ modded class MissionServer {
 			DebugMessageCasino("receive get config");
 			autoptr Param1<PlayerBase> paramGetConfig;
 			if (ctx.Read(paramGetConfig)){
+
+                paramGetConfig.param1.GetInventory().CreateInInventory("CasinoChips");
 	        	GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE, new Param1<ref CasinoConfig>(casinoConfig), true, sender);
 			}
 		}
