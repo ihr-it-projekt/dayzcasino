@@ -1,6 +1,5 @@
 static float DAYZ_CASINO_VERSION = 1;
 static bool DAYZ_CASINO_DEBUG = true;
-static bool DAYZ_CASINO_DEBUG_CHIPS = true;
 static bool DAYZ_CASINO_DEBUG_JACKPOT_WIN = false;
 static bool DAYZ_CASINO_LUCKY_WHEEL_JACKPOT_DEGREE = 330;
 static string CASINO_CONFIG_PATH = "$profile:dayZCasinoConfig.json";

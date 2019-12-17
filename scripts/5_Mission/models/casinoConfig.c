@@ -1,5 +1,4 @@
 class CasinoConfig {
-	float version = 1;
 	vector positionDice = "8345.300781 293.181458 5976.666504";
 	vector orientationDice = "4.999999 0.000000 0.000000";
     string gameObjectDice = "Land_FuelStation_Feed";
@@ -23,4 +22,5 @@ class CasinoConfig {
     string gameObjectRatRace = "Land_FuelStation_Feed";
     bool enabledRatRace = true;
 	int ratRaceMaxChipsUse = 10000;
+    int version = 1;
 }

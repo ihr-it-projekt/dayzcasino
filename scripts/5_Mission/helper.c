@@ -13,6 +13,8 @@ static CasinoConfig GetCasinoConfig() {
 		JsonFileLoader<CasinoConfig>.JsonLoadFile(CASINO_CONFIG_PATH, casinoConfig);
 	}
 
+    DebugMessageCasino("has load config");
+
 	bool saveConfig = true;
 	
 //	if (casinoConfig.diceWinFactor == 0) {
@@ -36,7 +38,7 @@ static CasinoConfig GetCasinoConfig() {
 		JsonFileLoader<CasinoConfig>.JsonSaveFile(CASINO_CONFIG_PATH, casinoConfig);
 	}
 	
-	DebugMessageCasino("config has loaded");
+	DebugMessageCasino("config loaded finished");
 	
 	return casinoConfig;
 }

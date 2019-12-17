@@ -59,9 +59,7 @@ modded class MissionServer {
 			DebugMessageCasino("receive get config");
 			autoptr Param1<PlayerBase> paramGetConfig;
 			if (ctx.Read(paramGetConfig)){
-
-                paramGetConfig.param1.GetInventory().CreateInInventory("CasinoChips");
-	        	GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE, new Param1<ref CasinoConfig>(casinoConfig), true, sender);
+                GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE, new Param1<ref CasinoConfig>(casinoConfig), true, sender);
 			}
 		}
 	}

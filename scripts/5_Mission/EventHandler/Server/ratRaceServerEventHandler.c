@@ -22,10 +22,6 @@ class RatRaceServerEventHandler
 	        if (ctx.Read(parameterNewRace)) {
                 DayZPlayer playerNewRace = parameterNewRace.param1;
 				Race newRace = raceCollection.FindRace(playerNewRace.GetIdentity());
-				if(DAYZ_CASINO_DEBUG_CHIPS) {
-                    playerNewRace.GetInventory().CreateInInventory("CasinoChips");
-                }
-				
 				if (null == newRace) {
 					newRace = new Race(DAYZ_CASINO_RAT_RACE_COUNT_RAT);
 				}

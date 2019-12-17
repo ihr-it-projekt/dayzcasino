@@ -32,10 +32,6 @@ class CfgMods
 	{
 		inputs = "DayZCasino\inputs.xml";
 		dir = "DayZCasino";
-		picture = "";
-		action = "";
-		hideName = 1;
-		hidePicture = 1;
 		name = "DayZCasino";
 		credits = "TheBuster";
 		author = "TheBuster";
@@ -255,8 +251,8 @@ class cfgSoundShaders
 
 class CfgVehicles
 {
-	class Ammunition_Base;
-	class CasinoChips: Ammunition_Base
+	class Inventory_Base;
+	class CasinoChips: Inventory_Base
 	{
 		scope=2;
 		displayName="Casino Chip";

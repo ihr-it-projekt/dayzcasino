@@ -73,6 +73,6 @@ modded class MissionGameplay
 	}
 
 	private bool HasClientEventHandler() {
-	    return null != blackJackClientEventHandler && null != betDiceClientEventHandler && null != luckyWheelClientEventHandler;
+	    return null != blackJackClientEventHandler && null != betDiceClientEventHandler && null != luckyWheelClientEventHandler && null != ratRaceClientEventHandler;
 	}
 }

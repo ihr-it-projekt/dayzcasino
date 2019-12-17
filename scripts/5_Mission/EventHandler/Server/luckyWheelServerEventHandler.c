@@ -23,9 +23,6 @@ class LuckyWheelServerEventHandler
             Param1<DayZPlayer> parameterRotate;
             if (ctx.Read(parameterRotate)) {
                 DayZPlayer player = parameterRotate.param1;
-                if(DAYZ_CASINO_DEBUG_CHIPS) {
-                    player.GetInventory().CreateInInventory("CasinoChips");
-                }
                 DebugMessageCasino("Check Player has chips");
                 if (inventory.PlayerHasEnoughChips(player, casinoConfig.chipsBetLuckyWheel)){
                     LuckyWheelWin win = luckyWheelMapping.GetLuckyWheelWin();
