@@ -1,4 +1,4 @@
-static bool DAYZ_CASINO_DEBUG = true;
+static bool DAYZ_CASINO_DEBUG = false;
 static bool DAYZ_CASINO_DEBUG_CHIPS = false;
 static bool DAYZ_CASINO_DEBUG_JACKPOT_WIN = false;
 static bool DAYZ_CASINO_LUCKY_WHEEL_JACKPOT_DEGREE = 330;
