@@ -1,9 +1,9 @@
 class RaceCollection{
-    ref array<Race> races;
+    ref array<ref Race> races;
     ref array<string> playerIdent;
 
     void RaceCollection() {
-        races = new array<Race>;
+        races = new array<ref Race>;
         playerIdent = new array<string>;
     }
 	

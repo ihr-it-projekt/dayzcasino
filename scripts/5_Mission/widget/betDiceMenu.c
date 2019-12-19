@@ -73,6 +73,7 @@ class BetDiceMenu extends GameBetBaseMenu
 		diceImage2.SetImage(0);
 		winFactor.SetText(winFactorInt.ToString());
         maxChipsUse = casinoConfig.diceMaxChipsUse;
+        minChipsUse = casinoConfig.diceMinChipsUse;
 		
 		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
 		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
@@ -139,12 +140,20 @@ class BetDiceMenu extends GameBetBaseMenu
 		super.EndGame();
         imageShuffleTimer.Stop();
         shuffle.Show(true);
+		add1Number.Show(true);
+		add10Number.Show(true);
+		sub1Number.Show(true);
+		sub10Number.Show(true);
     }
 	
 	override protected void Play(){
 		if (CanPlayGame()) {
 			super.Play();
 			shuffle.Show(false);
+			add1Number.Show(false);
+			add10Number.Show(false);
+			sub1Number.Show(false);
+			sub10Number.Show(false);
 			
 			parameterShuffel = new Param3<int, int, DayZPlayer>(chipsValue, currentNumber, player);
 			DebugMessageCasino("create timer");

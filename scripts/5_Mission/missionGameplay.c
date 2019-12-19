@@ -33,8 +33,7 @@ modded class MissionGameplay
                 luckyWheelClientEventHandler = new LuckyWheelClientEventHandler();
 				ratRaceClientEventHandler = new RatRaceClientEventHandler();
 			}
-		}
-		if (HasClientEventHandler()) {
+		} else if (HasClientEventHandler()) {
             blackJackClientEventHandler.HandleEvents(gameMenu.GetBlackJackMenu(), sender, target, rpc_type, ctx);
             betDiceClientEventHandler.HandleEvents(gameMenu.GetBetDiceMenu(), sender, target, rpc_type, ctx);
             luckyWheelClientEventHandler.HandleEvents(gameMenu.GetLuckyWheelMenu(), sender, target, rpc_type, ctx);

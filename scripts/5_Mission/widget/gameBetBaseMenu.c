@@ -12,6 +12,7 @@ class GameBetBaseMenu extends BaseMenu
     protected TextWidget chipsBet;
     protected int chipsValue = 10;
     protected int maxChipsUse;
+    protected int minChipsUse;
 
     override Widget Init()
     {
@@ -92,14 +93,14 @@ class GameBetBaseMenu extends BaseMenu
 		
 		DebugMessageCasino("new chipsValue " + chipsValue.ToString());
 
-        if (chipsValue < 1) {
-            chipsValue = 1;
+        if (chipsValue < minChipsUse) {
+            chipsValue = minChipsUse;
         } else if (chipsValue > maxChipsUse) {
             chipsValue = maxChipsUse;
         } else if (chipsValue > currentAmount && currentAmount != 0) {
             chipsValue = currentAmount;
         } else if (chipsValue > currentAmount && currentAmount == 0) {
-            chipsValue = 1;
+            chipsValue = minChipsUse;
         }
 
         chipsBet.SetText(chipsValue.ToString());

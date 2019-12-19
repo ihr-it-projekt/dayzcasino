@@ -1,7 +1,7 @@
 class BlackJackClientEventHandler
 {
-    private ref TClassArray currentCardsPlayer;
-    private ref TClassArray currentCardsBank;
+    private ref array<Card> currentCardsPlayer;
+    private ref array<Card> currentCardsBank;
     private ref CardCollection cardCollection;
     private DayZPlayer player;
 
@@ -34,11 +34,11 @@ class BlackJackClientEventHandler
 
                 blackJackMenu.SetStartCards(firstCard, secondCard, firstCardB);
 
-                currentCardsPlayer = new TClassArray;
+                currentCardsPlayer = new array<Card>;
                 currentCardsPlayer.Insert(firstCard);
                 currentCardsPlayer.Insert(secondCard);
 
-                currentCardsBank = new TClassArray;
+                currentCardsBank = new array<Card>;
                 currentCardsBank.Insert(firstCardB);
 
                 blackJackMenu.ShowPlayButtons();

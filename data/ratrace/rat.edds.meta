@@ -1,10 +1,10 @@
 MetaFileClass {
- Name "{FCC35A962210AEAC}unpacked/DayZCasino_old/data/raterace/rate.edds"
+ Name "{3EE97D73B3001DDB}unpacked/DayZCasino/data/ratrace/rat.edds"
  Author "laptop-100u5pjt"
- ChangeDate 845457241
+ ChangeDate 1068705682
  Configurations {
   PNGResourceClass PC {
-   SourceFile "rate.png"
+   SourceFile "rat.png"
   }
   PNGResourceClass XBOX_ONE : PC {
   }

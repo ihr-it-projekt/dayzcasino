@@ -69,6 +69,7 @@ class BlackJackMenu extends GameBetBaseMenu
         lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
 		
 		maxChipsUse = casinoConfig.blackJackMaxChipsUse;
+		minChipsUse = casinoConfig.blackJackMinChipsUse;
 
 		return layoutRoot;
 	}
@@ -291,7 +292,7 @@ class BlackJackMenu extends GameBetBaseMenu
 		} 
 	}
 
-    void RefreshCardValues(TClassArray currentCardsPlayer, TClassArray currentCardsBank) {
+    void RefreshCardValues(array<Card> currentCardsPlayer, array<Card> currentCardsBank) {
         int maxValuePlayer = GetCurrentCardSum(currentCardsPlayer, true);
         int minValuePlayer = GetCurrentCardSum(currentCardsPlayer);
 
@@ -315,7 +316,7 @@ class BlackJackMenu extends GameBetBaseMenu
         RefreshPoints(showValuePlayer, showValueBank);
     }
 
-    private int GetCurrentCardSum(TClassArray cardsArray, bool max = false) {
+    private int GetCurrentCardSum(array<Card> cardsArray, bool max = false) {
         int value = 0;
         foreach(int index, Card card: cardsArray){
             DebugMessageCasino("card value is " + card.GetValue());

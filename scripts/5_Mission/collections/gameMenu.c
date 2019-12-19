@@ -15,7 +15,7 @@ class GameMenu
 
     BetDiceMenu GetBetDiceMenu() {
         if (!betDiceMenu) {
-            DebugMessageCasino("No selectedMenu");
+            DebugMessageCasino("create bet dice menu");
             betDiceMenu = new BetDiceMenu();
 			betDiceMenu.SetConfig(casinoConfig);
         }
@@ -25,7 +25,7 @@ class GameMenu
 
     LuckyWheelMenu GetLuckyWheelMenu() {
         if (!luckyWheelMenu) {
-            DebugMessageCasino("No selectedMenu");
+            DebugMessageCasino("create lucky wheel menu");
             luckyWheelMenu = new LuckyWheelMenu();
             luckyWheelMenu.SetConfig(casinoConfig);
         }
@@ -35,7 +35,7 @@ class GameMenu
 
     BlackJackMenu GetBlackJackMenu() {
         if (!blackJackMenu) {
-            DebugMessageCasino("No selectedMenu");
+            DebugMessageCasino("create black jack menu");
             blackJackMenu = new BlackJackMenu();
 			blackJackMenu.SetConfig(casinoConfig);
         }
@@ -45,7 +45,7 @@ class GameMenu
 	
 	RatRaceMenu GetRatRaceMenu() {
         if (!ratRaceMenu) {
-            DebugMessageCasino("No selectedMenu");
+            DebugMessageCasino("create rate race menu");
             ratRaceMenu = new RatRaceMenu();
 			ratRaceMenu.SetConfig(casinoConfig);
         }
@@ -55,7 +55,7 @@ class GameMenu
 
     GameHint GetGameHintMenu() {
         if (!gameHint) {
-            DebugMessageCasino("No selectedMenu");
+            DebugMessageCasino("create game hint menu");
             gameHint = new GameHint();
         }
 

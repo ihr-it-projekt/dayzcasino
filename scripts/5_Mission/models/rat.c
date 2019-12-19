@@ -1,15 +1,15 @@
 class Rat {
     ref array <int> positions;
-    int quote;
+    float quote;
     int number
 	ImageWidget ratImage;
 	bool isAnimationFinished = false;
 
     void Rat(int startPos, int startNumber) {
-        this.positions = new array<int>;
-        this.positions.Insert(startPos);
-        this.quote =  Math.RandomIntInclusive(1, 15);
-        this.number = startNumber;
+        positions = new array<int>;
+        positions.Insert(startPos);
+        quote = Math.RandomIntInclusive(10, 50) / 10;
+        number = startNumber;
     }
 
     int GetLastPosition() {
@@ -33,6 +33,8 @@ class Rat {
 			} else {
 				isAnimationFinished = true;
 			}
+		} else {
+			DebugMessageCasino("Has no image");
 		}
 	}
 };

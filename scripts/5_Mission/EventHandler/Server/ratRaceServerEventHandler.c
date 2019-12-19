@@ -18,14 +18,12 @@ class RatRaceServerEventHandler
         if (!IsServerCasino()) {
             return;
         } else if (rpc_type == DAYZ_CASINO_NEW_RAT_RACE) {
-			Param1<DayZPlayer> parameterNewRace;
+			Param3<DayZPlayer, float, float> parameterNewRace;
 	        if (ctx.Read(parameterNewRace)) {
                 DayZPlayer playerNewRace = parameterNewRace.param1;
-				Race newRace = raceCollection.FindRace(playerNewRace.GetIdentity());
-				if (null == newRace) {
-					newRace = new Race(DAYZ_CASINO_RAT_RACE_COUNT_RAT);
-				}
+				raceCollection.RemoveRace(playerNewRace.GetIdentity());
 				
+				ref Race newRace = new Race(DAYZ_CASINO_RAT_RACE_COUNT_RAT, parameterNewRace.param2, parameterNewRace.param3);
 				raceCollection.AddRace(playerNewRace.GetIdentity(), newRace);
 				
 				DebugMessageCasino("Has create a new race");

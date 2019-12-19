@@ -149,6 +149,54 @@ class cfgSoundSets
 		doppler=0;
 		loop=0;
 	};
+	class DayZCasino_COUNTDOWN_1_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_COUNTDOWN_1_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
+	class DayZCasino_COUNTDOWN_2_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_COUNTDOWN_2_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
+	class DayZCasino_COUNTDOWN_3_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_COUNTDOWN_3_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
+	class DayZCasino_SHOOT_SoundSet
+	{
+		soundShaders[]=
+		{
+			"DayZCasino_SHOOT_SoundShader"
+		};
+		sound3DProcessingType="character3DProcessingType";
+		volumeCurve="characterAttenuationCurve";
+		spatial=1;
+		doppler=0;
+		loop=0;
+	};
 };
 class cfgSoundShaders
 {
@@ -240,6 +288,62 @@ class cfgSoundShaders
 
 			{
 				"DayZCasino\data\sounds\race_background",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_COUNTDOWN_1_SoundShader
+	{
+		samples[]=
+		{
+
+			{
+				"DayZCasino\data\sounds\one",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_COUNTDOWN_2_SoundShader
+	{
+		samples[]=
+		{
+
+			{
+				"DayZCasino\data\sounds\tow",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_COUNTDOWN_3_SoundShader
+	{
+		samples[]=
+		{
+
+			{
+				"DayZCasino\data\sounds\three",
+				1
+			}
+		};
+		volume=1;
+		range=10;
+		limitation=0;
+	};
+	class DayZCasino_SHOOT_SoundShader
+	{
+		samples[]=
+		{
+
+			{
+				"DayZCasino\data\sounds\pistol-shot",
 				1
 			}
 		};
