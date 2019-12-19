@@ -1,6 +1,10 @@
 static float DAYZ_CASINO_VERSION = 1;
 static bool DAYZ_CASINO_DEBUG = false;
 static bool DAYZ_CASINO_DEBUG_JACKPOT_WIN = false;
+static int DAYZ_CASINO_TYPE_DICE_GAME = 0;
+static int DAYZ_CASINO_TYPE_BLACKJACK_GAME = 1;
+static int DAYZ_CASINO_TYPE_LUCKY_WHEEL_GAME = 2;
+static int DAYZ_CASINO_TYPE_RAT_RACE_GAME = 3;
 static bool DAYZ_CASINO_LUCKY_WHEEL_JACKPOT_DEGREE = 330;
 static string CASINO_CONFIG_PATH = "$profile:dayZCasinoConfigV2.json";
 static int DAYZ_CASINO_SEND_MESSAGE_TO_PLAYER = 99995858587;

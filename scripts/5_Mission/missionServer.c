@@ -9,7 +9,7 @@ modded class MissionServer {
 
 	void MissionServer()
 	{
-		casinoConfig = GetCasinoConfig();
+		casinoConfig = new CasinoConfig();
 
         if (casinoConfig.enabledDice) {
             PlaceGame(casinoConfig.positionDice, casinoConfig.orientationDice, casinoConfig.gameObjectDice);
