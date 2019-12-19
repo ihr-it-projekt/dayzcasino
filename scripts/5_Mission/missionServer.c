@@ -30,6 +30,7 @@ modded class MissionServer {
 				PlaceGame(position2.pos, position2.orientation, casinoConfig.ratRaceSettings.gameObject);
 			}
             ratRaceServerEventHandler = RatRaceServerEventHandler();
+			ratRaceServerEventHandler.SetConfig(casinoConfig.ratRaceSettings);
         }
         if (casinoConfig.luckyWheelSettings) {
 			foreach(GamePosition position3: casinoConfig.luckyWheelSettings.gamePositions) {

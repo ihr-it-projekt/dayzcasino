@@ -2,6 +2,7 @@ class RatRaceServerEventHandler
 {
     ref DayZCasinoPlayerInventory inventory;
 	ref RaceCollection raceCollection;
+	private int maxWinQouta;
 
     void RatRaceServerEventHandler() {
         inventory = new DayZCasinoPlayerInventory;
@@ -23,7 +24,7 @@ class RatRaceServerEventHandler
                 DayZPlayer playerNewRace = parameterNewRace.param1;
 				raceCollection.RemoveRace(playerNewRace.GetIdentity());
 				
-				ref Race newRace = new Race(DAYZ_CASINO_RAT_RACE_COUNT_RAT, parameterNewRace.param2, parameterNewRace.param3);
+				ref Race newRace = new Race(DAYZ_CASINO_RAT_RACE_COUNT_RAT, parameterNewRace.param2, parameterNewRace.param3, maxWinQouta);
 				raceCollection.AddRace(playerNewRace.GetIdentity(), newRace);
 				
 				DebugMessageCasino("Has create a new race");
@@ -64,6 +65,10 @@ class RatRaceServerEventHandler
                 }
             }
         }
+    }
+
+    void SetConfig(CasinoGameSettingRatRace settings) {
+        maxWinQouta = settings.maxWinQouta;
     }
 
 };

@@ -6,10 +6,10 @@ class Race{
 	float startPos;
 	bool isAnimationFinished = false;
 
-    void Race(int ratCount,float startPosParam, float goalLineParam) {
+    void Race(int ratCount,float startPosParam, float goalLineParam, int  maxWinQouta) {
         rats = new array<ref Rat>;
         for(int x; x < ratCount; x++) {
-            ref Rat rat = new Rat(startPosParam, x + 1);
+            ref Rat rat = new Rat(startPosParam, x + 1, maxWinQouta);
 			rats.Insert(rat);
         }
 		goalLine = goalLineParam;

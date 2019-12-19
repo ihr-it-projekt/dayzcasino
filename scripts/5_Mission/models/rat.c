@@ -7,10 +7,10 @@ class Rat {
 	bool hasPassGoal = false;
 	float yPos;
 
-    void Rat(int startPos, int startNumber) {
+    void Rat(int startPos, int startNumber, int maxWinQouta) {
         positions = new array<int>;
         positions.Insert(startPos);
-        quote = Math.RandomIntInclusive(10, 50) / 10;
+        quote = Math.RandomIntInclusive(10, maxWinQouta * 10) / 10;
         number = startNumber;
     }
 
