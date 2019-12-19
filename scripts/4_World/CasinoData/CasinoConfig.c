@@ -10,22 +10,17 @@ class CasinoConfig
 
     void CasinoConfig()
     {
-        Load();
-
-		bool needs_save = false;
-
-		// Create Default Casino World Objects
-		if (CasinoMachines.Count() == 0)
+  		if (!FileExist(CONFIGSFOLDER + SETTINGSFILE))
 		{
 			diceSettings		= new CasinoGameSettingDice();
 			blackJackSettings	= new CasinoGameSettingBlackjack();
 			luckyWheelSettings = new CasinoGameSettingLuckyWheel();
             ratRaceSettings = new CasinoGameSettingRatRace();
 
-			needs_save = true;
+			Save();
+		} else {
+			Load();
 		}
-
-		if (needs_save) Save();
     }
 
 	private void Load()

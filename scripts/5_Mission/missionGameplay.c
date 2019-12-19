@@ -25,7 +25,7 @@ modded class MissionGameplay
 			Param1 <ref CasinoConfig> casinoConfigParam;
 			if (ctx.Read(casinoConfigParam)){
 				casinoConfig = casinoConfigParam.param1;
-				DebugMessageCasino("player load config" + casinoConfig.positionDice);
+				DebugMessageCasino("player load config");
 				gameMenu = new GameMenu(casinoConfig);
 
                 blackJackClientEventHandler = new BlackJackClientEventHandler();

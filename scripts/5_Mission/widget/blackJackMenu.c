@@ -68,8 +68,8 @@ class BlackJackMenu extends GameBetBaseMenu
         win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
         lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
 		
-		maxChipsUse = casinoConfig.blackJackMaxChipsUse;
-		minChipsUse = casinoConfig.blackJackMinChipsUse;
+		maxChipsUse = casinoConfig.blackJackSettings.maxBet;
+		minChipsUse = casinoConfig.blackJackSettings.minBet;
 
 		return layoutRoot;
 	}

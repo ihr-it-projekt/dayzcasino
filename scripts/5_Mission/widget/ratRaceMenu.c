@@ -93,8 +93,8 @@ class RatRaceMenu extends GameBetBaseMenu
 		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
 		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
 		
-		maxChipsUse = casinoConfig.ratRaceMaxChipsUse;
-		minChipsUse = casinoConfig.ratRaceMinChipsUse;
+		maxChipsUse = casinoConfig.ratRaceSettings.maxBet;
+		minChipsUse = casinoConfig.ratRaceSettings.minBet;
 
 		return layoutRoot;
 	}

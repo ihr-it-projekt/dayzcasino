@@ -55,7 +55,7 @@ class LuckyWheelMenu extends BaseMenu
 		
 		super.OnShow();
 
-        betPerRoll.SetText("" + casinoConfig.chipsBetLuckyWheel);
+        betPerRoll.SetText(casinoConfig.luckyWheelSettings.chipsBet.ToString());
         arrow.SetImage(0);
         luckyWheel.SetImage(0);
 		effect_sound = SEffectManager.CreateSound("DayZCasino_FLAP_SoundSet", player.GetPosition());
@@ -82,7 +82,7 @@ class LuckyWheelMenu extends BaseMenu
 
 	override void SetConfig(CasinoConfig casinoConfigExt) {
 		super.SetConfig(casinoConfigExt);
-        luckyWheelMapping = new LuckyWheelMapping(casinoConfig);
+        luckyWheelMapping = new LuckyWheelMapping(casinoConfig.luckyWheelSettings.chipsBet);
 	}
 
     override void EndGame() {
@@ -98,7 +98,7 @@ class LuckyWheelMenu extends BaseMenu
 	override void Play(){
 		if (CanPlayGame()) {
 			int currentAmountLocal = inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
-			if (casinoConfig.chipsBetLuckyWheel > currentAmountLocal) {
+			if (casinoConfig.luckyWheelSettings.chipsBet > currentAmountLocal) {
 				countChips.SetText(currentAmountLocal.ToString());
 				message.SetText("#Not_enough_chips_available");
 				message.Show(true);

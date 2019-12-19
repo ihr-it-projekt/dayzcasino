@@ -72,8 +72,6 @@ class BetDiceMenu extends GameBetBaseMenu
 		diceImage1.SetImage(0);
 		diceImage2.SetImage(0);
 		winFactor.SetText(winFactorInt.ToString());
-        maxChipsUse = casinoConfig.diceMaxChipsUse;
-        minChipsUse = casinoConfig.diceMinChipsUse;
 		
 		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
 		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());

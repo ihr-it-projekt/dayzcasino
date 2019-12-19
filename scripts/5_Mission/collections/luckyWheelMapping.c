@@ -3,8 +3,8 @@ class LuckyWheelMapping
     private ref LuckyWheelWin winArray[360];
     private int chipsValue;
 
-    void LuckyWheelMapping(CasinoConfig config) {
-        chipsValue = config.chipsBetLuckyWheel;
+    void LuckyWheelMapping(int chipsValueParam) {
+        chipsValue = chipsValueParam;
 
         int i = 0;
         while (i < 36)

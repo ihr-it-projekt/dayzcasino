@@ -40,7 +40,7 @@ class CfgMods
 		extra = 0;
 		type = "mod";
 		
-		dependencies[] = {"Game", "Mission"};
+		dependencies[] = {"Game", "World", "Mission"};
 
 		class defs
 		{
@@ -50,6 +50,15 @@ class CfgMods
                 files[]=
                 {
                     "DayZCasinoV2/scripts/3_Game"
+                };
+            };
+
+            class worldScriptModule
+            {
+                value="";
+                files[]=
+                {
+                    "DayZCasinoV2/scripts/4_World"
                 };
             };
 			class missionScriptModule

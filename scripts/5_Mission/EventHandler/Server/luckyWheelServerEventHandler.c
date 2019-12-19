@@ -2,7 +2,7 @@ class LuckyWheelServerEventHandler
 {
     private ref DayZCasinoPlayerInventory inventory;
     private ref LuckyWheelMapping luckyWheelMapping;
-    private CasinoConfig casinoConfig;
+    private int chipsBet;
     private Jackpot jackpot;
 
     void LuckyWheelServerEventHandler() {
@@ -24,7 +24,7 @@ class LuckyWheelServerEventHandler
             if (ctx.Read(parameterRotate)) {
                 DayZPlayer player = parameterRotate.param1;
                 DebugMessageCasino("Check Player has chips");
-                if (inventory.PlayerHasEnoughChips(player, casinoConfig.chipsBetLuckyWheel)){
+                if (inventory.PlayerHasEnoughChips(player, chipsBet)){
                     LuckyWheelWin win = luckyWheelMapping.GetLuckyWheelWin();
 
                     int winAmmount = win.GetWinAmmount();
@@ -36,8 +36,8 @@ class LuckyWheelServerEventHandler
                     }
 
                     if (winAmmount == 0) {
-                        winAmmount = casinoConfig.chipsBetLuckyWheel * -1;
-                        jackpot.UpdateLuckyWheelJackpot(casinoConfig.chipsBetLuckyWheel / 2 + jackpot.GetJackpotLuckyWheel());
+                        winAmmount = chipsBet * -1;
+                        jackpot.UpdateLuckyWheelJackpot(chipsBet / 2 + jackpot.GetJackpotLuckyWheel());
                     }
 
                     inventory.AddChipsToPlayer(player, winAmmount);
@@ -60,9 +60,9 @@ class LuckyWheelServerEventHandler
 
     }
 
-    void SetConfig(CasinoConfig casinoConfigExt) {
-        casinoConfig = casinoConfigExt;
-        luckyWheelMapping = new LuckyWheelMapping(casinoConfig);
+    void SetConfig(CasinoGameSettingLuckyWheel settings) {
+        chipsBet = settings.chipsBet;
+        luckyWheelMapping = new LuckyWheelMapping(settings.chipsBet);
     }
 
     void SetJackpot(Jackpot jackpotex) {
