@@ -29,7 +29,7 @@ class LuckyWheelMenu extends BaseMenu
 			return layoutRoot;
 		}
 
-        widgetPath = "DayZCasino/layouts/LuckyWheel.layout";
+        widgetPath = "DayZCasinoV2/layouts/LuckyWheel.layout";
 		super.Init();
 
         rotate = ButtonWidget.Cast(layoutRoot.FindAnyWidget( "rotate" ));
@@ -39,9 +39,9 @@ class LuckyWheelMenu extends BaseMenu
         betPerRoll = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget( "betPerRoll" ));
         winView = TextWidget.Cast(layoutRoot.FindAnyWidget( "winView" ));
         arrow = ImageWidget.Cast(layoutRoot.FindAnyWidget( "arrow" ));
-        arrow.LoadImageFile(0, "DayZCasino/data/luckywheel/arrow.edds");
+        arrow.LoadImageFile(0, "DayZCasinoV2/data/luckywheel/arrow.edds");
         luckyWheel = ImageWidget.Cast(layoutRoot.FindAnyWidget( "luckyWheel" ));
-        luckyWheel.LoadImageFile(0, "DayZCasino/data/luckywheel/luckywheel.edds");
+        luckyWheel.LoadImageFile(0, "DayZCasinoV2/data/luckywheel/luckywheel.edds");
 
 		return layoutRoot;
 	}

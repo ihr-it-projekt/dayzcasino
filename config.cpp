@@ -30,7 +30,7 @@ class CfgMods
 {
 	class DayZCasino
 	{
-		inputs = "DayZCasino\inputs.xml";
+		inputs = "DayZCasinoV2\inputs.xml";
 		dir = "DayZCasino";
 		name = "DayZCasino";
 		credits = "TheBuster";
@@ -49,14 +49,14 @@ class CfgMods
                 value="";
                 files[]=
                 {
-                    "DayZCasino/scripts/3_Game"
+                    "DayZCasinoV2/scripts/3_Game"
                 };
             };
 			class missionScriptModule
 			{
 				value = "";
 				files[] = {
-				        "DayZCasino/scripts/5_Mission"
+				        "DayZCasinoV2/scripts/5_Mission"
 				};
 			};
 		};
@@ -205,7 +205,7 @@ class cfgSoundShaders
 		samples[]=
 		{
 			{
-				"DayZCasino\data\sounds\clack",
+				"DayZCasinoV2\data\sounds\clack",
 				1
 			}
 		};
@@ -218,7 +218,7 @@ class cfgSoundShaders
 		samples[]=
 		{
 			{
-				"DayZCasino\data\sounds\flipcard",
+				"DayZCasinoV2\data\sounds\flipcard",
 				1
 			}
 		};
@@ -231,7 +231,7 @@ class cfgSoundShaders
 		samples[]=
 		{
 			{
-				"DayZCasino\data\sounds\win",
+				"DayZCasinoV2\data\sounds\win",
 				1
 			}
 		};
@@ -245,7 +245,7 @@ class cfgSoundShaders
 		{
 
 			{
-				"DayZCasino\data\sounds\lose",
+				"DayZCasinoV2\data\sounds\lose",
 				1
 			}
 		};
@@ -259,7 +259,7 @@ class cfgSoundShaders
 		{
 
 			{
-				"DayZCasino\data\sounds\flap",
+				"DayZCasinoV2\data\sounds\flap",
 				1
 			}
 		};
@@ -273,7 +273,7 @@ class cfgSoundShaders
 		{
 
 			{
-				"DayZCasino\data\sounds\jackpot",
+				"DayZCasinoV2\data\sounds\jackpot",
 				1
 			}
 		};
@@ -287,7 +287,7 @@ class cfgSoundShaders
 		{
 
 			{
-				"DayZCasino\data\sounds\race_background",
+				"DayZCasinoV2\data\sounds\race_background",
 				1
 			}
 		};
@@ -301,7 +301,7 @@ class cfgSoundShaders
 		{
 
 			{
-				"DayZCasino\data\sounds\one",
+				"DayZCasinoV2\data\sounds\one",
 				1
 			}
 		};
@@ -315,7 +315,7 @@ class cfgSoundShaders
 		{
 
 			{
-				"DayZCasino\data\sounds\tow",
+				"DayZCasinoV2\data\sounds\tow",
 				1
 			}
 		};
@@ -329,7 +329,7 @@ class cfgSoundShaders
 		{
 
 			{
-				"DayZCasino\data\sounds\three",
+				"DayZCasinoV2\data\sounds\three",
 				1
 			}
 		};
@@ -343,7 +343,7 @@ class cfgSoundShaders
 		{
 
 			{
-				"DayZCasino\data\sounds\pistol-shot",
+				"DayZCasinoV2\data\sounds\pistol-shot",
 				1
 			}
 		};
@@ -361,7 +361,7 @@ class CfgVehicles
 		scope=2;
 		displayName="Casino Chip";
 		descriptionShort="With this chip you can play at casino games";
-		model="DayZCasino\CasinoChips.p3d";
+		model="DayZCasinoV2\CasinoChips.p3d";
 		canBeSplit=1;
 		rotationFlags=16;
 		lootCategory="Materials";

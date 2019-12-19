@@ -33,7 +33,7 @@ class BetDiceMenu extends GameBetBaseMenu
 			return layoutRoot;
 		}
 
-        widgetPath = "DayZCasino/layouts/BetDice.layout";
+        widgetPath = "DayZCasinoV2/layouts/BetDice.layout";
 		super.Init();
 
 		shuffle = ButtonWidget.Cast(layoutRoot.FindAnyWidget( "shuffle" ));
@@ -54,20 +54,20 @@ class BetDiceMenu extends GameBetBaseMenu
 		winFactor = TextWidget.Cast( layoutRoot.FindAnyWidget( "winFactor" ));
 
         diceImage1 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "diceImage1" ));
-        diceImage1.LoadImageFile(0, "DayZCasino/data/dice/dice1.edds");
-        diceImage1.LoadImageFile(1, "DayZCasino/data/dice/dice2.edds");
-        diceImage1.LoadImageFile(2, "DayZCasino/data/dice/dice3.edds");
-        diceImage1.LoadImageFile(3, "DayZCasino/data/dice/dice4.edds");
-        diceImage1.LoadImageFile(4, "DayZCasino/data/dice/dice5.edds");
-        diceImage1.LoadImageFile(5, "DayZCasino/data/dice/dice6.edds");
+        diceImage1.LoadImageFile(0, "DayZCasinoV2/data/dice/dice1.edds");
+        diceImage1.LoadImageFile(1, "DayZCasinoV2/data/dice/dice2.edds");
+        diceImage1.LoadImageFile(2, "DayZCasinoV2/data/dice/dice3.edds");
+        diceImage1.LoadImageFile(3, "DayZCasinoV2/data/dice/dice4.edds");
+        diceImage1.LoadImageFile(4, "DayZCasinoV2/data/dice/dice5.edds");
+        diceImage1.LoadImageFile(5, "DayZCasinoV2/data/dice/dice6.edds");
 
         diceImage2 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "diceImage2" ));
-        diceImage2.LoadImageFile(0, "DayZCasino/data/dice/dice1.edds");
-        diceImage2.LoadImageFile(1, "DayZCasino/data/dice/dice2.edds");
-        diceImage2.LoadImageFile(2, "DayZCasino/data/dice/dice3.edds");
-        diceImage2.LoadImageFile(3, "DayZCasino/data/dice/dice4.edds");
-        diceImage2.LoadImageFile(4, "DayZCasino/data/dice/dice5.edds");
-        diceImage2.LoadImageFile(5, "DayZCasino/data/dice/dice6.edds");
+        diceImage2.LoadImageFile(0, "DayZCasinoV2/data/dice/dice1.edds");
+        diceImage2.LoadImageFile(1, "DayZCasinoV2/data/dice/dice2.edds");
+        diceImage2.LoadImageFile(2, "DayZCasinoV2/data/dice/dice3.edds");
+        diceImage2.LoadImageFile(3, "DayZCasinoV2/data/dice/dice4.edds");
+        diceImage2.LoadImageFile(4, "DayZCasinoV2/data/dice/dice5.edds");
+        diceImage2.LoadImageFile(5, "DayZCasinoV2/data/dice/dice6.edds");
 		
 		diceImage1.SetImage(0);
 		diceImage2.SetImage(0);
