@@ -5,6 +5,7 @@ class Rat {
 	ImageWidget ratImage;
 	bool isAnimationFinished = false;
 	bool hasPassGoal = false;
+	float yPos;
 
     void Rat(int startPos, int startNumber) {
         positions = new array<int>;
@@ -23,16 +24,21 @@ class Rat {
 	
 	void SetImageWidget(ImageWidget image) {
 		ratImage = image;
+		float x = 0;
+		image.GetPos(x, yPos);
 	}
 	
-	void GoToStep(int index) {
+	void GoToStep(int index, float goalLine) {
 		if (ratImage) {
-			if (positions.IsValidIndex(index) + DAYZ_CASINO_ANIMATE_STEPS_AFTER_GOAL_RATE_RACE) {
-                hasPassGoal = true;
-			} else if (positions.IsValidIndex(index)) {
+			if (positions.IsValidIndex(index)) {
 				int pos = positions.Get(index);
+				
+				if (goalLine < pos) {
+					DebugMessageCasino("Has passed Goal " + number);
+                	hasPassGoal = true;
+				}
 
-				ratImage.SetPos(pos, 13.25);
+				ratImage.SetPos(pos, yPos);
 			} else {
 				isAnimationFinished = true;
 			}

@@ -58,7 +58,6 @@ class RatRaceMenu extends GameBetBaseMenu
 			ImageWidget ratImage = ImageWidget.Cast(layoutRoot.FindAnyWidget("ratImage" + imageNumber.ToString()));
         	ratImage.LoadImageFile(0, "DayZCasinoV2/data/ratrace/rat.edds");
 			ratImage.SetImage(0);
-			ratImage.Show(false);
 			ratImage.GetPos(initialPositionX, initialPositionY);
 			ratImages.Insert(ratImage);
 			
@@ -160,9 +159,9 @@ class RatRaceMenu extends GameBetBaseMenu
     }
 	
 	void ResetGame(Race raceFromEvent) {
+		ResetRats();
 		startRace.Show(true);
 		message.Show(false);
-		HideShowRats(false);
 		race = raceFromEvent;
 		SetQouta();
 		DebugMessageCasino("has race object " + race.isAnimationFinished.ToString());
@@ -178,6 +177,7 @@ class RatRaceMenu extends GameBetBaseMenu
 			sub1Number.Show(false);
 			sub10Number.Show(false);
 			startRace.Show(false);
+			message.Show(false);
 			
 			GetGame().RPCSingleParam(player, DAYZ_CASINO_START_RAT_RACE, new Param3<int, int, DayZPlayer>(chipsValue, currentNumber, player), true);
 			DebugMessageCasino("create timer");
@@ -223,7 +223,7 @@ class RatRaceMenu extends GameBetBaseMenu
         }
 		
 		animationTimer.Run(stepTime, this, "AnimateStep", null, true);
-		HideShowRats(true);
+		
 		currentAnimationStep = 0;
 	}
 	
@@ -239,6 +239,7 @@ class RatRaceMenu extends GameBetBaseMenu
 		raceAnimated = race.isAnimationFinished;
 		
 		if (race.winRat.hasPassGoal && !message.IsVisible()) {
+			DebugMessageCasino("show win message");
 			message.SetText("#rat_win " + race.winRat.number);
 			message.Show(true);
             if (lastWinChips > 0){
@@ -252,12 +253,13 @@ class RatRaceMenu extends GameBetBaseMenu
             }
             lastWin.SetText(lastWinChips.ToString());
             countChips.SetText(currentAmount.ToString());
+		}else {
+			DebugMessageCasino("Pass goal " + race.winRat.hasPassGoal + " " + !message.IsVisible());
 		}
 	}
 	
-	private void HideShowRats(bool show) {
+	private void ResetRats() {
 		foreach(ImageWidget ratImage: ratImages) {
-			ratImage.Show(show);
 			ratImage.SetPos(initialPositionX, initialPositionY);
 		}
 	}

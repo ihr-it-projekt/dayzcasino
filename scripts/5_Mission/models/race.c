@@ -5,7 +5,6 @@ class Race{
 	float goalLine;
 	float startPos;
 	bool isAnimationFinished = false;
-	bool firstHasFinished = false;
 
     void Race(int ratCount,float startPosParam, float goalLineParam) {
         rats = new array<ref Rat>;
@@ -31,7 +30,7 @@ class Race{
                 int newPos = rat.GetLastPosition() + Math.RandomIntInclusive(1, 10);
 
                 if (DAYZ_CASINO_DEBUG && i == 0) {
-                    newPos += 11;
+                    newPos =  rat.GetLastPosition() + 10;
                 }
 				
 				if (goalLine <= newPos && goalLine + DAYZ_CASINO_ANIMATE_STEPS_AFTER_GOAL_RATE_RACE > newPos) {
@@ -67,11 +66,11 @@ class Race{
 	void AnimateStep(int step) {
 		bool isFinished = true;
 		foreach(Rat rat: rats) {
-			rat.GoToStep(step);
+			rat.GoToStep(step, goalLine);
 			isAnimationFinished = isFinished && rat.isAnimationFinished;
 			
-			if (rat.isAnimationFinished) {
-				firstHasFinished = true;
+			if (rat.hasPassGoal && rat.number == winRat.number) {
+				winRat.hasPassGoal = true;
 			}
 		}
 		
