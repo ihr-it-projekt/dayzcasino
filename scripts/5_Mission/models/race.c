@@ -34,14 +34,14 @@ class Race{
                     newPos += 11;
                 }
 				
-				if (goalLine <= newPos && goalLine + 15 > newPos) {
+				if (goalLine <= newPos && goalLine + DAYZ_CASINO_ANIMATE_STEPS_AFTER_GOAL_RATE_RACE > newPos) {
                     if (null == winRat) {
 						DebugMessageCasino("Has win rat");
                         winRat = rat;
                     }
                     rat.AddStep(newPos);
 					isLastStep = false;
-                } else if(goalLine + 15 < newPos){
+                } else if(goalLine + DAYZ_CASINO_ANIMATE_STEPS_AFTER_GOAL_RATE_RACE < newPos){
 					isLastStep = true;
 				} else {
                     rat.AddStep(newPos);

@@ -127,7 +127,7 @@ class RatRaceMenu extends GameBetBaseMenu
             return true;
         } else if (w == newRace){
             DebugMessageCasino("click newRace");
-            GetGame().RPCSingleParam(player, DAYZ_CASINO_NEW_RAT_RACE, new Param3<DayZPlayer, float, float>(GetGame().GetPlayer(), initialPositionX, goalPositionX), true);;
+            GetGame().RPCSingleParam(player, DAYZ_CASINO_NEW_RAT_RACE, new Param3<DayZPlayer, float, float>(GetGame().GetPlayer(), initialPositionX, goalPositionX), true);
 			newRace.Show(false);
             return true;
         } else if (w == add1Number){
@@ -238,9 +238,20 @@ class RatRaceMenu extends GameBetBaseMenu
 		
 		raceAnimated = race.isAnimationFinished;
 		
-		if (race.firstHasFinished && !message.IsVisible()) {
+		if (race.winRat.hasPassGoal && !message.IsVisible()) {
 			message.SetText("#rat_win " + race.winRat.number);
 			message.Show(true);
+            if (lastWinChips > 0){
+                if (false == win_sound.SoundPlay()) {
+                    DebugMessageCasino("win sound not loaded");
+                }
+            } else {
+                if (false == lose_sound.SoundPlay()) {
+                    DebugMessageCasino("lose sound not loaded");
+                }
+            }
+            lastWin.SetText(lastWinChips.ToString());
+            countChips.SetText(currentAmount.ToString());
 		}
 	}
 	
@@ -281,21 +292,6 @@ class RatRaceMenu extends GameBetBaseMenu
 				countDownWidget.Show(false);
 			}
 		} else if (race && race.winRat && raceAnimated) {
-			if (lastWinChips > 0){
-				if (false == win_sound.SoundPlay()) {
-					DebugMessageCasino("win sound not loaded");
-				}
-			} else {
-				if (false == lose_sound.SoundPlay()) {
-					DebugMessageCasino("lose sound not loaded");
-				}
-			}
-			
-			
-			
-			lastWin.SetText(lastWinChips.ToString());
-			countChips.SetText(currentAmount.ToString());
-			
 			EndGame();
 		} else if ((!race || !race.winRat) && 10 == timoutRaceTimer) {
 			DebugMessageCasino("No response from Server");
