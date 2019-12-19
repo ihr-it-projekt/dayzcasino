@@ -10,7 +10,7 @@ class GameMenu
 	void GameMenu(CasinoConfig casinoConfigExt) {
 		DebugMessageCasino("Load GameMenu");
 		casinoConfig = casinoConfigExt;
-		DebugMessageCasino("check config dice menu" + casinoConfig.diceSettings.gameType);
+		DebugMessageCasino("check config dice menu" + casinoConfig.diceSettings.GAME_TYPE);
 	}
 
     BetDiceMenu GetBetDiceMenu() {
@@ -73,7 +73,8 @@ class GameMenu
 					return GetBetDiceMenu();
 				}
 			}	
-		} else if (casinoConfig.blackJackSettings.enabled) {
+		}  
+		if (casinoConfig.blackJackSettings.enabled) {
 			foreach(GamePosition position2: casinoConfig.blackJackSettings.gamePositions) {
 				if (vector.Distance(position2.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME){
 					DebugMessageCasino("in near of black jack");
@@ -81,7 +82,8 @@ class GameMenu
 					return GetBlackJackMenu();
 				}
 			}	
-		} else if (casinoConfig.luckyWheelSettings.enabled) {
+		} 
+		if (casinoConfig.luckyWheelSettings.enabled) {
 			foreach(GamePosition position3: casinoConfig.luckyWheelSettings.gamePositions) {
 				if (vector.Distance(position3.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME){
 					DebugMessageCasino("in near of lucky wheel");
@@ -89,7 +91,8 @@ class GameMenu
 					return GetLuckyWheelMenu();
 				}
 			}	
-		} else if (casinoConfig.ratRaceSettings.enabled) {
+		}
+		if (casinoConfig.ratRaceSettings.enabled) {
 			foreach(GamePosition position4: casinoConfig.ratRaceSettings.gamePositions) {
 				if (vector.Distance(position4.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME){
 					DebugMessageCasino("in near of rat race");
@@ -113,19 +116,22 @@ class GameMenu
 					return true;
 				}
 			}	
-		} else if (casinoConfig.blackJackSettings.enabled) {
+		}
+		if (casinoConfig.blackJackSettings.enabled) {
 			foreach(GamePosition position2: casinoConfig.blackJackSettings.gamePositions) {
 				if (vector.Distance(position2.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME){
 					return true;
 				}
 			}	
-		} else if (casinoConfig.luckyWheelSettings.enabled) {
+		}
+		if (casinoConfig.luckyWheelSettings.enabled) {
 			foreach(GamePosition position3: casinoConfig.luckyWheelSettings.gamePositions) {
 				if (vector.Distance(position3.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME){
 					return true;
 				}
 			}	
-		} else if (casinoConfig.ratRaceSettings.enabled) {
+		}
+		if (casinoConfig.ratRaceSettings.enabled) {
 			foreach(GamePosition position4: casinoConfig.ratRaceSettings.gamePositions) {
 				if (vector.Distance(position4.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME){
 					return true;

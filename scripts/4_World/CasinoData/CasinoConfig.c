@@ -1,7 +1,6 @@
-class CasinoConfig
+class CasinoConfig extends BaseConfig
 {
-	const static string			CONFIGSFOLDER			= "$profile:ModConfigs\\";
-	const static string			SETTINGSFILE			= "CasinoConfigV2.json";
+    private const static string			SETTINGSFILE			= "CasinoConfigV2.json";
 
 	ref CasinoGameSettingLuckyWheel luckyWheelSettings;
 	ref CasinoGameSettingBlackjack blackJackSettings;
@@ -12,50 +11,22 @@ class CasinoConfig
     {
   		if (!FileExist(CONFIGSFOLDER + SETTINGSFILE))
 		{
-			diceSettings		= new CasinoGameSettingDice();
-			blackJackSettings	= new CasinoGameSettingBlackjack();
+			diceSettings = new CasinoGameSettingDice();
+			blackJackSettings = new CasinoGameSettingBlackjack();
 			luckyWheelSettings = new CasinoGameSettingLuckyWheel();
             ratRaceSettings = new CasinoGameSettingRatRace();
 
-			Save();
+			Save(SETTINGSFILE);
 		} else {
-			Load();
+			Load(SETTINGSFILE);
 		}
     }
-
-	private void Load()
-	{
-		if (IsServerAndMultiplayerCasino())
-		{
-			if (FileExist(CONFIGSFOLDER + SETTINGSFILE))
-			{
-				JsonFileLoader<CasinoConfig>.JsonLoadFile(CONFIGSFOLDER + SETTINGSFILE, this);
-			}
-			else
-			{
-				if (!FileExist(CONFIGSFOLDER))
-				{
-					MakeDirectory(CONFIGSFOLDER);
-					Print("Creating ModConfigs Directory in Profile");
-				}
-
-				Create();
-			}
-		}
+	
+	override protected void DoLoad() {
+		JsonFileLoader<CasinoConfig>.JsonLoadFile(CONFIGSFOLDER + SETTINGSFILE, this);
 	}
-
-    void Save()
-    {
-		if (IsServerAndMultiplayerCasino())
-			JsonFileLoader<CasinoConfig>.JsonSaveFile(CONFIGSFOLDER + SETTINGSFILE, this);
-    }
-
-    private void Create()
-    {
-		if (IsServerAndMultiplayerCasino())
-		{
-			Save();
-			Load();
-		}
-    }
+	
+	override protected void DoSave() {
+		JsonFileLoader<CasinoConfig>.JsonSaveFile(CONFIGSFOLDER + SETTINGSFILE, this);
+	}
 }
