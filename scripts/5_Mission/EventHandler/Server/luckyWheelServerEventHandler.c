@@ -62,7 +62,7 @@ class LuckyWheelServerEventHandler
 
     void SetConfig(CasinoGameSettingLuckyWheel settings) {
         chipsBet = settings.chipsBet;
-        luckyWheelMapping = new LuckyWheelMapping(settings.chipsBet);
+        luckyWheelMapping = new LuckyWheelMapping(settings);
     }
 
     void SetJackpot(Jackpot jackpotex) {

@@ -82,7 +82,7 @@ class LuckyWheelMenu extends BaseMenu
 
 	override void SetConfig(CasinoConfig casinoConfigExt) {
 		super.SetConfig(casinoConfigExt);
-        luckyWheelMapping = new LuckyWheelMapping(casinoConfig.luckyWheelSettings.chipsBet);
+        luckyWheelMapping = new LuckyWheelMapping(casinoConfig.luckyWheelSettings);
 	}
 
     override void EndGame() {

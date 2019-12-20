@@ -1,6 +1,6 @@
 class CasinoConfig extends BaseConfig
 {
-    private const static string			SETTINGSFILE			= "CasinoConfigV2.json";
+    private const static string	SETTINGSFILE = "CasinoConfigV2.json";
 
 	ref CasinoGameSettingLuckyWheel luckyWheelSettings;
 	ref CasinoGameSettingBlackjack blackJackSettings;
@@ -19,6 +19,11 @@ class CasinoConfig extends BaseConfig
 			Save(SETTINGSFILE);
 		} else {
 			Load(SETTINGSFILE);
+			
+			if (luckyWheelSettings.wheelNumberConfigs.Count() == 0) {
+				luckyWheelSettings.CreateNumbers();
+				Save(SETTINGSFILE);
+			}
 		}
     }
 	
