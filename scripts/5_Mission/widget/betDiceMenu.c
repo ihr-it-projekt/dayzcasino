@@ -73,6 +73,9 @@ class BetDiceMenu extends GameBetBaseMenu
 		diceImage2.SetImage(0);
 		winFactor.SetText(winFactorInt.ToString());
 		
+		maxChipsUse = casinoConfig.diceSettings.maxBet;
+		minChipsUse = casinoConfig.diceSettings.minBet;
+		
 		effect_sound = SEffectManager.CreateSound("DayZCasino_CLACK_SoundSet", player.GetPosition());
 		win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
 		lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
@@ -164,6 +167,7 @@ class BetDiceMenu extends GameBetBaseMenu
 			DebugMessageCasino("numberValue value is " + currentNumber);
 		}
 	}
+
 	
 	private void SwitchImage() {
 		DebugMessageCasino("change image");
@@ -188,11 +192,10 @@ class BetDiceMenu extends GameBetBaseMenu
 			diceImage2.SetImage(winImageNumber2);
 			winImageNumber1 = 10;
 			winImageNumber2 = 10;
-			lastWin.SetText("" + lastWinChips);
-			countChips.SetText("" + currentAmount);
-			imageShuffleTimer.Stop();
-			cancel.Show(true);
-			shuffle.Show(true);
+			lastWin.SetText(lastWinChips.ToString());
+			countChips.SetText(currentAmount.ToString());
+			
+			EndGame();
 			return;
 		}
 		
@@ -205,9 +208,7 @@ class BetDiceMenu extends GameBetBaseMenu
 
 		if (30 == currentCountBeforeSendShuffle) {
 			DebugMessageCasino("No response from Server");
-			imageShuffleTimer.Stop();
-			cancel.Show(true);
-			shuffle.Show(true);
+			
 		}
 		
 		++currentCountBeforeSendShuffle;

@@ -92,6 +92,8 @@ class GameBetBaseMenu extends BaseMenu
         chipsValue = chipsValue + addBet;
 		
 		DebugMessageCasino("new chipsValue " + chipsValue.ToString());
+		DebugMessageCasino("min use" + minChipsUse.ToString());
+		DebugMessageCasino("max use" + maxChipsUse.ToString());
 
         if (chipsValue < minChipsUse) {
             chipsValue = minChipsUse;
@@ -101,6 +103,7 @@ class GameBetBaseMenu extends BaseMenu
             chipsValue = currentAmount;
         } else if (chipsValue > currentAmount && currentAmount == 0) {
             chipsValue = minChipsUse;
+			
         }
 
         chipsBet.SetText(chipsValue.ToString());
