@@ -1,6 +1,11 @@
 class BaseMenu extends UIScriptedMenu
 {
     protected bool isDebug = DAYZ_CASINO_DEBUG;
+	protected ButtonWidget info;
+	protected ButtonWidget steam;
+	protected ButtonWidget donate;
+	protected ButtonWidget closeInfo;
+	protected Widget infoWidget;
 	protected DayZPlayer player;
     protected ButtonWidget cancel;
     protected MultilineTextWidget lastWin;
@@ -43,6 +48,21 @@ class BaseMenu extends UIScriptedMenu
         message = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("message"));
 
         layoutRoot.Show(false);
+		
+		info = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "info" ));
+		
+		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( info,  this, "OnClick" );
+		
+		infoWidget = GetGame().GetWorkspace().CreateWidgets("DayZCasinoV2/layouts/Info.layout");
+		infoWidget.Show(false);
+		
+		closeInfo = ButtonWidget.Cast( infoWidget.FindAnyWidget( "closeInfo" ));
+		steam = ButtonWidget.Cast( infoWidget.FindAnyWidget( "steam" ));
+		donate = ButtonWidget.Cast( infoWidget.FindAnyWidget( "donate" ));
+		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( closeInfo,  this, "OnClick" );
+		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( steam,  this, "OnClick" );
+		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( donate,  this, "OnClick" );
+		layoutRoot.AddChild(infoWidget);
 
         return layoutRoot;
     }
@@ -57,6 +77,18 @@ class BaseMenu extends UIScriptedMenu
         if (w == cancel){
             DebugMessageCasino("click cancel");
             CloseMenu();
+            return true;
+        } else if (w == info){
+            infoWidget.Show(true);
+            return true;
+        } else if (w == closeInfo){
+            infoWidget.Show(false);
+            return true;
+        } else if (w == donate){
+            GetGame().OpenURL("https://www.paypal.com/pools/c/8idQvmteIO");
+            return true;
+        } else if (w == steam){
+            GetGame().OpenURL("https://steamcommunity.com/sharedfiles/filedetails/?id=1940425039");
             return true;
         }
 

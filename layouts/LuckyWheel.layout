@@ -37,7 +37,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        color 0 0 0 0.7843
        position 8.26006 8.26004
-       size 1267.40002 70
+       size 1208.56006 70
        hexactpos 1
        vexactpos 1
        hexactsize 1
@@ -47,7 +47,7 @@ FrameWidgetClass rootFrame {
         TextWidgetClass TextWidget0 {
          ignorepointer 1
          position 8.26005 8.26003
-         size 1245.89001 53.4799
+         size 1190.59998 53.4799
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -213,7 +213,6 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          scaled 1
          draggable 0
-         imageTexture ""
          mode blend
          "src alpha" 1
          stretch 1
@@ -243,7 +242,6 @@ FrameWidgetClass rootFrame {
          hexactsize 1
          vexactsize 1
          scaled 1
-         imageTexture ""
          mode blend
          "src alpha" 1
          stretch 1
@@ -338,6 +336,30 @@ FrameWidgetClass rootFrame {
          style Bold
          "text halign" center
          "text valign" center
+        }
+       }
+      }
+      PanelWidgetClass boarderCancel1 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 1226.52002 18.4207
+       size 40.892 49.6786
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass info {
+         color 0 1 0.251 1
+         position 9.69699 9.69697
+         size 21.981 31.7216
+         hexactpos 1
+         vexactpos 1
+         hexactsize 1
+         vexactsize 1
+         style MenuDefault
+         text "i"
         }
        }
       }
