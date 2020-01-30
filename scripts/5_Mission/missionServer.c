@@ -17,7 +17,7 @@ modded class MissionServer {
 			}
             
             betDiceServerEventHandler = BetDiceServerEventHandler();
-			betDiceServerEventHandler.SetConfig(casinoConfig.diceSettings);
+			betDiceServerEventHandler.SetConfig(casinoConfig.enablePlayLogs, casinoConfig.diceSettings);
         }
         if (casinoConfig.blackJackSettings) {
 			foreach(GamePosition position1: casinoConfig.blackJackSettings.gamePositions) {

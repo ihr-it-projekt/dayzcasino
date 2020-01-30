@@ -53,6 +53,8 @@ class RatRaceServerEventHandler
                         winSum = -1 * parameterStartRace.param1;
                     }
 
+
+                    LogPlay(player, winSum, "RatRace");
                     inventory.AddChipsToPlayer(player, winSum);
                     int currentChips = inventory.GetPlayerChipsAmount(player);
                     DebugMessageCasino("server: player has " + currentChips);

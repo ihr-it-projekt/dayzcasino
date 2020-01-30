@@ -99,6 +99,7 @@ class BlackJackServerEventHandler
             }
 
             DebugMessageCasino("receive game end " + winSum);
+            LogPlay(playerWin, winSum, "BlackJack");
 
             GetGame().RPCSingleParam(playerWin, EVENT_RESPONSE, new
             Param2<int, int>(inventory.GetPlayerChipsAmount(playerWin), winSum), true, playerWin.GetIdentity());

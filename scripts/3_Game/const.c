@@ -1,4 +1,5 @@
 static float DAYZ_CASINO_VERSION = 1;
+static string CONFIGSFOLDER = "$profile:DayZCasinoV2\\";
 static bool DAYZ_CASINO_DEBUG = false;
 static bool DAYZ_CASINO_DEBUG_JACKPOT_WIN = false;
 static int DAYZ_CASINO_TYPE_DICE_GAME = 0;

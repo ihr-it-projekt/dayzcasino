@@ -41,6 +41,8 @@ class LuckyWheelServerEventHandler
                     }
 
                     inventory.AddChipsToPlayer(player, winAmmount);
+
+                    LogPlay(player, winAmmount, "LuckyWheel");
                     int currentChips = inventory.GetPlayerChipsAmount(player);
                     DebugMessageCasino("server: player has " + currentChips);
 

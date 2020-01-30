@@ -1,7 +1,5 @@
 class BaseConfig
 {
-    protected const static string	CONFIGSFOLDER = "$profile:DayZCasinoV2\\";
-
     protected void Load(string filename)
     {
         if (IsServerAndMultiplayerCasino() && FileExist(CONFIGSFOLDER + filename)) {

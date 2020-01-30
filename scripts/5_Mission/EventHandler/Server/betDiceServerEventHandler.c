@@ -46,6 +46,8 @@ class BetDiceServerEventHandler
                     inventory.AddChipsToPlayer(player, winSum);
                     int currentChips = inventory.GetPlayerChipsAmount(player);
                     DebugMessageCasino("server: player has " + currentChips);
+
+                    LogPlay(player, winSum, "DiceGame");
     
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE, new Param4<int, int, int, int>(luckNumber1,luckNumber2, winSum, currentChips), true, player.GetIdentity());
                     DebugMessageCasino("has message send to player");

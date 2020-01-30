@@ -6,6 +6,8 @@ class CasinoConfig extends BaseConfig
 	ref CasinoGameSettingBlackjack blackJackSettings;
 	ref CasinoGameSettingDice diceSettings;
 	ref CasinoGameSettingRatRace ratRaceSettings;
+	int configVersion: 1;
+	string enablePlayLogs = true;
 
     void CasinoConfig()
     {
@@ -23,6 +25,12 @@ class CasinoConfig extends BaseConfig
 			if (luckyWheelSettings.wheelNumberConfigs.Count() == 0) {
 				luckyWheelSettings.CreateNumbers();
 				Save(SETTINGSFILE);
+			}
+
+			if (configVersion) {
+                configVersion = 1;
+                enablePlayLogs = false;
+                Save(SETTINGSFILE);
 			}
 		}
     }
