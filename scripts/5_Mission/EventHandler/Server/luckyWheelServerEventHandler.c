@@ -4,9 +4,11 @@ class LuckyWheelServerEventHandler
     private ref LuckyWheelMapping luckyWheelMapping;
     private int chipsBet;
     private Jackpot jackpot;
+	private bool enableLogs;
 
-    void LuckyWheelServerEventHandler() {
+    void LuckyWheelServerEventHandler(bool enableLogs) {
         inventory = new DayZCasinoPlayerInventory;
+		this.enableLogs = enableLogs;
 
         DebugMessageCasino("Register LWSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
@@ -42,7 +44,9 @@ class LuckyWheelServerEventHandler
 
                     inventory.AddChipsToPlayer(player, winAmmount);
 
-                    LogPlay(player, winAmmount, "LuckyWheel");
+					if (enableLogs) {
+						LogPlay(player, winAmmount, "LuckyWheel");
+					}
                     int currentChips = inventory.GetPlayerChipsAmount(player);
                     DebugMessageCasino("server: player has " + currentChips);
 

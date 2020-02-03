@@ -3,6 +3,7 @@ class RatRaceServerEventHandler
     ref DayZCasinoPlayerInventory inventory;
 	ref RaceCollection raceCollection;
 	private int maxWinQouta;
+	private bool enableLogs = false;
 
     void RatRaceServerEventHandler() {
         inventory = new DayZCasinoPlayerInventory;
@@ -53,8 +54,9 @@ class RatRaceServerEventHandler
                         winSum = -1 * parameterStartRace.param1;
                     }
 
-
-                    LogPlay(player, winSum, "RatRace");
+					if (enableLogs) {
+						LogPlay(player, winSum, "RatRace");
+					}
                     inventory.AddChipsToPlayer(player, winSum);
                     int currentChips = inventory.GetPlayerChipsAmount(player);
                     DebugMessageCasino("server: player has " + currentChips);
@@ -69,8 +71,9 @@ class RatRaceServerEventHandler
         }
     }
 
-    void SetConfig(CasinoGameSettingRatRace settings) {
+    void SetConfig(CasinoGameSettingRatRace settings, bool enableLogs) {
         maxWinQouta = settings.maxWinQouta;
+		this.enableLogs = enableLogs;
     }
 
 };

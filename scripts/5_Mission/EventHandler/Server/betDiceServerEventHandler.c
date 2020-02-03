@@ -2,6 +2,7 @@ class BetDiceServerEventHandler
 {
     ref DayZCasinoPlayerInventory inventory;
 	private CasinoGameSettingDice casinoGameSettingDice;
+	private bool enableLogs = false;
 
     void BetDiceServerEventHandler() {
         inventory = new DayZCasinoPlayerInventory;
@@ -47,8 +48,10 @@ class BetDiceServerEventHandler
                     int currentChips = inventory.GetPlayerChipsAmount(player);
                     DebugMessageCasino("server: player has " + currentChips);
 
-                    LogPlay(player, winSum, "DiceGame");
-    
+					if (enableLogs) {
+						LogPlay(player, winSum, "DiceGame");
+					}
+                    
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE, new Param4<int, int, int, int>(luckNumber1,luckNumber2, winSum, currentChips), true, player.GetIdentity());
                     DebugMessageCasino("has message send to player");
                 } else {
@@ -58,8 +61,9 @@ class BetDiceServerEventHandler
         }
     }
 	
-    void SetConfig(CasinoGameSettingDice casinoGameSettingDiceParam) {
+    void SetConfig(bool enableLogs, CasinoGameSettingDice casinoGameSettingDiceParam) {
         casinoGameSettingDice = casinoGameSettingDiceParam;
+        this.enableLogs = enableLogs;
     }
 
 };

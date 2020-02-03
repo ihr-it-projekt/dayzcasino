@@ -33,7 +33,7 @@ class DayZCasinoPlayerInventory
     }
 
 
-    int AddChipsToPlayer(DayZPlayer player, int chipsCount) {
+    int AddChipsToPlayer(DayZPlayer player, float chipsCount) {
         array<EntityAI> itemsArray = new array<EntityAI>;
         player.GetInventory().EnumerateInventory(InventoryTraversalType.PREORDER, itemsArray);
 
@@ -82,7 +82,7 @@ class DayZCasinoPlayerInventory
         return chipsCount;
     }
 
-    private int AddChips(int chipsToAdd, EntityAI entity) {
+    private int AddChips(float chipsToAdd, EntityAI entity) {
         ItemBase item;
         ItemBase.CastTo(item, entity);
 
@@ -104,7 +104,7 @@ class DayZCasinoPlayerInventory
         return chipsToAdd;
     }
 
-    private int RemoveChips(int chipsToRemove, EntityAI entity) {
+    private int RemoveChips(float chipsToRemove, EntityAI entity) {
         ItemBase item;
         ItemBase.CastTo(item, entity);
 

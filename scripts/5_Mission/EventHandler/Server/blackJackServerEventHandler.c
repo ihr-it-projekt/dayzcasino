@@ -2,12 +2,16 @@ class BlackJackServerEventHandler
 {
     private ref DayZCasinoPlayerInventory inventory;
     private ref CardCollection cardCollection;
+	CasinoGameSettingBlackjack config;
+	private bool enableLogs = false;
 
-    void BlackJackServerEventHandler() {
+    void BlackJackServerEventHandler(CasinoGameSettingBlackjack config, bool enableLogs) {
         inventory = new DayZCasinoPlayerInventory;
         cardCollection = new CardCollection();
         DebugMessageCasino("Register BJSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+		this.config = config;
+		this.enableLogs = enableLogs;
     }
 
     void ~BlackJackServerEventHandler() {
@@ -75,20 +79,20 @@ class BlackJackServerEventHandler
         } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER) {
             EndGame(DAYZ_CASINO_BLACK_JACK_LOOSE_PLAYER_RESPONSE, -1, ctx, false);
         } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_BANK_LOSE) {
-            EndGame(DAYZ_CASINO_BLACK_JACK_BANK_LOSE_RESPONSE, 2, ctx, true);
+            EndGame(DAYZ_CASINO_BLACK_JACK_BANK_LOSE_RESPONSE, config.winFactor, ctx, true);
         } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_PLAYER_HAS_BLACKJACK) {
-            EndGame(DAYZ_CASINO_BLACK_JACK_PLAYER_HAS_BLACKJACK_RESPONSE, 3, ctx, true);
+            EndGame(DAYZ_CASINO_BLACK_JACK_PLAYER_HAS_BLACKJACK_RESPONSE, config.winFactorBlackJack, ctx, true);
         } else if (rpc_type == DAYZ_CASINO_BLACK_JACK_DRAW_GAME) {
             EndGame(DAYZ_CASINO_BLACK_JACK_DRAW_GAME_RESPONSE, 1, ctx, true, false);
         }
 
     }
 
-    private void EndGame(int EVENT_RESPONSE, int chipsAddFactor, ParamsReadContext ctx, bool addMoney, bool drawGame = false) {
+    private void EndGame(int EVENT_RESPONSE, float chipsAddFactor, ParamsReadContext ctx, bool addMoney, bool drawGame = false) {
         Param2<int, DayZPlayer> winGameParam;
         if (ctx.Read(winGameParam)) {
             DayZPlayer playerWin = winGameParam.param2;
-            int winSum = winGameParam.param1 * chipsAddFactor;
+            float winSum = winGameParam.param1 * chipsAddFactor;
 
             if (addMoney) {
                 inventory.AddChipsToPlayer(playerWin, winSum);
@@ -99,7 +103,9 @@ class BlackJackServerEventHandler
             }
 
             DebugMessageCasino("receive game end " + winSum);
-            LogPlay(playerWin, winSum, "BlackJack");
+			if (enableLogs) {
+				LogPlay(playerWin, winSum, "BlackJack");
+			}
 
             GetGame().RPCSingleParam(playerWin, EVENT_RESPONSE, new
             Param2<int, int>(inventory.GetPlayerChipsAmount(playerWin), winSum), true, playerWin.GetIdentity());

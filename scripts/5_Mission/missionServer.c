@@ -23,20 +23,20 @@ modded class MissionServer {
 			foreach(GamePosition position1: casinoConfig.blackJackSettings.gamePositions) {
 				PlaceGame(position1.pos, position1.orientation, casinoConfig.blackJackSettings.gameObject);
 			}
-            blackJackServerEventHandler = BlackJackServerEventHandler();
+            blackJackServerEventHandler = BlackJackServerEventHandler(casinoConfig.blackJackSettings, casinoConfig.enablePlayLogs);
         }
         if (casinoConfig.ratRaceSettings.enabled) {
 			foreach(GamePosition position2: casinoConfig.ratRaceSettings.gamePositions) {
 				PlaceGame(position2.pos, position2.orientation, casinoConfig.ratRaceSettings.gameObject);
 			}
             ratRaceServerEventHandler = RatRaceServerEventHandler();
-			ratRaceServerEventHandler.SetConfig(casinoConfig.ratRaceSettings);
+			ratRaceServerEventHandler.SetConfig(casinoConfig.ratRaceSettings, casinoConfig.enablePlayLogs);
         }
         if (casinoConfig.luckyWheelSettings) {
 			foreach(GamePosition position3: casinoConfig.luckyWheelSettings.gamePositions) {
 				PlaceGame(position3.pos, position3.orientation, casinoConfig.luckyWheelSettings.gameObject);
 			}
-            luckyWheelServerEventHandler = LuckyWheelServerEventHandler();
+            luckyWheelServerEventHandler = LuckyWheelServerEventHandler(casinoConfig.enablePlayLogs);
             luckyWheelServerEventHandler.SetConfig(casinoConfig.luckyWheelSettings);
             jackpot = Jackpot(casinoConfig.luckyWheelSettings.minJackpot);
             luckyWheelServerEventHandler.SetJackpot(jackpot);
