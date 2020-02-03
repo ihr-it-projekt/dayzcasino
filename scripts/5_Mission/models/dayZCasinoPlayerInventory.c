@@ -118,7 +118,7 @@ class DayZCasinoPlayerInventory
             item.AddQuantity(chipsToRemove);
             chipsToRemove = 0;
         } else {
-            item.SetQuantity(0);
+            GetGame().ObjectDelete(item);
             DebugMessageCasino("destroy item " + chipsToRemove);
             chipsToRemove += canRemoveChipsCount;
         }
