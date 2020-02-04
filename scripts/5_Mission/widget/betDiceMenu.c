@@ -135,6 +135,7 @@ class BetDiceMenu extends GameBetBaseMenu
 	
 	void SetWinFactor(int winF) {
 		winFactorInt = winF;
+		winFactor.SetText(winFactorInt.ToString());
 	}
 
     override void EndGame() {

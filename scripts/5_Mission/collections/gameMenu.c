@@ -18,6 +18,7 @@ class GameMenu
             DebugMessageCasino("create bet dice menu");
             betDiceMenu = new BetDiceMenu();
 			betDiceMenu.SetConfig(casinoConfig);
+			betDiceMenu.SetWinFactor(casinoConfig.diceSettings.diceWinFactor);
         }
 
 	    return betDiceMenu;

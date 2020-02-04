@@ -2,7 +2,7 @@ class RatRaceClientEventHandler
 {
     void HandleEvents(RatRaceMenu rateRaceMenu, PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
         if (IsServerCasino() || !rateRaceMenu.isMenuOpen) {
-			DebugMessageCasino("Is server or menu is not open " + rateRaceMenu.isMenuOpen);
+			//DebugMessageCasino("Is server or menu is not open " + rateRaceMenu.isMenuOpen);
             return;
         } else if (rpc_type == DAYZ_CASINO_RESPONSE_NEW_RAT_RACE) {
 			DebugMessageCasino("receive new race event");
