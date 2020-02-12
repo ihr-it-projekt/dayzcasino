@@ -19,7 +19,7 @@ modded class MissionGameplay
 		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
 	}
 	
-	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+	override void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE) {
 			DebugMessageCasino("player receive config");
 			Param1 <ref CasinoConfig> casinoConfigParam;

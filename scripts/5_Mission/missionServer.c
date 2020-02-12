@@ -50,7 +50,7 @@ modded class MissionServer {
 		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
 	}
 	
-	void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+	override void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG) {
 			DebugMessageCasino("receive get config");
 			autoptr Param1<PlayerBase> paramGetConfig;
