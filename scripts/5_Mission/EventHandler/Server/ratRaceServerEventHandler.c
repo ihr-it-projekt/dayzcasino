@@ -5,8 +5,8 @@ class RatRaceServerEventHandler
 	private int maxWinQouta;
 	private bool enableLogs = false;
 
-    void RatRaceServerEventHandler() {
-        inventory = new DayZCasinoPlayerInventory;
+    void RatRaceServerEventHandler(map<string, int> currencyValues) {
+        inventory = new DayZCasinoPlayerInventory(currencyValues);
 		raceCollection = new RaceCollection;
         DebugMessageCasino("Register RRSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);

@@ -13,6 +13,7 @@ class BaseMenu extends UIScriptedMenu
     protected MultilineTextWidget countChips;
 	protected CasinoConfig casinoConfig;
 	bool isMenuOpen = false;
+	protected map<string, int> currencyValues;
     ref protected DayZCasinoPlayerInventory inventory;
     int lastWinChips;
     int currentAmount;
@@ -20,6 +21,7 @@ class BaseMenu extends UIScriptedMenu
 	
 	void SetConfig(CasinoConfig casinoConfigExt) {
         casinoConfig = casinoConfigExt;
+		inventory = new DayZCasinoPlayerInventory(casinoConfig.currencyValues);
 	}
 
     override Widget Init()
@@ -35,7 +37,7 @@ class BaseMenu extends UIScriptedMenu
 
         super.Init();
 		
-        inventory = new DayZCasinoPlayerInventory;
+        
 		player = GetGame().GetPlayer();
 
         layoutRoot = GetGame().GetWorkspace().CreateWidgets(widgetPath);

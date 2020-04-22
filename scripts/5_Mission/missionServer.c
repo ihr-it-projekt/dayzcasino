@@ -16,41 +16,41 @@ modded class MissionServer {
 				PlaceGame(position.pos, position.orientation, casinoConfig.diceSettings.gameObject);
 			}
             
-            betDiceServerEventHandler = BetDiceServerEventHandler();
+            betDiceServerEventHandler = BetDiceServerEventHandler(casinoConfig.currencyValues);
 			betDiceServerEventHandler.SetConfig(casinoConfig.enablePlayLogs, casinoConfig.diceSettings);
         }
         if (casinoConfig.blackJackSettings) {
 			foreach(GamePosition position1: casinoConfig.blackJackSettings.gamePositions) {
 				PlaceGame(position1.pos, position1.orientation, casinoConfig.blackJackSettings.gameObject);
 			}
-            blackJackServerEventHandler = BlackJackServerEventHandler(casinoConfig.blackJackSettings, casinoConfig.enablePlayLogs);
+            blackJackServerEventHandler = BlackJackServerEventHandler(casinoConfig.blackJackSettings, casinoConfig.enablePlayLogs, casinoConfig.currencyValues);
         }
         if (casinoConfig.ratRaceSettings.enabled) {
 			foreach(GamePosition position2: casinoConfig.ratRaceSettings.gamePositions) {
 				PlaceGame(position2.pos, position2.orientation, casinoConfig.ratRaceSettings.gameObject);
 			}
-            ratRaceServerEventHandler = RatRaceServerEventHandler();
+            ratRaceServerEventHandler = RatRaceServerEventHandler(casinoConfig.currencyValues);
 			ratRaceServerEventHandler.SetConfig(casinoConfig.ratRaceSettings, casinoConfig.enablePlayLogs);
         }
         if (casinoConfig.luckyWheelSettings) {
 			foreach(GamePosition position3: casinoConfig.luckyWheelSettings.gamePositions) {
 				PlaceGame(position3.pos, position3.orientation, casinoConfig.luckyWheelSettings.gameObject);
 			}
-            luckyWheelServerEventHandler = LuckyWheelServerEventHandler(casinoConfig.enablePlayLogs);
+            luckyWheelServerEventHandler = LuckyWheelServerEventHandler(casinoConfig.enablePlayLogs, casinoConfig.currencyValues);
             luckyWheelServerEventHandler.SetConfig(casinoConfig.luckyWheelSettings);
             jackpot = Jackpot(casinoConfig.luckyWheelSettings.minJackpot);
             luckyWheelServerEventHandler.SetJackpot(jackpot);
         }
 
-        GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+        GetDayZGame().Event_OnRPC.Insert(HandleEventsCasino);
 		DebugMessageCasino("loaded");
 	}
 
 	void ~MissionServer() {
-		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
+		GetDayZGame().Event_OnRPC.Remove(HandleEventsCasino);
 	}
 	
-	override void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+	void HandleEventsCasino(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG) {
 			DebugMessageCasino("receive get config");
 			autoptr Param1<PlayerBase> paramGetConfig;

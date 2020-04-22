@@ -4,8 +4,8 @@ class BetDiceServerEventHandler
 	private CasinoGameSettingDice casinoGameSettingDice;
 	private bool enableLogs = false;
 
-    void BetDiceServerEventHandler() {
-        inventory = new DayZCasinoPlayerInventory;
+    void BetDiceServerEventHandler(map<string, int> currencyValues) {
+        inventory = new DayZCasinoPlayerInventory(currencyValues);
         DebugMessageCasino("Register BDSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }

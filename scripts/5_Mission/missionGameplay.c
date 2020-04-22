@@ -10,16 +10,16 @@ modded class MissionGameplay
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
 		
-		GetDayZGame().Event_OnRPC.Insert(HandleEvents);
+		GetDayZGame().Event_OnRPC.Insert(HandleEventsCasino);
         Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
 	    GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG, paramGetConfig, true);
 	}
 	
 	void ~MissionGameplay() {
-		GetDayZGame().Event_OnRPC.Remove(HandleEvents);
+		GetDayZGame().Event_OnRPC.Remove(HandleEventsCasino);
 	}
 	
-	override void HandleEvents(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
+	void HandleEventsCasino(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
 		if (rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE) {
 			DebugMessageCasino("player receive config");
 			Param1 <ref CasinoConfig> casinoConfigParam;
@@ -62,10 +62,10 @@ modded class MissionGameplay
 				gameMenu.CloseAllMenu();
 			}
 
-			if (gameMenu.CanOpenHintToOpenGameMenu(player)){
+			if (gameMenu && gameMenu.CanOpenHintToOpenGameMenu(player)){
                 gameMenu.GetGameHintMenu().Init();
                 gameMenu.GetGameHintMenu().OnShow();
-			} else {
+			} else if (gameMenu) {
                 gameMenu.GetGameHintMenu().OnHide();
 			}
 		}

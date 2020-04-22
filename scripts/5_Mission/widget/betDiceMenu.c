@@ -71,7 +71,7 @@ class BetDiceMenu extends GameBetBaseMenu
 		
 		diceImage1.SetImage(0);
 		diceImage2.SetImage(0);
-		winFactor.SetText(winFactorInt.ToString());
+		winFactor.SetText("2");
 		
 		maxChipsUse = casinoConfig.diceSettings.maxBet;
 		minChipsUse = casinoConfig.diceSettings.minBet;
@@ -135,6 +135,7 @@ class BetDiceMenu extends GameBetBaseMenu
 	
 	void SetWinFactor(int winF) {
 		winFactorInt = winF;
+		DebugMessageCasino("winFactorInt" + winFactorInt.ToString());
 		winFactor.SetText(winFactorInt.ToString());
 	}
 

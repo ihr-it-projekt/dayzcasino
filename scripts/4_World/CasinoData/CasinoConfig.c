@@ -2,6 +2,7 @@ class CasinoConfig extends BaseConfig
 {
     private const static string	SETTINGSFILE = "CasinoConfigV2.json";
 
+	ref map <string, int> currencyValues;
 	ref CasinoGameSettingLuckyWheel luckyWheelSettings;
 	ref CasinoGameSettingBlackjack blackJackSettings;
 	ref CasinoGameSettingDice diceSettings;
@@ -17,25 +18,16 @@ class CasinoConfig extends BaseConfig
 			blackJackSettings = new CasinoGameSettingBlackjack();
 			luckyWheelSettings = new CasinoGameSettingLuckyWheel();
             ratRaceSettings = new CasinoGameSettingRatRace();
-
+            currencyValues = new map<string, int>;
+            currencyValues.Set("CasinoChips", 1);
 			Save(SETTINGSFILE);
 		} else {
 			Load(SETTINGSFILE);
-			
-			if (luckyWheelSettings.wheelNumberConfigs.Count() == 0) {
-				luckyWheelSettings.CreateNumbers();
-				Save(SETTINGSFILE);
-			}
+			if (configVersion < 2) {
+                configVersion = 2;
+				currencyValues = new map<string, int>;
+				currencyValues.Set("CasinoChips", 1);
 
-			if (blackJackSettings.winFactor == 0) {
-				blackJackSettings.winFactor = 1.5;
-				blackJackSettings.winFactorBlackJack = 2.0;
-				Save(SETTINGSFILE);
-			}
-
-			if (!configVersion) {
-                configVersion = 1;
-                enablePlayLogs = false;
                 Save(SETTINGSFILE);
 			}
 		}
