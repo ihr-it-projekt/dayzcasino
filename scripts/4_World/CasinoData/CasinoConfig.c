@@ -2,13 +2,13 @@ class CasinoConfig extends BaseConfig
 {
     private const static string	SETTINGSFILE = "CasinoConfigV2.json";
 
-	ref map <string, int> currencyValues;
 	ref CasinoGameSettingLuckyWheel luckyWheelSettings;
 	ref CasinoGameSettingBlackjack blackJackSettings;
 	ref CasinoGameSettingDice diceSettings;
 	ref CasinoGameSettingRatRace ratRaceSettings;
 	int configVersion = 1;
 	bool enablePlayLogs = true;
+	ref map <string, int> currencyValues;
 
     void CasinoConfig()
     {
