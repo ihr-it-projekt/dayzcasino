@@ -89,7 +89,7 @@ class BetDiceMenu extends GameBetBaseMenu
 			DebugMessageCasino("Menu is already open");
 			return;
 		}
-		
+		if (winFactorInt && winFactor) winFactor.SetText(winFactorInt.ToString());
 		super.OnShow();
 	}
 
@@ -135,8 +135,8 @@ class BetDiceMenu extends GameBetBaseMenu
 	
 	void SetWinFactor(int winF) {
 		winFactorInt = winF;
-		DebugMessageCasino("winFactorInt" + winFactorInt.ToString());
-		winFactor.SetText(winFactorInt.ToString());
+		DebugMessageCasino("winFactorInt " + winFactorInt.ToString());
+		if (winFactor) winFactor.SetText(winFactorInt.ToString());
 	}
 
     override void EndGame() {
