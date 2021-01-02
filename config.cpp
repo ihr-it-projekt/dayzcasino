@@ -371,7 +371,6 @@ class CfgVehicles
 		displayName="Casino Chip";
 		descriptionShort="With this chip you can play at casino games";
 		model="DayZCasinoV2\CasinoChips.p3d";
-		canBeSplit=1;
 		rotationFlags=16;
 		lootCategory="Materials";
 		lootTag[]=
@@ -381,11 +380,12 @@ class CfgVehicles
 		};
 		itemSize[]={1};
 		weight=1;
-		varQuantityInit=1;
-		varQuantityMin=0;
-		varQuantityMax=10000;
-		varQuantityDestroyOnMin=1;
-		destroyOnEmpty=1;
+		canBeSplit=1;
+        varQuantityInit=10000;
+        varQuantityMin=0;
+        varQuantityMax=10000;
+        varQuantityDestroyOnMin=1;
+        varStackMax=10000;
 		absorbency=1;
 	};
 };
