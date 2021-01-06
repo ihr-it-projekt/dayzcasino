@@ -6,7 +6,7 @@ class GameMenu
 	private ref RatRaceMenu ratRaceMenu;
 	private ref GameHint gameHint;
 	private CasinoConfig casinoConfig;
-	
+
 	void GameMenu(CasinoConfig casinoConfigExt) {
 		DebugMessageCasino("Load GameMenu");
 		casinoConfig = casinoConfigExt;
@@ -143,18 +143,18 @@ class GameMenu
         return false;
 	}
 	
-	void CloseAllMenu(){
+	void CloseAllGameMenu(){
 		if (betDiceMenu) {
-			betDiceMenu.Close();
+			betDiceMenu.CloseMenu();
 		}
 		if (blackJackMenu) {
-			blackJackMenu.Close();
+			blackJackMenu.CloseMenu();
 		}
 		if (luckyWheelMenu) {
-            luckyWheelMenu.Close();
+            luckyWheelMenu.CloseMenu();
 		}
 		if (ratRaceMenu) {
-            ratRaceMenu.Close();
+            ratRaceMenu.CloseMenu();
 		}
 	}
 }

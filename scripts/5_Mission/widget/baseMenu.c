@@ -115,7 +115,6 @@ class BaseMenu extends UIScriptedMenu
 		GetGame().GetUIManager().Back();
 		GetGame().GetMission().GetHud().Show( true );
 
-		Close();
 		isMenuOpen = false;
 	}
 	
