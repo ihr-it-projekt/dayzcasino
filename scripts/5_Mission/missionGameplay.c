@@ -6,7 +6,6 @@ modded class MissionGameplay
 	private ref BetDiceClientEventHandler betDiceClientEventHandler;
 	private ref LuckyWheelClientEventHandler luckyWheelClientEventHandler;
 	private ref RatRaceClientEventHandler ratRaceClientEventHandler;
-	private DayZPlayer player;
 
 	void MissionGameplay() {
 		DebugMessageCasino("init Mission MissionGameplay");
@@ -47,9 +46,7 @@ modded class MissionGameplay
 	override void OnUpdate(float timeslice)
 	{
 		super.OnUpdate(timeslice);
-		autoptr DayZPlayer _player = GetGame().GetPlayer();
-
-        player = _player;
+		autoptr DayZPlayer player = GetGame().GetPlayer();
 
         if(player) {
             UAInput localInput = GetUApi().GetInputByName("UAInputPlayCasinoGame");
