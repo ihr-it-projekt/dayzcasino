@@ -379,7 +379,7 @@ class CfgVehicles
 			"Work"
 		};
 		itemSize[]={1};
-		weight=1;
+		weight=1,1;
 		canBeSplit=1;
         varQuantityInit=10000;
         varQuantityMin=0;
