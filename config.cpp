@@ -364,28 +364,21 @@ class cfgSoundShaders
 
 class CfgVehicles
 {
-	class Inventory_Base;
-	class CasinoChips: Inventory_Base
+	class SmallStone;
+	class CasinoChips: SmallStone
 	{
 		scope=2;
 		displayName="Casino Chip";
 		descriptionShort="With this chip you can play at casino games";
 		model="DayZCasinoV2\CasinoChips.p3d";
-		rotationFlags=16;
-		lootCategory="Materials";
-		lootTag[]=
-		{
-			"Civilian",
-			"Work"
-		};
-		itemSize[]={1};
-		weight=1,1;
+		animClass="NoFireClass";
+		weight=1;
+		itemSize[]={1,1};
 		canBeSplit=1;
         varQuantityInit=10000;
         varQuantityMin=0;
         varQuantityMax=10000;
         varQuantityDestroyOnMin=1;
         varStackMax=10000;
-		absorbency=1;
 	};
 };
