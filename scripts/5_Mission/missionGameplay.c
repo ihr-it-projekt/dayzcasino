@@ -1,6 +1,5 @@
 modded class MissionGameplay 
 {
-	private ref GameMenu gameMenu;
 	private ref CasinoConfig casinoConfig;
 	private ref BlackJackClientEventHandler blackJackClientEventHandler;
 	private ref BetDiceClientEventHandler betDiceClientEventHandler;
@@ -26,7 +25,7 @@ modded class MissionGameplay
 			if (ctx.Read(casinoConfigParam)){
 				casinoConfig = casinoConfigParam.param1;
 				DebugMessageCasino("player load config");
-				gameMenu = new GameMenu(casinoConfig);
+				GameMenu.Get(casinoConfig);
 
                 blackJackClientEventHandler = new BlackJackClientEventHandler();
                 betDiceClientEventHandler = new BetDiceClientEventHandler();
@@ -34,10 +33,10 @@ modded class MissionGameplay
 				ratRaceClientEventHandler = new RatRaceClientEventHandler();
 			}
 		} else if (HasClientEventHandler()) {
-            blackJackClientEventHandler.HandleEvents(gameMenu.GetBlackJackMenu(), sender, target, rpc_type, ctx);
-            betDiceClientEventHandler.HandleEvents(gameMenu.GetBetDiceMenu(), sender, target, rpc_type, ctx);
-            luckyWheelClientEventHandler.HandleEvents(gameMenu.GetLuckyWheelMenu(), sender, target, rpc_type, ctx);
-            ratRaceClientEventHandler.HandleEvents(gameMenu.GetRatRaceMenu(), sender, target, rpc_type, ctx);
+            blackJackClientEventHandler.HandleEvents(GameMenu.Get().GetBlackJackMenu(), sender, target, rpc_type, ctx);
+            betDiceClientEventHandler.HandleEvents(GameMenu.Get().GetBetDiceMenu(), sender, target, rpc_type, ctx);
+            luckyWheelClientEventHandler.HandleEvents(GameMenu.Get().GetLuckyWheelMenu(), sender, target, rpc_type, ctx);
+            ratRaceClientEventHandler.HandleEvents(GameMenu.Get().GetRatRaceMenu(), sender, target, rpc_type, ctx);
 		} else {
             DebugMessageCasino("NO game event handler registered");
 		}
@@ -50,8 +49,8 @@ modded class MissionGameplay
 
         if(player) {
             UAInput localInput = GetUApi().GetInputByName("UAInputPlayCasinoGame");
-            if (localInput.LocalClick()){
-				BaseMenu currentGameMenu = gameMenu.GetGameMenu(player);
+            if (localInput.LocalClick() && GameMenu.Get()){
+				BaseMenu currentGameMenu = GameMenu.Get().GetGameMenu(player);
 				if (GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen && player.IsAlive()) {
 					DebugMessageCasino("key press open");
                     currentGameMenu.Init();
@@ -59,11 +58,10 @@ modded class MissionGameplay
 				}
 			}
 
-			if (gameMenu && gameMenu.CanOpenHintToOpenGameMenu(player)){
-                gameMenu.GetGameHintMenu().Init();
-                gameMenu.GetGameHintMenu().OnShow();
-			} else if (gameMenu) {
-                gameMenu.GetGameHintMenu().OnHide();
+			if (GameMenu.Get() && GameMenu.Get().CanOpenHintToOpenGameMenu(player)){
+                GameMenu.Get().GetGameHintMenu().OnShow();
+			} else if (GameMenu.Get()) {
+                GameMenu.Get().GetGameHintMenu().OnHide();
 			}
 		}
 	}

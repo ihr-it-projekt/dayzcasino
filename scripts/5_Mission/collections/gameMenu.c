@@ -1,11 +1,21 @@
 class GameMenu
 {
+    private static ref GameMenu menu;
+
 	private ref BetDiceMenu betDiceMenu;
 	private ref BlackJackMenu blackJackMenu;
 	private ref LuckyWheelMenu luckyWheelMenu;
 	private ref RatRaceMenu ratRaceMenu;
 	private ref GameHint gameHint;
 	private CasinoConfig casinoConfig;
+
+	static GameMenu Get(CasinoConfig casinoConfigExt = null) {
+	    if (!menu && casinoConfigExt) {
+	        menu = new GameMenu(casinoConfigExt);
+	    }
+
+	    return menu;
+	}
 
 	void GameMenu(CasinoConfig casinoConfigExt) {
 		DebugMessageCasino("Load GameMenu");

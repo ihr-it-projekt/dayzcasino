@@ -1,63 +1,24 @@
-class GameHint extends UIScriptedMenu
+class GameHint
 {
-    private Widget hintWidget;
-    private bool isOpen  = false;
-    private MultilineTextWidget message;
+    private ref Widget hintWidget;
+    private ref MultilineTextWidget message;
 
-    override Widget Init()
-    {
-        if (IsServerCasino()){
-            return null;
-        }
+    void ~GameHint() {
+        if(hintWidget) hintWidget.Show(false);
+    }
 
-        if (IsInitialized()) {
-            return hintWidget;
-        }
-
-        super.Init();
-
+    void GameHint() {
         hintWidget = GetGame().GetWorkspace().CreateWidgets("DayZCasinoV2/layouts/GameHint.layout");
         message = MultilineTextWidget.Cast( hintWidget.FindAnyWidget( "message" ));
         message.SetText("#hint_can_open_game");
-
-        isOpen = false;
-        toggleWidget();
-
-        return hintWidget;
     }
 
-    override void OnHide()
-    {
-        if (!isOpen) {
-            return;
-        }
-
-        super.OnHide();
-
-        isOpen = false;
-        toggleWidget();
+    void OnHide() {
+        hintWidget.Show(false);
     }
 
 
-    override void OnShow()
-    {
-        if (isOpen) {
-            return;
-        }
-
-        super.OnShow();
-
-        isOpen = true;
-        toggleWidget();
-    }
-
-
-    bool IsInitialized() {
-        return !!hintWidget;
-    }
-
-    private void toggleWidget() {
-        DebugMessageCasino("toggle hint " + isOpen);
-        hintWidget.Show(isOpen);
+    void OnShow() {
+        hintWidget.Show(true);
     }
 };
