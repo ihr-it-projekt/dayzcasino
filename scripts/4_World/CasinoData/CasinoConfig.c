@@ -6,7 +6,7 @@ class CasinoConfig extends BaseConfig
 	ref CasinoGameSettingBlackjack blackJackSettings;
 	ref CasinoGameSettingDice diceSettings;
 	ref CasinoGameSettingRatRace ratRaceSettings;
-	int configVersion = 1;
+	int configVersion = 2;
 	bool enablePlayLogs = true;
 	ref map <string, int> currencyValues;
 
