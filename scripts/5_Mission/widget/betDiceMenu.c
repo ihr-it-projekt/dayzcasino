@@ -136,6 +136,7 @@ class BetDiceMenu extends GameBetBaseMenu
 	void SetWinFactor(int winF) {
 		winFactorInt = winF;
 		DebugMessageCasino("winFactorInt " + winFactorInt.ToString());
+		
 		if (winFactor) winFactor.SetText(winFactorInt.ToString());
 	}
 

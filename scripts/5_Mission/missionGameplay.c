@@ -65,6 +65,18 @@ modded class MissionGameplay
 			}
 		}
 	}
+	
+	
+    override void OnKeyRelease(int key) {
+        if (KeyCode.KC_ESCAPE == key && GameMenu.Get().CloseAllGameMenu()) {
+			GetGame().GetUIManager().CloseAll();
+			Print("1");
+			//DO Nothing
+		} else {
+			super.OnKeyRelease(key);
+		}
+		
+    }
 
 	private bool HasClientEventHandler() {
 	    return null != blackJackClientEventHandler && null != betDiceClientEventHandler && null != luckyWheelClientEventHandler && null != ratRaceClientEventHandler;

@@ -12,6 +12,7 @@ class BaseMenu extends UIScriptedMenu
     protected MultilineTextWidget message;
     protected MultilineTextWidget countChips;
 	protected CasinoConfig casinoConfig;
+	protected bool canClose = true;
 	bool isMenuOpen = false;
 	protected map<string, int> currencyValues;
     ref protected DayZCasinoPlayerInventory inventory;
@@ -87,7 +88,7 @@ class BaseMenu extends UIScriptedMenu
             infoWidget.Show(false);
             return true;
         } else if (w == donate){
-            GetGame().OpenURL("https://www.paypal.com/pools/c/8idQvmteIO");
+            GetGame().OpenURL("https://www.paypal.com/paypalme/TheBuster0815");
             return true;
         } else if (w == steam){
             GetGame().OpenURL("https://steamcommunity.com/sharedfiles/filedetails/?id=1940425039");
@@ -98,11 +99,7 @@ class BaseMenu extends UIScriptedMenu
     }
 	
 	override void OnHide()
-	{
-		if (!isMenuOpen) {
-			return;
-		}
-		
+	{	
 		DebugMessageCasino("hide action");
 		super.OnHide();
 
@@ -149,11 +146,17 @@ class BaseMenu extends UIScriptedMenu
     void Play() {
         cancel.Show(false);
 		message.Show(false);
+		canClose = false;
     }
 
     void EndGame() {
         cancel.Show(true);
+		canClose = true;
     }
+	
+	bool CanCloseGameMenu() {
+		return canClose && isMenuOpen;
+	}
 	
 	protected bool CanPlayGame() {
         return player && isMenuOpen;
@@ -167,7 +170,8 @@ class BaseMenu extends UIScriptedMenu
 			OnHide();
 			layoutRoot.Show(false);
 			isMenuOpen = false;
-		}	
+		}
+		
 	}
 	
 	bool IsInitialized() {

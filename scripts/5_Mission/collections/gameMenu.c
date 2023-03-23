@@ -153,18 +153,25 @@ class GameMenu
         return false;
 	}
 	
-	void CloseAllGameMenu(){
-		if (betDiceMenu) {
+	bool CloseAllGameMenu(){
+		bool closed = false;
+		if (betDiceMenu && betDiceMenu.CanCloseGameMenu()) {
 			betDiceMenu.CloseMenu();
+			closed = true;
 		}
-		if (blackJackMenu) {
+		if (blackJackMenu && blackJackMenu.CanCloseGameMenu()) {
 			blackJackMenu.CloseMenu();
+			closed = true;
 		}
-		if (luckyWheelMenu) {
+		if (luckyWheelMenu && luckyWheelMenu.CanCloseGameMenu()) {
             luckyWheelMenu.CloseMenu();
+			closed = true;
 		}
-		if (ratRaceMenu) {
+		if (ratRaceMenu && ratRaceMenu.CanCloseGameMenu()) {
             ratRaceMenu.CloseMenu();
+			closed = true;
 		}
+		
+		return closed;
 	}
 }
