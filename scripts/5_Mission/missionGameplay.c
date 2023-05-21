@@ -47,14 +47,13 @@ modded class MissionGameplay
 		super.OnUpdate(timeslice);
 		autoptr DayZPlayer player = GetGame().GetPlayer();
 
-        if(player) {
+        if(player && player.IsAlive()) {
             UAInput localInput = GetUApi().GetInputByName("UAInputPlayCasinoGame");
             if (localInput.LocalClick() && GameMenu.Get()){
 				BaseMenu currentGameMenu = GameMenu.Get().GetGameMenu(player);
-				if (GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen && player.IsAlive()) {
-					DebugMessageCasino("key press open");
+				if (GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen ) {
                     currentGameMenu.Init();
-					currentGameMenu.OnShow();
+					GetGame().GetUIManager().ShowScriptedMenu(currentGameMenu, NULL);
 				}
 			}
 
@@ -65,18 +64,6 @@ modded class MissionGameplay
 			}
 		}
 	}
-	
-	
-    override void OnKeyRelease(int key) {
-        if (KeyCode.KC_ESCAPE == key && GameMenu.Get().CloseAllGameMenu()) {
-			GetGame().GetUIManager().CloseAll();
-			Print("1");
-			//DO Nothing
-		} else {
-			super.OnKeyRelease(key);
-		}
-		
-    }
 
 	private bool HasClientEventHandler() {
 	    return null != blackJackClientEventHandler && null != betDiceClientEventHandler && null != luckyWheelClientEventHandler && null != ratRaceClientEventHandler;
