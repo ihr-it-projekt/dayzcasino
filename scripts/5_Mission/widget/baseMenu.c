@@ -3,6 +3,7 @@ class BaseMenu extends UIScriptedMenu
     protected bool isDebug = DAYZ_CASINO_DEBUG;
 	protected ButtonWidget info;
 	protected ButtonWidget steam;
+	protected ButtonWidget discord;
 	protected ButtonWidget donate;
 	protected ButtonWidget closeInfo;
 	protected Widget infoWidget;
@@ -61,10 +62,12 @@ class BaseMenu extends UIScriptedMenu
 		
 		closeInfo = ButtonWidget.Cast( infoWidget.FindAnyWidget( "closeInfo" ));
 		steam = ButtonWidget.Cast( infoWidget.FindAnyWidget( "steam" ));
+		discord = ButtonWidget.Cast( infoWidget.FindAnyWidget( "discord" ));
 		donate = ButtonWidget.Cast( infoWidget.FindAnyWidget( "donate" ));
 		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( closeInfo,  this, "OnClick" );
 		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( steam,  this, "OnClick" );
 		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( donate,  this, "OnClick" );
+		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( discord,  this, "OnClick" );
 		layoutRoot.AddChild(infoWidget);
 
         return layoutRoot;
@@ -92,6 +95,9 @@ class BaseMenu extends UIScriptedMenu
             return true;
         } else if (w == steam){
             GetGame().OpenURL("https://steamcommunity.com/sharedfiles/filedetails/?id=1940425039");
+            return true;
+        } else if (w == discord){
+            GetGame().OpenURL("https://discord.gg/tyfhdJPztv");
             return true;
         }
 
@@ -163,19 +169,18 @@ class BaseMenu extends UIScriptedMenu
     }
 	
 	void CloseMenu(){
-		DebugMessageCasino("check is open");
-		if(isMenuOpen){
-			DebugMessageCasino("try close menu");
-			SetFocus(NULL);
-			OnHide();
-			layoutRoot.Show(false);
-			isMenuOpen = false;
-		}
-		
+		GetGame().GetUIManager().HideScriptedMenu(this);
 	}
 	
 	bool IsInitialized() {
 		return !!layoutRoot;
 	}
+
+    override void Update(float timeslice) {
+        super.Update(timeslice);
+        if (CanCloseGameMenu() && GetUApi() && GetUApi().GetInputByName("UAUIBack").LocalPress()) {
+            GetGame().GetUIManager().HideScriptedMenu(this);
+        }
+    }
 
 }

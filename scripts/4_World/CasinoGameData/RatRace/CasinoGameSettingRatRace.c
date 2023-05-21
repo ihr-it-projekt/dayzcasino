@@ -9,6 +9,6 @@ class CasinoGameSettingRatRace extends CasinoGameSetting
     void CasinoGameSettingRatRace()
     {
         gamePositions = new array<ref GamePosition>;
-        gamePositions.Insert(new GamePosition("8349.441406 293.181458 5971.501953", "97.000015 0.000000 0.000000"));
+        gamePositions.Insert(new GamePosition("8349.441406 292.181458 5971.501953", "97.000015 0.000000 0.000000"));
     }
 }

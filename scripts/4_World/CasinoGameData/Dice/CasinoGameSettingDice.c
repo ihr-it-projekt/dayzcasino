@@ -9,7 +9,7 @@ class CasinoGameSettingDice extends CasinoGameSetting
     void CasinoGameSettingDice()
     {
         gamePositions = new array<ref GamePosition>;
-        gamePositions.Insert(new GamePosition("8345.300781 293.181458 5976.666504", "4.999999 0.000000 0.000000"));
+        gamePositions.Insert(new GamePosition("8345.300781 292.181458 5976.666504", "4.999999 0.000000 0.000000"));
     }
 
 
