@@ -36,14 +36,11 @@ class BlackJackMenu extends GameBetBaseMenu
 		super.Init();
 
 		holdCard = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "holdCard" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( holdCard,  this, "OnClick" );
         usedCards = new TIntArray;
 
         newGame = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "newGame" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( newGame,  this, "OnClick" );
 
         nextCard = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "nextCard" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( nextCard,  this, "OnClick" );
 
         cards = ImageWidget.Cast(layoutRoot.FindAnyWidget( "cards" ));
         cards.LoadImageFile(0, "DayZCasinoV2/data/cards/rueckseite.edds");

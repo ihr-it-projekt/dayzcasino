@@ -33,7 +33,6 @@ class LuckyWheelMenu extends BaseMenu
 		super.Init();
 
         rotate = ButtonWidget.Cast(layoutRoot.FindAnyWidget( "rotate" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(rotate,  this, "OnClick");
 
         jackpotWidget = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget( "jackpot" ));
         betPerRoll = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget( "betPerRoll" ));

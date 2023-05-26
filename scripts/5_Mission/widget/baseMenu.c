@@ -45,7 +45,6 @@ class BaseMenu extends UIScriptedMenu
         layoutRoot = GetGame().GetWorkspace().CreateWidgets(widgetPath);
 
         cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "cancel" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(cancel,  this, "OnClick");
 
         countChips = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("countChips"));
         lastWin = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("lastWin"));
@@ -55,8 +54,6 @@ class BaseMenu extends UIScriptedMenu
 		
 		info = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "info" ));
 		
-		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( info,  this, "OnClick" );
-		
 		infoWidget = GetGame().GetWorkspace().CreateWidgets("DayZCasinoV2/layouts/Info.layout");
 		infoWidget.Show(false);
 		
@@ -64,10 +61,6 @@ class BaseMenu extends UIScriptedMenu
 		steam = ButtonWidget.Cast( infoWidget.FindAnyWidget( "steam" ));
 		discord = ButtonWidget.Cast( infoWidget.FindAnyWidget( "discord" ));
 		donate = ButtonWidget.Cast( infoWidget.FindAnyWidget( "donate" ));
-		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( closeInfo,  this, "OnClick" );
-		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( steam,  this, "OnClick" );
-		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( donate,  this, "OnClick" );
-		WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( discord,  this, "OnClick" );
 		layoutRoot.AddChild(infoWidget);
 
         return layoutRoot;

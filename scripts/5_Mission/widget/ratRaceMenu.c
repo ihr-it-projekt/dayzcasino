@@ -67,9 +67,7 @@ class RatRaceMenu extends GameBetBaseMenu
 
 		startRace = ButtonWidget.Cast(layoutRoot.FindAnyWidget("startRace" ));
 		newRace = ButtonWidget.Cast(layoutRoot.FindAnyWidget( "newRace" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(startRace,  this, "OnClick" );
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(newRace,  this, "OnClick" );
-		
+
 		ratNumber = TextWidget.Cast( layoutRoot.FindAnyWidget( "ratNumber" ));
 		ratNumber.SetText(currentNumber.ToString());
 		
@@ -77,13 +75,9 @@ class RatRaceMenu extends GameBetBaseMenu
 		countDownWidget.Show(false);
 		
 		sub1Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub1Number" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub1Number,  this, "OnClick" );
         sub10Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub10Number" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub10Number,  this, "OnClick" );
         add1Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add1Number" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add1Number,  this, "OnClick" );
         add10Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add10Number" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add10Number,  this, "OnClick" );
 
 		background_sound = SEffectManager.CreateSound("DayZCasino_RACE_BACKGROUND_SoundSet", player.GetPosition());
 		countdown_1_sound = SEffectManager.CreateSound("DayZCasino_COUNTDOWN_1_SoundSet", player.GetPosition());

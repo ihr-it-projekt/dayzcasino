@@ -28,22 +28,14 @@ class GameBetBaseMenu extends BaseMenu
         super.Init();
 
         sub1ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub1ChipsBet" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub1ChipsBet,  this, "OnClick" );
         sub10ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub10ChipsBet" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub10ChipsBet,  this, "OnClick" );
         sub100ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub100ChipsBet" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub100ChipsBet,  this, "OnClick" );
         sub1000ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub1000ChipsBet" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub1000ChipsBet,  this, "OnClick" );
         add1ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add1ChipsBet" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add1ChipsBet,  this, "OnClick" );
         add10ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add10ChipsBet" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add10ChipsBet,  this, "OnClick" );
         add100ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add100ChipsBet" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add100ChipsBet,  this, "OnClick" );
         add1000ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add1000ChipsBet" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add1000ChipsBet,  this, "OnClick" );
-		
+
 		chipsBet = TextWidget.Cast(layoutRoot.FindAnyWidget("chipsBet"));
 		chipsBet.SetText(chipsValue.ToString());
 

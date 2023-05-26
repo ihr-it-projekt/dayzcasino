@@ -37,19 +37,14 @@ class BetDiceMenu extends GameBetBaseMenu
 		super.Init();
 
 		shuffle = ButtonWidget.Cast(layoutRoot.FindAnyWidget( "shuffle" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown(shuffle,  this, "OnClick" );
 		number = TextWidget.Cast( layoutRoot.FindAnyWidget( "number" ));
 		number.SetText(currentNumber.ToString());
 		
 		sub1Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub1Number" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub1Number,  this, "OnClick" );
         sub10Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub10Number" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( sub10Number,  this, "OnClick" );
         add1Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add1Number" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add1Number,  this, "OnClick" );
         add10Number = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add10Number" ));
-        WidgetEventHandler.GetInstance().RegisterOnMouseButtonDown( add10Number,  this, "OnClick" );
-		
+
 		
 		winFactor = TextWidget.Cast( layoutRoot.FindAnyWidget( "winFactor" ));
 
