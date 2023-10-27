@@ -63,6 +63,9 @@ modded class MissionServer {
     private void PlaceGame(vector pos, vector orientation, string gameObjectName) {
         DebugMessageCasino("create object " + gameObjectName);
         House game_obj = Building.Cast(GetGame().CreateObject(gameObjectName, pos));
+		
+		if (!game_obj) return;
+		
         game_obj.SetPosition( pos );
         game_obj.SetOrientation( orientation );
         game_obj.SetOrientation( game_obj.GetOrientation() ); //Collision fix

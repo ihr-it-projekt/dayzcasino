@@ -5,13 +5,13 @@ class BlackJackServerEventHandler
 	CasinoGameSettingBlackjack config;
 	private bool enableLogs = false;
 
-    void BlackJackServerEventHandler(CasinoGameSettingBlackjack config, bool enableLogs, map<string, int> currencyValues) {
+    void BlackJackServerEventHandler(CasinoGameSettingBlackjack _config, bool _enableLogs, map<string, int> currencyValues) {
         inventory = new DayZCasinoPlayerInventory(currencyValues);
         cardCollection = new CardCollection();
         DebugMessageCasino("Register BJSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
-		this.config = config;
-		this.enableLogs = enableLogs;
+		this.config = _config;
+		this.enableLogs = _enableLogs;
     }
 
     void ~BlackJackServerEventHandler() {

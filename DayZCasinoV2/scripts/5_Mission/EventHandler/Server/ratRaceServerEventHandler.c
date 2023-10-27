@@ -71,9 +71,9 @@ class RatRaceServerEventHandler
         }
     }
 
-    void SetConfig(CasinoGameSettingRatRace settings, bool enableLogs) {
+    void SetConfig(CasinoGameSettingRatRace settings, bool _enableLogs) {
         maxWinQouta = settings.maxWinQouta;
-		this.enableLogs = enableLogs;
+		this.enableLogs = _enableLogs;
     }
 
 };

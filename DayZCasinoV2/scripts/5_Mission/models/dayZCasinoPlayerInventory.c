@@ -2,8 +2,8 @@ class DayZCasinoPlayerInventory
 {
 	private map<string, int> currencyValues;
 	
-	void DayZCasinoPlayerInventory(map<string, int> currencyValues) {
-		this.currencyValues = currencyValues;
+	void DayZCasinoPlayerInventory(map<string, int> _currencyValues) {
+		this.currencyValues = _currencyValues;
 	}
 	
     bool PlayerHasEnoughChips(DayZPlayer player, int betSumme) {

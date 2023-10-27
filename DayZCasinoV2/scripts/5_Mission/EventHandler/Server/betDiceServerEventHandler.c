@@ -61,9 +61,9 @@ class BetDiceServerEventHandler
         }
     }
 	
-    void SetConfig(bool enableLogs, CasinoGameSettingDice casinoGameSettingDiceParam) {
+    void SetConfig(bool _enableLogs, CasinoGameSettingDice casinoGameSettingDiceParam) {
         casinoGameSettingDice = casinoGameSettingDiceParam;
-        this.enableLogs = enableLogs;
+        this.enableLogs = _enableLogs;
     }
 
 };

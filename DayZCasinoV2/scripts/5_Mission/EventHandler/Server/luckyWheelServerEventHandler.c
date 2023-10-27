@@ -6,9 +6,9 @@ class LuckyWheelServerEventHandler
     private Jackpot jackpot;
 	private bool enableLogs;
 
-    void LuckyWheelServerEventHandler(bool enableLogs, map<string, int> currencyValues) {
+    void LuckyWheelServerEventHandler(bool _enableLogs, map<string, int> currencyValues) {
         inventory = new DayZCasinoPlayerInventory(currencyValues);
-		this.enableLogs = enableLogs;
+		this.enableLogs = _enableLogs;
 
         DebugMessageCasino("Register LWSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
