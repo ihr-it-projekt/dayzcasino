@@ -37,7 +37,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        color 0 0 0 0.7843
        position 204.842 13.2515
-       size 789.065 70
+       size 748.02502 70
        hexactpos 1
        vexactpos 1
        hexactsize 1
@@ -47,7 +47,7 @@ FrameWidgetClass rootFrame {
         TextWidgetClass TextWidget0 {
          ignorepointer 1
          position 8.26005 8.26003
-         size 767.55298 53.4799
+         size 731.76501 53.4799
          hexactpos 1
          vexactpos 1
          hexactsize 1
@@ -575,8 +575,8 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass boarderCancel3 {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 1134.48999 23.4122
-       size 40.892 49.6786
+       position 960.867 13.2515
+       size 220 35
        hexactpos 1
        vexactpos 1
        hexactsize 1
@@ -585,14 +585,38 @@ FrameWidgetClass rootFrame {
        {
         ButtonWidgetClass info {
          color 0 1 0.251 1
-         position 9.69699 9.69697
-         size 21.981 31.7216
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
+         position 0.02 0.18
+         size 0.95 0.65
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
          style MenuDefault
          text "i"
+        }
+       }
+      }
+      PanelWidgetClass boarderCancel4 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 960.867 48.2515
+       size 220 35
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass discord {
+         color 0 1 0.251 1
+         position 0.02 0.18
+         size 0.95 0.65
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style MenuDefault
+         text "Discord"
         }
        }
       }
