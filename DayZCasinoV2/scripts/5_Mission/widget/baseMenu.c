@@ -84,13 +84,13 @@ class BaseMenu extends UIScriptedMenu
             infoWidget.Show(false);
             return true;
         } else if (w == donate){
-            GetGame().OpenURL("https://www.paypal.com/paypalme/TheBuster0815");
+            GetGame().OpenURL("https://www.patreon.com/tbm_mods");
             return true;
         } else if (w == steam){
             GetGame().OpenURL("https://steamcommunity.com/sharedfiles/filedetails/?id=1940425039");
             return true;
         } else if (w == discord){
-            GetGame().OpenURL("https://discord.gg/tyfhdJPztv");
+            GetGame().OpenURL("https://discord.gg/3maa9Q9rHB");
             return true;
         }
 

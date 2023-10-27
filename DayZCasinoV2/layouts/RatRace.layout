@@ -37,7 +37,7 @@ FrameWidgetClass rootFrame {
        ignorepointer 1
        color 0 0 0 0.7843
        position 9.69698 9.69697
-       size 1266.58997 70
+       size 1095.03003 68.4279
        hexactpos 1
        vexactpos 1
        hexactsize 1
@@ -47,11 +47,11 @@ FrameWidgetClass rootFrame {
         TextWidgetClass TextWidget0 {
          ignorepointer 1
          position 8.26005 8.26003
-         size 1248.90002 53.4799
+         size 0.98254 0.72944
          hexactpos 1
          vexactpos 1
-         hexactsize 1
-         vexactsize 1
+         hexactsize 0
+         vexactsize 0
          style Bold
          text "#rate_race"
          "text halign" center
@@ -1071,8 +1071,8 @@ FrameWidgetClass rootFrame {
       PanelWidgetClass boarderCancel0 {
        ignorepointer 1
        color 0 0 0 0.7843
-       position 1285.97998 19.8577
-       size 40.892 49.6786
+       position 1115.28992 7.38594
+       size 220 35
        hexactpos 1
        vexactpos 1
        hexactsize 1
@@ -1081,14 +1081,38 @@ FrameWidgetClass rootFrame {
        {
         ButtonWidgetClass info {
          color 0 1 0.251 1
-         position 9.69699 9.69697
-         size 21.981 31.7216
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
+         position 0.02 0.18
+         size 0.95 0.65
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
          style MenuDefault
          text "i"
+        }
+       }
+      }
+      PanelWidgetClass boarderCancel3 {
+       ignorepointer 1
+       color 0 0 0 0.7843
+       position 1115.48999 43.9109
+       size 220 35
+       hexactpos 1
+       vexactpos 1
+       hexactsize 1
+       vexactsize 1
+       style editor_selection
+       {
+        ButtonWidgetClass discord {
+         color 0 1 0.251 1
+         position 0.02 0.18
+         size 0.95 0.65
+         hexactpos 0
+         vexactpos 0
+         hexactsize 0
+         vexactsize 0
+         style MenuDefault
+         text "Discord"
         }
        }
       }
