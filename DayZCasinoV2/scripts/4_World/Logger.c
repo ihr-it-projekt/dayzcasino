@@ -14,29 +14,29 @@ static void LogPlay(DayZPlayer player, int winAmmount, string gameName) {
     string date = "" + year + "-" + month + "-" + day;
 
 
-    if (!FileExist(CONFIGSFOLDER)) {
+    if(!FileExist(CONFIGSFOLDER)) {
         MakeDirectory(CONFIGSFOLDER);
         DebugMessageCasino("create folder");
     }
-	
-	FileHandle handle;
-	
-	if (!FileExist(CONFIGSFOLDER + date + "_play.csv")) {
-		handle = OpenFile(CONFIGSFOLDER + date +"_play.csv" , FileMode.APPEND);
-		if ( handle == 0 )
-        	return;
-		
-		FPrintln(handle, "time;game;playerid;win/lose;");
-	}
 
-	if (handle == 0) {
-		handle = OpenFile(CONFIGSFOLDER + date +"_play.csv" , FileMode.APPEND);
-	}
-    
-    if ( handle == 0 )
+    FileHandle handle;
+
+    if(!FileExist(CONFIGSFOLDER + date + "_play.csv")) {
+        handle = OpenFile(CONFIGSFOLDER + date + "_play.csv", FileMode.APPEND);
+        if(handle == 0)
+            return;
+
+        FPrintln(handle, "time;game;playerid;win/lose;");
+    }
+
+    if(handle == 0) {
+        handle = OpenFile(CONFIGSFOLDER + date + "_play.csv", FileMode.APPEND);
+    }
+
+    if(handle == 0)
         return;
 
-    FPrintln(handle, time + ";" + gameName + ";" + player.GetIdentity().GetPlainId() + ";" +  winAmmount.ToString() +";");
+    FPrintln(handle, time + ";" + gameName + ";" + player.GetIdentity().GetPlainId() + ";" + winAmmount.ToString() + ";");
 
     CloseFile(handle);
 }

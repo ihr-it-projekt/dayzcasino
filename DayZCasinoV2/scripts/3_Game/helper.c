@@ -1,25 +1,21 @@
 static void DebugMessageCasino(string message) {
-    if (DAYZ_CASINO_DEBUG) {
+    if(DAYZ_CASINO_DEBUG) {
         Print("[DayZCasino] " + message);
         GetGame().AdminLog("[DayZCasino] " + message);
     }
 }
 
-static bool IsServerCasino()
-{
+static bool IsServerCasino() {
     return GetGame().IsServer();
 }
-static bool IsMultiplayerCasino()
-{
+static bool IsMultiplayerCasino() {
     return GetGame().IsMultiplayer();
 }
 
-static bool IsServerAndMultiplayerCasino()
-{
+static bool IsServerAndMultiplayerCasino() {
     return IsMultiplayerCasino() && IsServerCasino();
 }
-static bool IsClientOrNotMultiplayerCasino()
-{
+static bool IsClientOrNotMultiplayerCasino() {
     return !IsMultiplayerCasino() || GetGame().IsClient();
 }
 

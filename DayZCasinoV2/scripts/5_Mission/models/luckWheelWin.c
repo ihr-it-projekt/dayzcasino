@@ -1,5 +1,4 @@
-class LuckyWheelWin
-{
+class LuckyWheelWin {
     private int luckyDegree;
     private int winAmmount;
 

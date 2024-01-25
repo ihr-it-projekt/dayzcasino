@@ -1,177 +1,173 @@
-class BaseMenu extends UIScriptedMenu
-{
+class BaseMenu extends UIScriptedMenu {
     protected bool isDebug = DAYZ_CASINO_DEBUG;
-	protected ButtonWidget info;
-	protected ButtonWidget steam;
-	protected ButtonWidget discord;
-	protected ButtonWidget donate;
-	protected ButtonWidget closeInfo;
-	protected Widget infoWidget;
-	protected DayZPlayer player;
+    protected ButtonWidget info;
+    protected ButtonWidget steam;
+    protected ButtonWidget discord;
+    protected ButtonWidget donate;
+    protected ButtonWidget closeInfo;
+    protected Widget infoWidget;
+    protected DayZPlayer player;
     protected ButtonWidget cancel;
     protected MultilineTextWidget lastWin;
     protected MultilineTextWidget message;
     protected MultilineTextWidget countChips;
-	protected CasinoConfig casinoConfig;
-	protected bool canClose = true;
-	bool isMenuOpen = false;
-	protected map<string, int> currencyValues;
+    protected CasinoConfig casinoConfig;
+    protected bool canClose = true;
+    bool isMenuOpen = false;
+    protected map<string, int> currencyValues;
     ref protected DayZCasinoPlayerInventory inventory;
     int lastWinChips;
     int currentAmount;
     protected string widgetPath;
-	
-	void SetConfig(CasinoConfig casinoConfigExt) {
-        casinoConfig = casinoConfigExt;
-		inventory = new DayZCasinoPlayerInventory(casinoConfig.currencyValues);
-	}
 
-    override Widget Init()
-    {
-        if (IsServerCasino()){
+    void SetConfig(CasinoConfig casinoConfigExt) {
+        casinoConfig = casinoConfigExt;
+        inventory = new DayZCasinoPlayerInventory(casinoConfig.currencyValues);
+    }
+
+    override Widget Init() {
+        if(IsServerCasino()) {
             DebugMessageCasino("can not init, is server");
             return null;
         }
 
-        if (IsInitialized()) {
+        if(IsInitialized()) {
             return layoutRoot;
         }
 
         super.Init();
-		
-        
-		player = GetGame().GetPlayer();
+
+
+        player = GetGame().GetPlayer();
 
         layoutRoot = GetGame().GetWorkspace().CreateWidgets(widgetPath);
 
-        cancel = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "cancel" ));
+        cancel = ButtonWidget.Cast(layoutRoot.FindAnyWidget("cancel"));
+        discord = ButtonWidget.Cast(layoutRoot.FindAnyWidget("discord"));
 
-        countChips = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("countChips"));
-        lastWin = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("lastWin"));
-        message = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("message"));
+        countChips = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("countChips"));
+        lastWin = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("lastWin"));
+        message = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("message"));
 
         layoutRoot.Show(false);
-		
-		info = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "info" ));
-		
-		infoWidget = GetGame().GetWorkspace().CreateWidgets("DayZCasinoV2/layouts/Info.layout");
-		infoWidget.Show(false);
-		
-		closeInfo = ButtonWidget.Cast( infoWidget.FindAnyWidget( "closeInfo" ));
-		steam = ButtonWidget.Cast( infoWidget.FindAnyWidget( "steam" ));
-		discord = ButtonWidget.Cast( infoWidget.FindAnyWidget( "discord" ));
-		donate = ButtonWidget.Cast( infoWidget.FindAnyWidget( "donate" ));
-		layoutRoot.AddChild(infoWidget);
+
+        info = ButtonWidget.Cast(layoutRoot.FindAnyWidget("info"));
+
+        infoWidget = GetGame().GetWorkspace().CreateWidgets("DayZCasinoV2/layouts/Info.layout");
+        infoWidget.Show(false);
+
+        closeInfo = ButtonWidget.Cast(infoWidget.FindAnyWidget("closeInfo"));
+        steam = ButtonWidget.Cast(infoWidget.FindAnyWidget("steam"));
+        donate = ButtonWidget.Cast(infoWidget.FindAnyWidget("donate"));
+        layoutRoot.AddChild(infoWidget);
 
         return layoutRoot;
     }
 
-    override bool OnClick( Widget w, int x, int y, int button )	{
+    override bool OnClick(Widget w, int x, int y, int button)	{
         bool actionRuns = super.OnClick(w, x, y, button);
 
-        if (actionRuns) {
+        if(actionRuns) {
             return actionRuns;
         }
 
-        if (w == cancel){
+        if(w == cancel) {
             DebugMessageCasino("click cancel");
             CloseMenu();
             return true;
-        } else if (w == info){
+        } else if(w == info) {
             infoWidget.Show(true);
             return true;
-        } else if (w == closeInfo){
+        } else if(w == closeInfo) {
             infoWidget.Show(false);
             return true;
-        } else if (w == donate){
+        } else if(w == donate) {
             GetGame().OpenURL("https://www.patreon.com/tbm_mods");
             return true;
-        } else if (w == steam){
-            GetGame().OpenURL("https://steamcommunity.com/sharedfiles/filedetails/?id=1940425039");
+        } else if(w == steam) {
+            GetGame().OpenURL("https://steamcommunity.com/profiles/76561198196317725/myworkshopfiles/");
             return true;
-        } else if (w == discord){
+        } else if(w == discord) {
             GetGame().OpenURL("https://discord.gg/3maa9Q9rHB");
             return true;
         }
 
         return false;
     }
-	
-	override void OnHide()
-	{	
-		DebugMessageCasino("hide action");
-		super.OnHide();
 
-		PPEffects.SetBlurMenu(0);
+    override void OnHide() {
+        DebugMessageCasino("hide action");
+        super.OnHide();
 
-		GetGame().GetUIManager().ShowCursor(false);
-		GetGame().GetUIManager().ShowUICursor(false);
-		GetGame().GetInput().ResetGameFocus();
-		GetGame().GetMission().PlayerControlEnable(true);
-		GetGame().GetUIManager().Back();
-		GetGame().GetMission().GetHud().Show( true );
+        PPEffects.SetBlurMenu(0);
 
-		isMenuOpen = false;
-	}
-	
-		
-	override void OnShow()
-	{
-		if (isMenuOpen) {
-			DebugMessageCasino("Menu is already open");
-			return;
-		}
-		
-		super.OnShow();
-				
-		DebugMessageCasino("show action");
-		
-		PPEffects.SetBlurMenu(0.5);
+        GetGame().GetUIManager().ShowCursor(false);
+        GetGame().GetUIManager().ShowUICursor(false);
+        GetGame().GetInput().ResetGameFocus();
+        GetGame().GetMission().PlayerControlEnable(true);
+        GetGame().GetUIManager().Back();
+        GetGame().GetMission().GetHud().Show(true);
 
-		SetFocus( layoutRoot );
-		layoutRoot.Show(true);
+        isMenuOpen = false;
+    }
 
-		GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_INVENTORY);
-		GetGame().GetUIManager().ShowUICursor(true);
-		GetGame().GetUIManager().ShowCursor(true);
-		GetGame().GetInput().ChangeGameFocus( 1 );
-		GetGame().GetMission().GetHud().Show( false );
-		isMenuOpen = true;
-        currentAmount =  inventory.GetPlayerChipsAmount(player);
+
+    override void OnShow() {
+        if(isMenuOpen) {
+            DebugMessageCasino("Menu is already open");
+            return;
+        }
+
+        super.OnShow();
+
+        DebugMessageCasino("show action");
+
+        PPEffects.SetBlurMenu(0.5);
+
+        SetFocus(layoutRoot);
+        layoutRoot.Show(true);
+
+        GetGame().GetMission().PlayerControlDisable(INPUT_EXCLUDE_INVENTORY);
+        GetGame().GetUIManager().ShowUICursor(true);
+        GetGame().GetUIManager().ShowCursor(true);
+        GetGame().GetInput().ChangeGameFocus(1);
+        GetGame().GetMission().GetHud().Show(false);
+        isMenuOpen = true;
+        currentAmount = inventory.GetPlayerChipsAmount(player);
         countChips.SetText(currentAmount.ToString());
         lastWin.SetText("0");
-	}
+    }
 
     void Play() {
         cancel.Show(false);
-		message.Show(false);
-		canClose = false;
+        message.Show(false);
+        canClose = false;
     }
 
     void EndGame() {
         cancel.Show(true);
-		canClose = true;
+        canClose = true;
     }
-	
-	bool CanCloseGameMenu() {
-		return canClose && isMenuOpen;
-	}
-	
-	protected bool CanPlayGame() {
+
+    bool CanCloseGameMenu() {
+        return canClose && isMenuOpen;
+    }
+
+    protected bool CanPlayGame() {
         return player && isMenuOpen;
     }
-	
-	void CloseMenu(){
-		GetGame().GetUIManager().HideScriptedMenu(this);
-	}
-	
-	bool IsInitialized() {
-		return !!layoutRoot;
-	}
+
+    void CloseMenu() {
+        GetGame().GetUIManager().HideScriptedMenu(this);
+    }
+
+    bool IsInitialized() {
+        return !!layoutRoot;
+    }
 
     override void Update(float timeslice) {
         super.Update(timeslice);
-        if (CanCloseGameMenu() && GetUApi() && GetUApi().GetInputByName("UAUIBack").LocalPress()) {
+        if(CanCloseGameMenu() && GetUApi() && GetUApi().GetInputByName("UAUIBack").LocalPress()) {
             GetGame().GetUIManager().HideScriptedMenu(this);
         }
     }

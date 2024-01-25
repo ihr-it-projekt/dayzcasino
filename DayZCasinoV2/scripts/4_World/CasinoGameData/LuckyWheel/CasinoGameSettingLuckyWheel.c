@@ -1,32 +1,28 @@
-class CasinoGameSettingLuckyWheel extends CasinoGameSetting
-{
- 	int chipsBet = 50;
+class CasinoGameSettingLuckyWheel extends CasinoGameSetting {
+    int chipsBet = 50;
     int minJackpot = 500;
     int maxJackpot = 10000;
-	ref array<ref WheelNumberConfig> wheelNumberConfigs;
-	
+    ref array<ref WheelNumberConfig> wheelNumberConfigs;
+
     static int GAME_TYPE = DAYZ_CASINO_TYPE_LUCKY_WHEEL_GAME;
 
-    void CasinoGameSettingLuckyWheel()
-    {
+    void CasinoGameSettingLuckyWheel() {
         gamePositions = new array<ref GamePosition>;
         gamePositions.Insert(new GamePosition("8349.441406 292.181458 5973.501953", "97.000015 0.000000 0.000000"));
-		wheelNumberConfigs = new array<ref WheelNumberConfig>;
-		CreateNumbers();
+        wheelNumberConfigs = new array<ref WheelNumberConfig>;
+        CreateNumbers();
     }
-	
-	void CreateNumbers() {
-		int i = 0;
-        while (i < 36)
-        {
+
+    void CreateNumbers() {
+        int i = 0;
+        while(i < 36) {
             wheelNumberConfigs.Insert(new WheelNumberConfig(i, 0));
             i += 2;
         }
 
         i = 1;
         // 1,7,13,19,25
-        while (i < 36)
-        {
+        while(i < 36) {
             wheelNumberConfigs.Insert(new WheelNumberConfig(i, 1.5));
             i += 6;
         }
@@ -44,7 +40,7 @@ class CasinoGameSettingLuckyWheel extends CasinoGameSetting
         wheelNumberConfigs.Insert(new WheelNumberConfig(29, 2));
         wheelNumberConfigs.Insert(new WheelNumberConfig(31, 0));
         wheelNumberConfigs.Insert(new WheelNumberConfig(35, 2));
-	}
-	
-	
+    }
+
+
 }

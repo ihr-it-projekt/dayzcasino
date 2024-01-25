@@ -1,23 +1,22 @@
-class BlackJackMenu extends GameBetBaseMenu
-{
-	private ButtonWidget holdCard;
-	private ButtonWidget newGame;
-	private ButtonWidget nextCard;
-	private ImageWidget cards;
-	private ImageWidget playerCard0;
-	private ImageWidget playerCard1;
-	private ImageWidget playerCard2;
-	private ImageWidget playerCard3;
-	private ImageWidget playerCard4;
-	private ImageWidget playerCard5;
-	private ImageWidget bankCard0;
-	private ImageWidget bankCard1;
-	private ImageWidget bankCard2;
-	private ImageWidget bankCard3;
-	private ImageWidget bankCard4;
-	private ImageWidget bankCard5;
-	private MultilineTextWidget pointPlayer;
-	private MultilineTextWidget pointBank;
+class BlackJackMenu extends GameBetBaseMenu {
+    private ButtonWidget holdCard;
+    private ButtonWidget newGame;
+    private ButtonWidget nextCard;
+    private ImageWidget cards;
+    private ImageWidget playerCard0;
+    private ImageWidget playerCard1;
+    private ImageWidget playerCard2;
+    private ImageWidget playerCard3;
+    private ImageWidget playerCard4;
+    private ImageWidget playerCard5;
+    private ImageWidget bankCard0;
+    private ImageWidget bankCard1;
+    private ImageWidget bankCard2;
+    private ImageWidget bankCard3;
+    private ImageWidget bankCard4;
+    private ImageWidget bankCard5;
+    private MultilineTextWidget pointPlayer;
+    private MultilineTextWidget pointBank;
     private EffectSound effect_sound;
     private EffectSound lose_sound;
     private EffectSound win_sound;
@@ -26,94 +25,92 @@ class BlackJackMenu extends GameBetBaseMenu
     int cardValuePlayer;
     int cardValueBank;
 
-	override Widget Init()
-	{
-		if (IsInitialized()) {
-			return layoutRoot;
-		}
-		
-        widgetPath = "DayZCasinoV2/layouts/BlackJack.layout";
-		super.Init();
+    override Widget Init() {
+        if(IsInitialized()) {
+            return layoutRoot;
+        }
 
-		holdCard = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "holdCard" ));
+        widgetPath = "DayZCasinoV2/layouts/BlackJack.layout";
+        super.Init();
+
+        holdCard = ButtonWidget.Cast(layoutRoot.FindAnyWidget("holdCard"));
         usedCards = new TIntArray;
 
-        newGame = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "newGame" ));
+        newGame = ButtonWidget.Cast(layoutRoot.FindAnyWidget("newGame"));
 
-        nextCard = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "nextCard" ));
+        nextCard = ButtonWidget.Cast(layoutRoot.FindAnyWidget("nextCard"));
 
-        cards = ImageWidget.Cast(layoutRoot.FindAnyWidget( "cards" ));
+        cards = ImageWidget.Cast(layoutRoot.FindAnyWidget("cards"));
         cards.LoadImageFile(0, "DayZCasinoV2/data/cards/rueckseite.edds");
         cards.SetImage(0);
-		
-		pointBank = MultilineTextWidget.Cast( layoutRoot.FindAnyWidget("pointBank"));
-		pointPlayer = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("pointPlayer"));
 
-        bankCard0 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "bankCard0" ));
-        bankCard1 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "bankCard1" ));
-        bankCard2 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "bankCard2" ));
-        bankCard3 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "bankCard3" ));
-        bankCard4 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "bankCard4" ));
-        bankCard5 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "bankCard5" ));
-        playerCard0 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "playerCard0" ));
-        playerCard1 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "playerCard1" ));
-        playerCard2 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "playerCard2" ));
-        playerCard3 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "playerCard3" ));
-        playerCard4 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "playerCard4" ));
-        playerCard5 = ImageWidget.Cast(layoutRoot.FindAnyWidget( "playerCard5" ));
-		effect_sound = SEffectManager.CreateSound("DayZCasino_FLIPCARD_SoundSet", player.GetPosition());
+        pointBank = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("pointBank"));
+        pointPlayer = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("pointPlayer"));
+
+        bankCard0 = ImageWidget.Cast(layoutRoot.FindAnyWidget("bankCard0"));
+        bankCard1 = ImageWidget.Cast(layoutRoot.FindAnyWidget("bankCard1"));
+        bankCard2 = ImageWidget.Cast(layoutRoot.FindAnyWidget("bankCard2"));
+        bankCard3 = ImageWidget.Cast(layoutRoot.FindAnyWidget("bankCard3"));
+        bankCard4 = ImageWidget.Cast(layoutRoot.FindAnyWidget("bankCard4"));
+        bankCard5 = ImageWidget.Cast(layoutRoot.FindAnyWidget("bankCard5"));
+        playerCard0 = ImageWidget.Cast(layoutRoot.FindAnyWidget("playerCard0"));
+        playerCard1 = ImageWidget.Cast(layoutRoot.FindAnyWidget("playerCard1"));
+        playerCard2 = ImageWidget.Cast(layoutRoot.FindAnyWidget("playerCard2"));
+        playerCard3 = ImageWidget.Cast(layoutRoot.FindAnyWidget("playerCard3"));
+        playerCard4 = ImageWidget.Cast(layoutRoot.FindAnyWidget("playerCard4"));
+        playerCard5 = ImageWidget.Cast(layoutRoot.FindAnyWidget("playerCard5"));
+        effect_sound = SEffectManager.CreateSound("DayZCasino_FLIPCARD_SoundSet", player.GetPosition());
         win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
         lose_sound = SEffectManager.CreateSound("DayZCasino_LOSE_SoundSet", player.GetPosition());
-		
-		maxChipsUse = casinoConfig.blackJackSettings.maxBet;
-		minChipsUse = casinoConfig.blackJackSettings.minBet;
 
-		return layoutRoot;
-	}
-	
-	override void OnShow()
-	{
-		if (isMenuOpen) {
-			DebugMessageCasino("Menu is already open");
-			return;
-		}
-		
-		super.OnShow();
+        maxChipsUse = casinoConfig.blackJackSettings.maxBet;
+        minChipsUse = casinoConfig.blackJackSettings.minBet;
 
-		pointPlayer.SetText("0");
-		pointBank.SetText("0");
-        
-		holdCard.Show(false);
-		nextCard.Show(false);
-		newGame.Show(true);
-		
-		HideCards();
-	}
+        return layoutRoot;
+    }
 
-	override bool OnClick( Widget w, int x, int y, int button )	{
-		DebugMessageCasino("on click action super");
-		bool actionRuns = super.OnClick(w, x, y, button);
+    override void OnShow() {
+        if(isMenuOpen) {
+            DebugMessageCasino("Menu is already open");
+            return;
+        }
 
-        if (actionRuns) {
+        super.OnShow();
+
+        pointPlayer.SetText("0");
+        pointBank.SetText("0");
+
+        holdCard.Show(false);
+        nextCard.Show(false);
+        newGame.Show(true);
+
+        HideCards();
+    }
+
+    override bool OnClick(Widget w, int x, int y, int button)	{
+        DebugMessageCasino("on click action super");
+        bool actionRuns = super.OnClick(w, x, y, button);
+
+        if(actionRuns) {
             return actionRuns;
-        } else if (w == newGame){
+        } else if(w == newGame) {
             DebugMessageCasino("click newGame");
             Play();
             return true;
-        } else if (w == nextCard){
+        } else if(w == nextCard) {
             DebugMessageCasino("click nextCard");
             GiveNextCard();
             return true;
-        } else if (w == holdCard){
+        } else if(w == holdCard) {
             DebugMessageCasino("click holdCard");
             HoldCardAction();
             return true;
         }
 
-		return false;
-	}
+        return false;
+    }
 
-	void HideCards() {
+    void HideCards() {
         playerCard0.Show(false);
         playerCard1.Show(false);
         playerCard2.Show(false);
@@ -127,10 +124,10 @@ class BlackJackMenu extends GameBetBaseMenu
         bankCard3.Show(false);
         bankCard4.Show(false);
         bankCard5.Show(false);
-	}
+    }
 
-    override void Play(){
-        if (CanPlayGame()) {
+    override void Play() {
+        if(CanPlayGame()) {
             super.Play();
             HideCards();
             message.Show(false);
@@ -154,12 +151,12 @@ class BlackJackMenu extends GameBetBaseMenu
         bankCard1.LoadImageFile(0, "DayZCasinoV2/data/cards/rueckseite.edds");
         bankCard1.SetImage(0);
         bankCard1.Show(true);
-        if (false == effect_sound.SoundPlay()) {
+        if(false == effect_sound.SoundPlay()) {
             DebugMessageCasino("give card sound not  loaded");
         }
-	}
+    }
 
-	void SetNextPlayerCard(int numberOfCard, Card nextPlayerCard) {
+    void SetNextPlayerCard(int numberOfCard, Card nextPlayerCard) {
         switch(numberOfCard) {
             case 2:
                 playerCard1.LoadImageFile(0, nextPlayerCard.GetImagePath());
@@ -191,12 +188,12 @@ class BlackJackMenu extends GameBetBaseMenu
 
                 return;
         }
-        if (false == effect_sound.SoundPlay()) {
+        if(false == effect_sound.SoundPlay()) {
             DebugMessageCasino("give card sound not loaded");
         }
-	}
+    }
 
-	void SetNextBankCard(int numberOfCard, Card nextBankCard) {
+    void SetNextBankCard(int numberOfCard, Card nextBankCard) {
         switch(numberOfCard) {
             case 2:
                 bankCard1.LoadImageFile(0, nextBankCard.GetImagePath());
@@ -228,15 +225,15 @@ class BlackJackMenu extends GameBetBaseMenu
 
                 return;
         }
-        if (false == effect_sound.SoundPlay()) {
+        if(false == effect_sound.SoundPlay()) {
             DebugMessageCasino("give card sound not loaded");
         }
-	}
+    }
 
     void LoseGame() {
         countChips.SetText("" + currentAmount);
         lastWin.SetText("" + lastWinChips);
-        if (false == lose_sound.SoundPlay()) {
+        if(false == lose_sound.SoundPlay()) {
             DebugMessageCasino("lose sound not loaded");
         }
 
@@ -246,7 +243,7 @@ class BlackJackMenu extends GameBetBaseMenu
     void WinGame() {
         countChips.SetText(currentAmount.ToString());
         lastWin.SetText(lastWinChips.ToString());
-        if (false == win_sound.SoundPlay()) {
+        if(false == win_sound.SoundPlay()) {
             DebugMessageCasino("win sound not loaded");
         }
 
@@ -259,7 +256,7 @@ class BlackJackMenu extends GameBetBaseMenu
     }
 
     override void EndGame() {
-	    super.EndGame();
+        super.EndGame();
         holdCard.Show(false);
         nextCard.Show(false);
         newGame.Show(true);
@@ -268,26 +265,26 @@ class BlackJackMenu extends GameBetBaseMenu
     void HidePlayButtons() {
         nextCard.Show(false);
         holdCard.Show(false);
-	}
+    }
 
     void ShowPlayButtons() {
         nextCard.Show(true);
         holdCard.Show(true);
-	}
+    }
 
     void HoldCardAction() {
         HidePlayButtons();
         GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_HOLD_CARD, new Param2<ref TIntArray, DayZPlayer>(usedCards, player), true);
     }
 
-	private void GiveNextCard() {
-		if (cardValuePlayer > 21) {
-			LoseGame();
-		} else {
+    private void GiveNextCard() {
+        if(cardValuePlayer > 21) {
+            LoseGame();
+        } else {
             HidePlayButtons();
-			GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER, new Param2<ref TIntArray, DayZPlayer>(usedCards, player), true);
-		} 
-	}
+            GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER, new Param2<ref TIntArray, DayZPlayer>(usedCards, player), true);
+        }
+    }
 
     void RefreshCardValues(array<Card> currentCardsPlayer, array<Card> currentCardsBank) {
         int maxValuePlayer = GetCurrentCardSum(currentCardsPlayer, true);
@@ -298,14 +295,14 @@ class BlackJackMenu extends GameBetBaseMenu
 
         string showValuePlayer = "" + minValuePlayer + "/" + maxValuePlayer;
         cardValuePlayer = maxValuePlayer;
-        if (maxValuePlayer == minValuePlayer || maxValuePlayer > 21) {
+        if(maxValuePlayer == minValuePlayer || maxValuePlayer > 21) {
             cardValuePlayer = minValuePlayer;
             showValuePlayer = "" + minValuePlayer;
         }
 
         string showValueBank = "" + minValueBank + "/" + maxValueBank;
         cardValueBank = maxValueBank;
-        if (minValueBank == maxValueBank || maxValueBank > 21) {
+        if(minValueBank == maxValueBank || maxValueBank > 21) {
             showValueBank = "" + minValueBank;
             cardValueBank = minValueBank;
         }
@@ -315,10 +312,10 @@ class BlackJackMenu extends GameBetBaseMenu
 
     private int GetCurrentCardSum(array<Card> cardsArray, bool max = false) {
         int value = 0;
-        foreach(int index, Card card: cardsArray){
+        foreach(int index, Card card: cardsArray) {
             DebugMessageCasino("card value is " + card.GetValue());
             value += card.GetValue();
-            if (false == max && card.IsAss()) {
+            if(false == max && card.IsAss()) {
                 value -= 10;
             }
         }

@@ -1,5 +1,4 @@
-class GameBetBaseMenu extends BaseMenu
-{
+class GameBetBaseMenu extends BaseMenu {
 
     protected ButtonWidget sub1ChipsBet;
     protected ButtonWidget sub10ChipsBet;
@@ -14,64 +13,63 @@ class GameBetBaseMenu extends BaseMenu
     protected int maxChipsUse;
     protected int minChipsUse;
 
-    override Widget Init()
-    {
-        if (IsServerCasino()){
+    override Widget Init() {
+        if(IsServerCasino()) {
             DebugMessageCasino("can not init, is server");
             return null;
         }
 
-        if (IsInitialized()) {
+        if(IsInitialized()) {
             return layoutRoot;
         }
 
         super.Init();
 
-        sub1ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub1ChipsBet" ));
-        sub10ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub10ChipsBet" ));
-        sub100ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub100ChipsBet" ));
-        sub1000ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "sub1000ChipsBet" ));
-        add1ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add1ChipsBet" ));
-        add10ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add10ChipsBet" ));
-        add100ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add100ChipsBet" ));
-        add1000ChipsBet = ButtonWidget.Cast( layoutRoot.FindAnyWidget( "add1000ChipsBet" ));
+        sub1ChipsBet = ButtonWidget.Cast(layoutRoot.FindAnyWidget("sub1ChipsBet"));
+        sub10ChipsBet = ButtonWidget.Cast(layoutRoot.FindAnyWidget("sub10ChipsBet"));
+        sub100ChipsBet = ButtonWidget.Cast(layoutRoot.FindAnyWidget("sub100ChipsBet"));
+        sub1000ChipsBet = ButtonWidget.Cast(layoutRoot.FindAnyWidget("sub1000ChipsBet"));
+        add1ChipsBet = ButtonWidget.Cast(layoutRoot.FindAnyWidget("add1ChipsBet"));
+        add10ChipsBet = ButtonWidget.Cast(layoutRoot.FindAnyWidget("add10ChipsBet"));
+        add100ChipsBet = ButtonWidget.Cast(layoutRoot.FindAnyWidget("add100ChipsBet"));
+        add1000ChipsBet = ButtonWidget.Cast(layoutRoot.FindAnyWidget("add1000ChipsBet"));
 
-		chipsBet = TextWidget.Cast(layoutRoot.FindAnyWidget("chipsBet"));
-		chipsBet.SetText(chipsValue.ToString());
+        chipsBet = TextWidget.Cast(layoutRoot.FindAnyWidget("chipsBet"));
+        chipsBet.SetText(chipsValue.ToString());
 
         return layoutRoot;
     }
 
-    override bool OnClick( Widget w, int x, int y, int button )	{
+    override bool OnClick(Widget w, int x, int y, int button)	{
         bool actionRuns = super.OnClick(w, x, y, button);
 
-        if (actionRuns) {
-			DebugMessageCasino("action has allready run");
+        if(actionRuns) {
+            DebugMessageCasino("action has allready run");
             return actionRuns;
         }
 
-        if (w == sub1ChipsBet){
+        if(w == sub1ChipsBet) {
             UpdateCurrenBet(-1);
             return true;
-        } else if (w == sub10ChipsBet){
+        } else if(w == sub10ChipsBet) {
             UpdateCurrenBet(-10);
             return true;
-        } else if (w == sub100ChipsBet){
+        } else if(w == sub100ChipsBet) {
             UpdateCurrenBet(-100);
             return true;
-        } else if (w == sub1000ChipsBet){
+        } else if(w == sub1000ChipsBet) {
             UpdateCurrenBet(-1000);
             return true;
-        } else if (w == add1ChipsBet){
+        } else if(w == add1ChipsBet) {
             UpdateCurrenBet(1);
             return true;
-        } else if (w == add10ChipsBet){
+        } else if(w == add10ChipsBet) {
             UpdateCurrenBet(10);
             return true;
-        } else if (w == add100ChipsBet){
+        } else if(w == add100ChipsBet) {
             UpdateCurrenBet(100);
             return true;
-        } else if (w == add1000ChipsBet){
+        } else if(w == add1000ChipsBet) {
             UpdateCurrenBet(1000);
             return true;
         }
@@ -79,23 +77,23 @@ class GameBetBaseMenu extends BaseMenu
         return false;
     }
 
-	protected void UpdateCurrenBet(int addBet) {
-		DebugMessageCasino("increase bet " + addBet.ToString() + " old value " + chipsValue.ToString());
+    protected void UpdateCurrenBet(int addBet) {
+        DebugMessageCasino("increase bet " + addBet.ToString() + " old value " + chipsValue.ToString());
         chipsValue = chipsValue + addBet;
-		
-		DebugMessageCasino("new chipsValue " + chipsValue.ToString());
-		DebugMessageCasino("min use" + minChipsUse.ToString());
-		DebugMessageCasino("max use" + maxChipsUse.ToString());
 
-        if (chipsValue < minChipsUse) {
+        DebugMessageCasino("new chipsValue " + chipsValue.ToString());
+        DebugMessageCasino("min use" + minChipsUse.ToString());
+        DebugMessageCasino("max use" + maxChipsUse.ToString());
+
+        if(chipsValue < minChipsUse) {
             chipsValue = minChipsUse;
-        } else if (chipsValue > maxChipsUse) {
+        } else if(chipsValue > maxChipsUse) {
             chipsValue = maxChipsUse;
-        } else if (chipsValue > currentAmount && currentAmount != 0) {
+        } else if(chipsValue > currentAmount && currentAmount != 0) {
             chipsValue = currentAmount;
-        } else if (chipsValue > currentAmount && currentAmount == 0) {
+        } else if(chipsValue > currentAmount && currentAmount == 0) {
             chipsValue = minChipsUse;
-			
+
         }
 
         chipsBet.SetText(chipsValue.ToString());
@@ -107,9 +105,9 @@ class GameBetBaseMenu extends BaseMenu
 
 
     override protected bool CanPlayGame() {
-        if (super.CanPlayGame()) {
+        if(super.CanPlayGame()) {
             int currentAmountLocal = inventory.GetPlayerChipsAmount(GetGame().GetPlayer());
-            if (0 == currentAmountLocal || chipsValue > currentAmountLocal) {
+            if(0 == currentAmountLocal || chipsValue > currentAmountLocal) {
                 countChips.SetText(currentAmountLocal.ToString());
                 message.SetText("#Not_enough_chips_available");
                 message.Show(true);

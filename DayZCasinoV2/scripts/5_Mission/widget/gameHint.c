@@ -1,5 +1,4 @@
-class GameHint
-{
+class GameHint {
     private ref Widget hintWidget;
     private ref MultilineTextWidget message;
 
@@ -9,7 +8,7 @@ class GameHint
 
     void GameHint() {
         hintWidget = GetGame().GetWorkspace().CreateWidgets("DayZCasinoV2/layouts/GameHint.layout");
-        message = MultilineTextWidget.Cast( hintWidget.FindAnyWidget( "message" ));
+        message = MultilineTextWidget.Cast(hintWidget.FindAnyWidget("message"));
         message.SetText("#hint_can_open_game");
     }
 
