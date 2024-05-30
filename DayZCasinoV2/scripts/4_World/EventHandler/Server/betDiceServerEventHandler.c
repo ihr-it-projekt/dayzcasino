@@ -5,7 +5,6 @@ class BetDiceServerEventHandler {
 
     void BetDiceServerEventHandler(map<string, int> currencyValues) {
         inventory = new DayZCasinoPlayerInventory(currencyValues);
-        DebugMessageCasino("Register BDSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }
 
@@ -22,7 +21,6 @@ class BetDiceServerEventHandler {
             Param3<int, int, DayZPlayer> parameterShuffle;
             if(ctx.Read(parameterShuffle)) {
                 DayZPlayer player = parameterShuffle.param3;
-                DebugMessageCasino("Check Player has chips");
                 if(inventory.PlayerHasEnoughChips(player, parameterShuffle.param1)) {
                     int luckNumber1 = Math.RandomIntInclusive(1, 6);
                     int luckNumber2 = Math.RandomIntInclusive(1, 6);
@@ -35,24 +33,20 @@ class BetDiceServerEventHandler {
                     int winSum = 0;
 
                     if(parameterShuffle.param2 == luckNumber1 + luckNumber2) {
-                        DebugMessageCasino("Win");
                         winSum = casinoGameSettingDice.diceWinFactor * parameterShuffle.param1;
 
                     } else {
-                        DebugMessageCasino("lose");
                         winSum = -1 * parameterShuffle.param1;
                     }
 
                     inventory.AddChipsToPlayer(player, winSum);
                     int currentChips = inventory.GetPlayerChipsAmount(player);
-                    DebugMessageCasino("server: player has " + currentChips);
 
                     if(enableLogs) {
                         LogPlay(player, winSum, "DiceGame");
                     }
 
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE, new Param4<int, int, int, int>(luckNumber1, luckNumber2, winSum, currentChips), true, player.GetIdentity());
-                    DebugMessageCasino("has message send to player");
                 } else {
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_RESPONSE_SHUFFEL_BET_DICE_NOT_ENOUGH_BALANCE, new Param1<bool>(true), true, player.GetIdentity());
                 }

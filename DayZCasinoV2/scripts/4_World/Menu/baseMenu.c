@@ -27,7 +27,6 @@ class BaseMenu extends UIScriptedMenu {
 
     override Widget Init() {
         if(IsServerCasino()) {
-            DebugMessageCasino("can not init, is server");
             return null;
         }
 
@@ -72,7 +71,6 @@ class BaseMenu extends UIScriptedMenu {
         }
 
         if(w == cancel) {
-            DebugMessageCasino("click cancel");
             CloseMenu();
             return true;
         } else if(w == info) {
@@ -82,7 +80,7 @@ class BaseMenu extends UIScriptedMenu {
             infoWidget.Show(false);
             return true;
         } else if(w == donate) {
-            GetGame().OpenURL("https://www.patreon.com/tbm_mods");
+            GetGame().OpenURL("https://www.paypal.com/donate/?hosted_button_id=8UASRGVP88YE4");
             return true;
         } else if(w == steam) {
             GetGame().OpenURL("https://steamcommunity.com/profiles/76561198196317725/myworkshopfiles/");
@@ -96,7 +94,6 @@ class BaseMenu extends UIScriptedMenu {
     }
 
     override void OnHide() {
-        DebugMessageCasino("hide action");
         super.OnHide();
 
         PPEffects.SetBlurMenu(0);
@@ -114,13 +111,9 @@ class BaseMenu extends UIScriptedMenu {
 
     override void OnShow() {
         if(isMenuOpen) {
-            DebugMessageCasino("Menu is already open");
             return;
         }
-
         super.OnShow();
-
-        DebugMessageCasino("show action");
 
         PPEffects.SetBlurMenu(0.5);
 

@@ -26,8 +26,6 @@ class BetDiceMenu extends GameBetBaseMenu {
 
     override Widget Init() {
         if(IsInitialized()) {
-            DebugMessageCasino("Widget is all ready initialized");
-
             return layoutRoot;
         }
 
@@ -78,7 +76,6 @@ class BetDiceMenu extends GameBetBaseMenu {
 
     override void OnShow() {
         if(isMenuOpen) {
-            DebugMessageCasino("Menu is already open");
             return;
         }
         if(winFactorInt && winFactor) winFactor.SetText(winFactorInt.ToString());
@@ -86,13 +83,11 @@ class BetDiceMenu extends GameBetBaseMenu {
     }
 
     override bool OnClick(Widget w, int x, int y, int button)	{
-        DebugMessageCasino("on click action super");
         bool actionRuns = super.OnClick(w, x, y, button);
 
         if(actionRuns) {
             return actionRuns;
         } else if(w == shuffle) {
-            DebugMessageCasino("click shuffle");
             Play();
             return true;
         } else if(w == add1Number) {
@@ -127,7 +122,6 @@ class BetDiceMenu extends GameBetBaseMenu {
 
     void SetWinFactor(int winF) {
         winFactorInt = winF;
-        DebugMessageCasino("winFactorInt " + winFactorInt.ToString());
 
         if(winFactor) winFactor.SetText(winFactorInt.ToString());
     }
@@ -152,35 +146,24 @@ class BetDiceMenu extends GameBetBaseMenu {
             sub10Number.Show(false);
 
             parameterShuffel = new Param3<int, int, DayZPlayer>(chipsValue, currentNumber, player);
-            DebugMessageCasino("create timer");
             currentCountBeforeSendShuffle = 0;
             imageShuffleTimer = new Timer();
 
             imageShuffleTimer.Run(0.25, this, "SwitchImage", null, true);
-
-            DebugMessageCasino("chipsBet value is " + chipsValue);
-            DebugMessageCasino("numberValue value is " + currentNumber);
         }
     }
 
 
     private void SwitchImage() {
-        DebugMessageCasino("change image");
-
         if(currentCountBeforeSendShuffle == 0) {
             GetGame().RPCSingleParam(player, DAYZ_CASINO_SHUFFEL_BET_DICE, parameterShuffel, true);
-            DebugMessageCasino("has send to server ");
         }
 
         if(winImageNumber1 != 10 && COUNT_SHUFFLE_BEFORE_SHOW_WIN_NUMBER <= currentCountBeforeSendShuffle) {
             if(lastWinChips > 0) {
-                if(false == win_sound.SoundPlay()) {
-                    DebugMessageCasino("win sound not loaded");
-                }
+                win_sound.SoundPlay();
             } else {
-                if(false == lose_sound.SoundPlay()) {
-                    DebugMessageCasino("lose sound not loaded");
-                }
+                lose_sound.SoundPlay();
             }
 
             diceImage1.SetImage(winImageNumber1);
@@ -194,17 +177,10 @@ class BetDiceMenu extends GameBetBaseMenu {
             return;
         }
 
-        if(false == effect_sound.SoundPlay()) {
-            DebugMessageCasino("sound not loaded");
-        }
+        effect_sound.SoundPlay();
 
         diceImage1.SetImage(Math.RandomIntInclusive(0, 6));
         diceImage2.SetImage(Math.RandomIntInclusive(0, 6));
-
-        if(30 == currentCountBeforeSendShuffle) {
-            DebugMessageCasino("No response from Server");
-
-        }
 
         ++currentCountBeforeSendShuffle;
     }

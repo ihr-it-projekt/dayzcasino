@@ -7,18 +7,14 @@ class DayZCasinoPlayerInventory {
 
     bool PlayerHasEnoughChips(DayZPlayer player, int betSumme) {
         int amount = GetPlayerChipsAmount(player);
-        DebugMessageCasino("Has amount of " + amount);
-
         return betSumme <= amount;
     }
 
     int GetPlayerChipsAmount(DayZPlayer player) {
         if(!player) {
-            DebugMessageCasino("can not get chips, no player set");
             return 0;
         }
 
-        DebugMessageCasino("GetPlayerChipsAmount");
         int currencyAmount = 0;
 
         array<EntityAI> itemsArray = new array<EntityAI>;
@@ -75,7 +71,6 @@ class DayZCasinoPlayerInventory {
             if(chipsCount >= value && selectedValue < value) {
                 selectedValue = value;
                 selectedType = type;
-                DebugMessageCasino("set optimal type" + selectedType + " " + selectedValue.ToString());
             }
         }
 
@@ -83,20 +78,16 @@ class DayZCasinoPlayerInventory {
             return 0;
         }
 
-        DebugMessageCasino("use optimal type" + selectedType);
         EntityAI chipsEntity;
         if(player.GetInventory().FindFirstFreeLocationForNewEntity(selectedType, FindInventoryLocationType.ANY, inventoryLocation)) {
-            DebugMessageCasino("spawn chips in inventory");
             chipsEntity = player.GetHumanInventory().CreateInInventory(selectedType);
         }
 
         if(!chipsEntity && !player.GetHumanInventory().GetEntityInHands()) {
-            DebugMessageCasino("spawn chips in hands");
             chipsEntity = player.GetHumanInventory().CreateInHands(selectedType);
         }
 
         if(!chipsEntity) {
-            DebugMessageCasino("spawn chips on ground");
             chipsEntity = player.SpawnEntityOnGroundPos(selectedType, player.GetPosition());
         }
 
@@ -120,29 +111,23 @@ class DayZCasinoPlayerInventory {
 
         ItemBase item;
         ItemBase.CastTo(item, entity);
-        DebugMessageCasino("old chipsToAdd value " + chipsToAdd.ToString());
 
         int maxAmount = item.GetQuantityMax();
 
         int countAddFromType = Math.Floor(chipsToAdd / factor);
-        DebugMessageCasino("must add from type " + countAddFromType.ToString());
 
         if(countAddFromType > maxAmount) {
-            DebugMessageCasino("Add full chips stack");
             chipsToAdd -= maxAmount * factor;
             item.SetQuantity(maxAmount);
         } else {
-            DebugMessageCasino("Add chips to stack");
             item.SetQuantity(countAddFromType);
             chipsToAdd -= countAddFromType * factor;
         }
 
-        DebugMessageCasino("chipsValue is " + chipsToAdd.ToString());
         if(chipsToAdd < 1) {
             chipsToAdd = 0;
         }
 
-        DebugMessageCasino("new chipsToAdd value " + chipsToAdd.ToString());
         return chipsToAdd;
     }
 };

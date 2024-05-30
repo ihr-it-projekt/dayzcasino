@@ -71,7 +71,6 @@ class BlackJackMenu extends GameBetBaseMenu {
 
     override void OnShow() {
         if(isMenuOpen) {
-            DebugMessageCasino("Menu is already open");
             return;
         }
 
@@ -88,21 +87,17 @@ class BlackJackMenu extends GameBetBaseMenu {
     }
 
     override bool OnClick(Widget w, int x, int y, int button)	{
-        DebugMessageCasino("on click action super");
         bool actionRuns = super.OnClick(w, x, y, button);
 
         if(actionRuns) {
             return actionRuns;
         } else if(w == newGame) {
-            DebugMessageCasino("click newGame");
             Play();
             return true;
         } else if(w == nextCard) {
-            DebugMessageCasino("click nextCard");
             GiveNextCard();
             return true;
         } else if(w == holdCard) {
-            DebugMessageCasino("click holdCard");
             HoldCardAction();
             return true;
         }
@@ -151,9 +146,7 @@ class BlackJackMenu extends GameBetBaseMenu {
         bankCard1.LoadImageFile(0, "DayZCasinoV2/data/cards/rueckseite.edds");
         bankCard1.SetImage(0);
         bankCard1.Show(true);
-        if(false == effect_sound.SoundPlay()) {
-            DebugMessageCasino("give card sound not  loaded");
-        }
+        effect_sound.SoundPlay();
     }
 
     void SetNextPlayerCard(int numberOfCard, Card nextPlayerCard) {
@@ -188,9 +181,7 @@ class BlackJackMenu extends GameBetBaseMenu {
 
                 return;
         }
-        if(false == effect_sound.SoundPlay()) {
-            DebugMessageCasino("give card sound not loaded");
-        }
+        effect_sound.SoundPlay();
     }
 
     void SetNextBankCard(int numberOfCard, Card nextBankCard) {
@@ -225,17 +216,13 @@ class BlackJackMenu extends GameBetBaseMenu {
 
                 return;
         }
-        if(false == effect_sound.SoundPlay()) {
-            DebugMessageCasino("give card sound not loaded");
-        }
+        effect_sound.SoundPlay();
     }
 
     void LoseGame() {
         countChips.SetText("" + currentAmount);
         lastWin.SetText("" + lastWinChips);
-        if(false == lose_sound.SoundPlay()) {
-            DebugMessageCasino("lose sound not loaded");
-        }
+        lose_sound.SoundPlay();
 
         EndGame();
     }
@@ -243,9 +230,7 @@ class BlackJackMenu extends GameBetBaseMenu {
     void WinGame() {
         countChips.SetText(currentAmount.ToString());
         lastWin.SetText(lastWinChips.ToString());
-        if(false == win_sound.SoundPlay()) {
-            DebugMessageCasino("win sound not loaded");
-        }
+        win_sound.SoundPlay();
 
         EndGame();
     }
@@ -313,7 +298,6 @@ class BlackJackMenu extends GameBetBaseMenu {
     private int GetCurrentCardSum(array<Card> cardsArray, bool max = false) {
         int value = 0;
         foreach(int index, Card card: cardsArray) {
-            DebugMessageCasino("card value is " + card.GetValue());
             value += card.GetValue();
             if(false == max && card.IsAss()) {
                 value -= 10;

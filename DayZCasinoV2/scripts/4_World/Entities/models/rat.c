@@ -34,7 +34,6 @@ class Rat {
                 int pos = positions.Get(index);
 
                 if(goalLine < pos) {
-                    DebugMessageCasino("Has passed Goal " + number);
                     hasPassGoal = true;
                 }
 
@@ -42,8 +41,6 @@ class Rat {
             } else {
                 isAnimationFinished = true;
             }
-        } else {
-            DebugMessageCasino("Has no image");
         }
     }
 };

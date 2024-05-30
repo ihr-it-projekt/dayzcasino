@@ -15,7 +15,6 @@ class GameBetBaseMenu extends BaseMenu {
 
     override Widget Init() {
         if(IsServerCasino()) {
-            DebugMessageCasino("can not init, is server");
             return null;
         }
 
@@ -44,7 +43,6 @@ class GameBetBaseMenu extends BaseMenu {
         bool actionRuns = super.OnClick(w, x, y, button);
 
         if(actionRuns) {
-            DebugMessageCasino("action has allready run");
             return actionRuns;
         }
 
@@ -78,12 +76,7 @@ class GameBetBaseMenu extends BaseMenu {
     }
 
     protected void UpdateCurrenBet(int addBet) {
-        DebugMessageCasino("increase bet " + addBet.ToString() + " old value " + chipsValue.ToString());
         chipsValue = chipsValue + addBet;
-
-        DebugMessageCasino("new chipsValue " + chipsValue.ToString());
-        DebugMessageCasino("min use" + minChipsUse.ToString());
-        DebugMessageCasino("max use" + maxChipsUse.ToString());
 
         if(chipsValue < minChipsUse) {
             chipsValue = minChipsUse;

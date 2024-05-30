@@ -42,7 +42,6 @@ modded class MissionServer {
         }
 
         GetDayZGame().Event_OnRPC.Insert(HandleEventsCasino);
-        DebugMessageCasino("loaded");
     }
 
     void ~MissionServer() {
@@ -51,7 +50,6 @@ modded class MissionServer {
 
     void HandleEventsCasino(PlayerIdentity sender, Object target, int rpc_type, ParamsReadContext ctx) {
         if(rpc_type == DAYZ_CASINO_GET_CASINO_CONFIG) {
-            DebugMessageCasino("receive get config");
             autoptr Param1<PlayerBase> paramGetConfig;
             if(ctx.Read(paramGetConfig)) {
                 GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG_RESPONSE, new Param1<ref CasinoConfig>(casinoConfig), true, sender);
@@ -60,8 +58,7 @@ modded class MissionServer {
     }
 
     private void PlaceGame(vector pos, vector orientation, string gameObjectName) {
-        DebugMessageCasino("create object " + gameObjectName);
-        House game_obj = Building.Cast(GetGame().CreateObject(gameObjectName, pos));
+        Building game_obj = Building.Cast(GetGame().CreateObject(gameObjectName, pos));
 
         if(!game_obj) return;
 

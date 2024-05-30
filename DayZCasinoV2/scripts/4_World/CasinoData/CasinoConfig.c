@@ -1,6 +1,15 @@
 class CasinoConfig extends BaseConfig {
     private const static string	SETTINGSFILE = "CasinoConfigV2.json";
 
+    static ref CasinoConfig instance;
+
+    static CasinoConfig Get() {
+        if(!instance) {
+            instance = new CasinoConfig();
+        }
+        return instance;
+    }
+
     ref CasinoGameSettingLuckyWheel luckyWheelSettings;
     ref CasinoGameSettingBlackjack blackJackSettings;
     ref CasinoGameSettingDice diceSettings;
@@ -10,6 +19,12 @@ class CasinoConfig extends BaseConfig {
     ref map <string, int> currencyValues;
 
     void CasinoConfig() {
+
+        if(!GetGame().IsServer()) {
+            GetGame().RPCSingleParam(null, DAYZ_CASINO_GET_CASINO_CONFIG, null, true);
+            return;
+        }
+
         if(!FileExist(CONFIGSFOLDER + SETTINGSFILE)) {
             diceSettings = new CasinoGameSettingDice();
             blackJackSettings = new CasinoGameSettingBlackjack();
@@ -28,6 +43,15 @@ class CasinoConfig extends BaseConfig {
                 Save(SETTINGSFILE);
             }
         }
+    }
+
+    bool HasType(string type) {
+        if(type == diceSettings.gameObject) return true;
+        if(type == blackJackSettings.gameObject) return true;
+        if(type == luckyWheelSettings.gameObject) return true;
+        if(type == ratRaceSettings.gameObject) return true;
+
+        return false;
     }
 
     override protected void DoLoad() {

@@ -79,7 +79,6 @@ class CardCollection {
             }
         }
 
-        DebugMessageCasino("card number return" + cardNumber);
         return cardNumber;
     }
 

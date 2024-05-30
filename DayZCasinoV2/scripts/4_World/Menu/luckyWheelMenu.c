@@ -15,6 +15,7 @@ class LuckyWheelMenu extends BaseMenu {
     private MultilineTextWidget betPerRoll;
     private TextWidget winView;
     private int currentDegree;
+    private int currentIntervalTime;
 
     int winDegree = 500;
     bool jackpotWin;
@@ -22,8 +23,6 @@ class LuckyWheelMenu extends BaseMenu {
 
     override Widget Init() {
         if(IsInitialized()) {
-            DebugMessageCasino("Widget is all ready initialized");
-
             return layoutRoot;
         }
 
@@ -45,7 +44,6 @@ class LuckyWheelMenu extends BaseMenu {
 
     override void OnShow() {
         if(isMenuOpen) {
-            DebugMessageCasino("Menu is already open");
             return;
         }
 
@@ -62,13 +60,11 @@ class LuckyWheelMenu extends BaseMenu {
     }
 
     override bool OnClick(Widget w, int x, int y, int button)	{
-        DebugMessageCasino("on click action super");
         bool actionRuns = super.OnClick(w, x, y, button);
 
         if(actionRuns) {
             return actionRuns;
         } else if(w == rotate) {
-            DebugMessageCasino("click shuffle");
             Play();
             return true;
         }
@@ -110,7 +106,6 @@ class LuckyWheelMenu extends BaseMenu {
 
             Param1<DayZPlayer> parameterRotate = new Param1<DayZPlayer>(player);
             GetGame().RPCSingleParam(player, DAYZ_CASINO_LUCKY_WHEEL_START, parameterRotate, true);
-            DebugMessageCasino("create timer");
             imageRotateTimer = new Timer();
 
             imageRotateTimer.Run(0.00001, this, "RotateImage", null, true);
@@ -120,17 +115,11 @@ class LuckyWheelMenu extends BaseMenu {
     private void RotateImage() {
         if(winDegree != 500 && COUNT_SHUFFLE_BEFORE_SHOW_WIN_WHEEL <= currentCountBeforeGoToWin && winDegree == currentDegree) {
             if(lastWinChips > 0 && jackpotWin) {
-                if(false == jackpot_sound.SoundPlay()) {
-                    DebugMessageCasino("win sound not loaded");
-                }
+                jackpot_sound.SoundPlay();
             } else if(lastWinChips > 0 && !jackpotWin) {
-                if(false == win_sound.SoundPlay()) {
-                    DebugMessageCasino("win sound not loaded");
-                }
+                win_sound.SoundPlay();
             } else {
-                if(false == lose_sound.SoundPlay()) {
-                    DebugMessageCasino("lose sound not loaded");
-                }
+                lose_sound.SoundPlay();
             }
             winDegree = 500;
             lastWin.SetText("" + lastWinChips);
@@ -166,7 +155,6 @@ class LuckyWheelMenu extends BaseMenu {
         luckyWheel.SetRotation(0, 0, currentDegree);
 
         if(360 == currentCountBeforeGoToWin && winDegree == 500) {
-            DebugMessageCasino("No response from Server");
             imageRotateTimer.Stop();
             cancel.Show(true);
             rotate.Show(true);

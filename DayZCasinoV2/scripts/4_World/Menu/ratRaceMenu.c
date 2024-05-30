@@ -36,8 +36,6 @@ class RatRaceMenu extends GameBetBaseMenu {
 
     override Widget Init() {
         if(IsInitialized()) {
-            DebugMessageCasino("Widget is all ready initialized");
-
             return layoutRoot;
         }
 
@@ -93,7 +91,6 @@ class RatRaceMenu extends GameBetBaseMenu {
 
     override void OnShow() {
         if(isMenuOpen) {
-            DebugMessageCasino("Menu is already open");
             return;
         }
 
@@ -106,17 +103,14 @@ class RatRaceMenu extends GameBetBaseMenu {
     }
 
     override bool OnClick(Widget w, int x, int y, int button)	{
-        DebugMessageCasino("on click action super");
         bool actionRuns = super.OnClick(w, x, y, button);
 
         if(actionRuns) {
             return actionRuns;
         } else if(w == startRace) {
-            DebugMessageCasino("click startRace");
             Play();
             return true;
         } else if(w == newRace) {
-            DebugMessageCasino("click newRace");
             GetGame().RPCSingleParam(player, DAYZ_CASINO_NEW_RAT_RACE, new Param3<DayZPlayer, float, float>(GetGame().GetPlayer(), initialPositionX, goalPositionX), true);
             newRace.Show(false);
             return true;
@@ -155,7 +149,6 @@ class RatRaceMenu extends GameBetBaseMenu {
         message.Show(false);
         race = raceFromEvent;
         SetQouta();
-        DebugMessageCasino("has race object " + race.isAnimationFinished.ToString());
         raceAnimated = false;
     }
 
@@ -171,7 +164,6 @@ class RatRaceMenu extends GameBetBaseMenu {
             message.Show(false);
 
             GetGame().RPCSingleParam(player, DAYZ_CASINO_START_RAT_RACE, new Param3<int, int, DayZPlayer>(chipsValue, currentNumber, player), true);
-            DebugMessageCasino("create timer");
             currentCountdown = 3;
 
             countDownWidget.SetText(currentCountdown.ToString());
@@ -179,10 +171,6 @@ class RatRaceMenu extends GameBetBaseMenu {
             startRaceTimer = new Timer();
 
             startRaceTimer.Run(1, this, "RunRace", null, true);
-
-
-            DebugMessageCasino("chipsBet value is " + chipsValue);
-            DebugMessageCasino("currentNumber value is " + currentNumber);
         }
     }
 
@@ -201,7 +189,6 @@ class RatRaceMenu extends GameBetBaseMenu {
     void AnimateRace(Race raceFromExtern) {
         race = raceFromExtern;
         race.SetImages(ratImages);
-        DebugMessageCasino("win rat has position: " + race.winRat.GetLastPosition().ToString());
         animationTimer = new Timer();
 
         int countSteps = race.winRat.positions.Count();
@@ -209,9 +196,7 @@ class RatRaceMenu extends GameBetBaseMenu {
         float stepTime = (DAYZ_CASINO_LENGTH_SOUND_RACE - 2) / countSteps;
 
         countDownWidget.Show(true);
-        if(false == countdown_3_sound.SoundPlay()) {
-            DebugMessageCasino("sound not loaded");
-        }
+        countdown_3_sound.SoundPlay();
 
         animationTimer.Run(stepTime, this, "AnimateStep", null, true);
 
@@ -220,32 +205,23 @@ class RatRaceMenu extends GameBetBaseMenu {
 
     void AnimateStep() {
         if(raceAnimated || currentCountdown > 0) {
-            DebugMessageCasino("skip anmation " + raceAnimated + currentCountdown.ToString());
             return;
         }
-        DebugMessageCasino("animate step");
         race.AnimateStep(currentAnimationStep);
         currentAnimationStep++;
 
         raceAnimated = race.isAnimationFinished;
 
         if(race.winRat.hasPassGoal && !message.IsVisible()) {
-            DebugMessageCasino("show win message");
             message.SetText("#rat_win " + race.winRat.number);
             message.Show(true);
             if(lastWinChips > 0) {
-                if(false == win_sound.SoundPlay()) {
-                    DebugMessageCasino("win sound not loaded");
-                }
+                win_sound.SoundPlay();
             } else {
-                if(false == lose_sound.SoundPlay()) {
-                    DebugMessageCasino("lose sound not loaded");
-                }
+                lose_sound.SoundPlay();
             }
             lastWin.SetText(lastWinChips.ToString());
             countChips.SetText(currentAmount.ToString());
-        } else {
-            DebugMessageCasino("Pass goal " + race.winRat.hasPassGoal + " " + !message.IsVisible());
         }
     }
 
@@ -267,27 +243,17 @@ class RatRaceMenu extends GameBetBaseMenu {
             countDownWidget.SetText(currentCountdown.ToString());
 
             if(2 == currentCountdown) {
-                if(false == countdown_2_sound.SoundPlay()) {
-                    DebugMessageCasino("sound not loaded");
-                }
+                countdown_2_sound.SoundPlay();
             } else if(1 == currentCountdown) {
-                if(false == countdown_1_sound.SoundPlay()) {
-                    DebugMessageCasino("sound not loaded");
-                }
+                countdown_1_sound.SoundPlay();
             } else if(0 == currentCountdown) {
-                if(false == shoot_sound.SoundPlay()) {
-                    DebugMessageCasino("sound not loaded");
-                }
-
-                if(false == background_sound.SoundPlay()) {
-                    DebugMessageCasino("sound not loaded");
-                }
+                shoot_sound.SoundPlay();
+                background_sound.SoundPlay();
                 countDownWidget.Show(false);
             }
         } else if(race && race.winRat && raceAnimated) {
             EndGame();
         } else if((!race || !race.winRat) && 10 == timoutRaceTimer) {
-            DebugMessageCasino("No response from Server");
             EndGame();
         }
 

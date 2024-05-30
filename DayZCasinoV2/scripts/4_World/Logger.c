@@ -16,7 +16,6 @@ static void LogPlay(DayZPlayer player, int winAmmount, string gameName) {
 
     if(!FileExist(CONFIGSFOLDER)) {
         MakeDirectory(CONFIGSFOLDER);
-        DebugMessageCasino("create folder");
     }
 
     FileHandle handle;

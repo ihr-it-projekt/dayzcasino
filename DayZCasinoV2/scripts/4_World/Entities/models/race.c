@@ -25,7 +25,6 @@ class Race {
 
         while(!isLastStep) {
             isLastStep = true;
-            DebugMessageCasino("Add new stepp");
             foreach(int i, Rat rat: rats) {
                 int newPos = rat.GetLastPosition() + Math.RandomIntInclusive(1, 10);
 
@@ -35,7 +34,6 @@ class Race {
 
                 if(goalLine <= newPos && goalLine + DAYZ_CASINO_ANIMATE_STEPS_AFTER_GOAL_RATE_RACE > newPos) {
                     if(null == winRat) {
-                        DebugMessageCasino("Has win rat");
                         winRat = rat;
                     }
                     rat.AddStep(newPos);
@@ -48,7 +46,6 @@ class Race {
                 }
             }
         }
-        DebugMessageCasino("race calculated");
     }
 
     void SetImages(array<ImageWidget> images) {
@@ -73,8 +70,6 @@ class Race {
                 winRat.hasPassGoal = true;
             }
         }
-
-        DebugMessageCasino("Animation status race " + isAnimationFinished);
     }
 
 

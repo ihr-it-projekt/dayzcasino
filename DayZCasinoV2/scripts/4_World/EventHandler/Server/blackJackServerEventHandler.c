@@ -7,7 +7,6 @@ class BlackJackServerEventHandler {
     void BlackJackServerEventHandler(CasinoGameSettingBlackjack _config, bool _enableLogs, map<string, int> currencyValues) {
         inventory = new DayZCasinoPlayerInventory(currencyValues);
         cardCollection = new CardCollection();
-        DebugMessageCasino("Register BJSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
         this.config = _config;
         this.enableLogs = _enableLogs;
@@ -34,8 +33,6 @@ class BlackJackServerEventHandler {
                     int firstCardBankServer = cardCollection.GetRandomCardIndex(cardAllreadyUsedServer);
                     cardAllreadyUsedServer.Insert(firstCardBankServer);
 
-                    DebugMessageCasino("client first card is " + firstCardPlayerServer);
-
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_BLACK_JACK_START_GAME_RESPONSE, new
                                              Param3<int, int, int>(firstCardPlayerServer, secondCardPlayerServer, firstCardBankServer), true, player.GetIdentity());
                 } else {
@@ -48,13 +45,9 @@ class BlackJackServerEventHandler {
             if(ctx.Read(nextCardParam)) {
                 DayZPlayer playerNextCard = nextCardParam.param2;
 
-                DebugMessageCasino("receive next card" + nextCardParam.param1);
-
                 TIntArray cardUsedCollection = TIntArray.Cast(nextCardParam.param1);
 
                 int newPlayerCard = cardCollection.GetRandomCardIndex(cardUsedCollection);
-
-                DebugMessageCasino("new card server is " + newPlayerCard);
 
                 GetGame().RPCSingleParam(playerNextCard, DAYZ_CASINO_BLACK_JACK_START_NEXT_CARD_PLAYER_RESPONSE, new
                                          Param1<int>(newPlayerCard), true, playerNextCard.GetIdentity());
@@ -64,13 +57,9 @@ class BlackJackServerEventHandler {
             if(ctx.Read(holdCardParam)) {
                 DayZPlayer playerHoldCard = holdCardParam.param2;
 
-                DebugMessageCasino("receive new bank card" + holdCardParam.param1);
-
                 TIntArray cardUsedCollectionBank = TIntArray.Cast(holdCardParam.param1);
 
                 int newBankCard = cardCollection.GetRandomCardIndex(cardUsedCollectionBank);
-
-                DebugMessageCasino("new card server is " + newPlayerCard);
 
                 GetGame().RPCSingleParam(playerHoldCard, DAYZ_CASINO_BLACK_JACK_HOLD_CARD_RESPONSE, new
                                          Param1<int>(newBankCard), true, playerHoldCard.GetIdentity());
@@ -101,7 +90,6 @@ class BlackJackServerEventHandler {
                 winSum = 0;
             }
 
-            DebugMessageCasino("receive game end " + winSum);
             if(enableLogs) {
                 LogPlay(playerWin, winSum, "BlackJack");
             }

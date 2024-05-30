@@ -9,7 +9,6 @@ class LuckyWheelServerEventHandler {
         inventory = new DayZCasinoPlayerInventory(currencyValues);
         this.enableLogs = _enableLogs;
 
-        DebugMessageCasino("Register LWSEH");
         GetDayZGame().Event_OnRPC.Insert(HandleEvents);
     }
 
@@ -24,7 +23,6 @@ class LuckyWheelServerEventHandler {
             Param1<DayZPlayer> parameterRotate;
             if(ctx.Read(parameterRotate)) {
                 DayZPlayer player = parameterRotate.param1;
-                DebugMessageCasino("Check Player has chips");
                 if(inventory.PlayerHasEnoughChips(player, chipsBet)) {
                     LuckyWheelWin win = luckyWheelMapping.GetLuckyWheelWin();
 
@@ -47,10 +45,8 @@ class LuckyWheelServerEventHandler {
                         LogPlay(player, winAmmount, "LuckyWheel");
                     }
                     int currentChips = inventory.GetPlayerChipsAmount(player);
-                    DebugMessageCasino("server: player has " + currentChips);
 
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_LUCKY_WHEEL_START_RESPONSE, new Param5<int, int, int, int, bool>(win.GetLuckyDegree(), winAmmount, currentChips, jackpot.GetJackpotLuckyWheel(), isJackpot), true, player.GetIdentity());
-                    DebugMessageCasino("has message send to player");
                 } else {
                     GetGame().RPCSingleParam(player, DAYZ_CASINO_LUCKY_WHEEL_NOT_ENOUGH_CHIPS, new Param1<bool>(true), true, player.GetIdentity());
                 }
