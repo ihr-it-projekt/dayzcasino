@@ -23,7 +23,7 @@ class ActionOpenCasinoGameMenu: ActionInteractBase {
 
     override bool ActionCondition(PlayerBase player, ActionTarget target, ItemBase item) {
         if(!target) return false;
-        if(g_Game.GetUIManager().GetMenu() != NULL) return false;
+        if(!GetGame().IsServer() && g_Game.GetUIManager().GetMenu() != NULL) return false;
 
         CasinoConfig config = CasinoConfig.Get();
         if(!config.luckyWheelSettings) return false;

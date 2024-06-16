@@ -7,8 +7,9 @@ modded class MissionServer {
     private ref LuckyWheelServerEventHandler luckyWheelServerEventHandler;
     private ref Jackpot jackpot;
 
-    void MissionServer() {
-        casinoConfig = new CasinoConfig();
+    override void OnInit() {
+        super.OnInit();
+        casinoConfig = CasinoConfig.Get();
 
         if(casinoConfig.diceSettings.enabled) {
             foreach(GamePosition position: casinoConfig.diceSettings.gamePositions) {

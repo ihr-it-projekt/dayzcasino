@@ -1,6 +1,6 @@
 class BlackJackClientEventHandler {
-    private ref array<Card> currentCardsPlayer;
-    private ref array<Card> currentCardsBank;
+    private ref array<CasinoCard> currentCardsPlayer;
+    private ref array<CasinoCard> currentCardsBank;
     private ref CardCollection cardCollection;
     private DayZPlayer player;
 
@@ -19,9 +19,9 @@ class BlackJackClientEventHandler {
                 int secondCardPlayer = responseStartGame.param2;
                 int firstCardBank = responseStartGame.param3;
 
-                Card firstCard = cardCollection.GetCardByIndex(firstCardPlayer);
-                Card secondCard = cardCollection.GetCardByIndex(secondCardPlayer);
-                Card firstCardB = cardCollection.GetCardByIndex(firstCardBank);
+                CasinoCard firstCard = cardCollection.GetCardByIndex(firstCardPlayer);
+                CasinoCard secondCard = cardCollection.GetCardByIndex(secondCardPlayer);
+                CasinoCard firstCardB = cardCollection.GetCardByIndex(firstCardBank);
 
                 blackJackMenu.usedCards.Clear();
                 blackJackMenu.usedCards.Insert(firstCardPlayer);
@@ -30,11 +30,11 @@ class BlackJackClientEventHandler {
 
                 blackJackMenu.SetStartCards(firstCard, secondCard, firstCardB);
 
-                currentCardsPlayer = new array<Card>;
+                currentCardsPlayer = new array<CasinoCard>;
                 currentCardsPlayer.Insert(firstCard);
                 currentCardsPlayer.Insert(secondCard);
 
-                currentCardsBank = new array<Card>;
+                currentCardsBank = new array<CasinoCard>;
                 currentCardsBank.Insert(firstCardB);
 
                 blackJackMenu.ShowPlayButtons();
@@ -51,7 +51,7 @@ class BlackJackClientEventHandler {
             if(ctx.Read(responseGetNextPlayerCard)) {
                 int nextPlayerCardInt = responseGetNextPlayerCard.param1;
 
-                Card nextPlayerCard = cardCollection.GetCardByIndex(nextPlayerCardInt);
+                CasinoCard nextPlayerCard = cardCollection.GetCardByIndex(nextPlayerCardInt);
                 blackJackMenu.SetNextPlayerCard(currentCardsPlayer.Count() + 1, nextPlayerCard);
 
                 currentCardsPlayer.Insert(nextPlayerCard);
@@ -69,7 +69,7 @@ class BlackJackClientEventHandler {
             if(ctx.Read(responseGetNextBankCard)) {
                 int nextBankCardInt = responseGetNextBankCard.param1;
 
-                Card nextBankCard = cardCollection.GetCardByIndex(nextBankCardInt);
+                CasinoCard nextBankCard = cardCollection.GetCardByIndex(nextBankCardInt);
                 blackJackMenu.SetNextBankCard(currentCardsBank.Count() + 1, nextBankCard);
 
                 currentCardsBank.Insert(nextBankCard);

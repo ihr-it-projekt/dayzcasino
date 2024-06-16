@@ -133,7 +133,7 @@ class BlackJackMenu extends GameBetBaseMenu {
         }
     }
 
-    void SetStartCards(Card firstCardPlayer, Card secondCardPlayer, Card firstCardBank) {
+    void SetStartCards(CasinoCard firstCardPlayer, CasinoCard secondCardPlayer, CasinoCard firstCardBank) {
         playerCard0.LoadImageFile(0, firstCardPlayer.GetImagePath());
         playerCard0.SetImage(0);
         playerCard0.Show(true);
@@ -149,7 +149,7 @@ class BlackJackMenu extends GameBetBaseMenu {
         effect_sound.SoundPlay();
     }
 
-    void SetNextPlayerCard(int numberOfCard, Card nextPlayerCard) {
+    void SetNextPlayerCard(int numberOfCard, CasinoCard nextPlayerCard) {
         switch(numberOfCard) {
             case 2:
                 playerCard1.LoadImageFile(0, nextPlayerCard.GetImagePath());
@@ -184,7 +184,7 @@ class BlackJackMenu extends GameBetBaseMenu {
         effect_sound.SoundPlay();
     }
 
-    void SetNextBankCard(int numberOfCard, Card nextBankCard) {
+    void SetNextBankCard(int numberOfCard, CasinoCard nextBankCard) {
         switch(numberOfCard) {
             case 2:
                 bankCard1.LoadImageFile(0, nextBankCard.GetImagePath());
@@ -271,7 +271,7 @@ class BlackJackMenu extends GameBetBaseMenu {
         }
     }
 
-    void RefreshCardValues(array<Card> currentCardsPlayer, array<Card> currentCardsBank) {
+    void RefreshCardValues(array<CasinoCard> currentCardsPlayer, array<CasinoCard> currentCardsBank) {
         int maxValuePlayer = GetCurrentCardSum(currentCardsPlayer, true);
         int minValuePlayer = GetCurrentCardSum(currentCardsPlayer);
 
@@ -295,9 +295,9 @@ class BlackJackMenu extends GameBetBaseMenu {
         RefreshPoints(showValuePlayer, showValueBank);
     }
 
-    private int GetCurrentCardSum(array<Card> cardsArray, bool max = false) {
+    private int GetCurrentCardSum(array<CasinoCard> cardsArray, bool max = false) {
         int value = 0;
-        foreach(int index, Card card: cardsArray) {
+        foreach(int index, CasinoCard card: cardsArray) {
             value += card.GetValue();
             if(false == max && card.IsAss()) {
                 value -= 10;
