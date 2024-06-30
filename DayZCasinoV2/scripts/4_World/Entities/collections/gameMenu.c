@@ -57,33 +57,25 @@ class GameMenu {
     }
 
 
-    BaseMenu GetGameMenu(vector posPlayer) {
+    BaseMenu GetGameMenu(vector pos) {
         if(casinoConfig.diceSettings.enabled) {
             foreach(GamePosition position1: casinoConfig.diceSettings.gamePositions) {
-                if(vector.Distance(position1.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME) {
-                    return GetBetDiceMenu();
-                }
+                if(position1.pos == pos) return GetBetDiceMenu();
             }
         }
         if(casinoConfig.blackJackSettings.enabled) {
             foreach(GamePosition position2: casinoConfig.blackJackSettings.gamePositions) {
-                if(vector.Distance(position2.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME) {
-                    return GetBlackJackMenu();
-                }
+                if(position2.pos == pos) return GetBlackJackMenu();
             }
         }
         if(casinoConfig.luckyWheelSettings.enabled) {
             foreach(GamePosition position3: casinoConfig.luckyWheelSettings.gamePositions) {
-                if(vector.Distance(position3.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME) {
-                    return GetLuckyWheelMenu();
-                }
+                if(position3.pos == pos) return GetLuckyWheelMenu();
             }
         }
         if(casinoConfig.ratRaceSettings.enabled) {
             foreach(GamePosition position4: casinoConfig.ratRaceSettings.gamePositions) {
-                if(vector.Distance(position4.pos, posPlayer) <= DAYZ_CASINO_DISTANCE_TO_GAME) {
-                    return GetRatRaceMenu();
-                }
+                if(position4.pos == pos) return GetRatRaceMenu();
             }
         }
 

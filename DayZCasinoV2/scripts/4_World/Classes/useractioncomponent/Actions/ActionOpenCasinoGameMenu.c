@@ -30,6 +30,7 @@ class ActionOpenCasinoGameMenu: ActionInteractBase {
 
         if(!config.HasType(target.GetObject().GetType())) return false;
 
-        return true;
+
+        return config.HasPosition(target.GetObject().GetPosition());
     }
 }

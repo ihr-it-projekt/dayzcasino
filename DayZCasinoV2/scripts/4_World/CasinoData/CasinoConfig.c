@@ -54,6 +54,31 @@ class CasinoConfig extends BaseConfig {
         return false;
     }
 
+    bool HasPosition(vector pos) {
+        if(diceSettings.enabled) {
+            foreach(GamePosition positionDice: diceSettings.gamePositions) {
+                if(positionDice.pos == pos) return true;
+            }
+        }
+        if(blackJackSettings.enabled) {
+            foreach(GamePosition positionBlackJack: blackJackSettings.gamePositions) {
+                if(positionBlackJack.pos == pos) return true;
+            }
+        }
+        if(luckyWheelSettings.enabled) {
+            foreach(GamePosition positionLuckyWeel: luckyWheelSettings.gamePositions) {
+                if(positionLuckyWeel.pos == pos) return true;
+            }
+        }
+        if(ratRaceSettings.enabled) {
+            foreach(GamePosition positionRatRace: ratRaceSettings.gamePositions) {
+                if(positionRatRace.pos == pos) return true;
+            }
+        }
+
+        return false;
+    }
+
     override protected void DoLoad() {
         JsonFileLoader<CasinoConfig>.JsonLoadFile(CONFIGSFOLDER + SETTINGSFILE, this);
     }
