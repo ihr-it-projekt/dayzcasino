@@ -8,7 +8,7 @@ class GameMenu {
     private CasinoConfig casinoConfig;
 
     static GameMenu Get(CasinoConfig casinoConfigExt = null) {
-        if(!menu && casinoConfigExt) {
+        if(casinoConfigExt) {
             menu = new GameMenu(casinoConfigExt);
         }
 

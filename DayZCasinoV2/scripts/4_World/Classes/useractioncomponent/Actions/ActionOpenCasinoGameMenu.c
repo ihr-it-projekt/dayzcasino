@@ -15,7 +15,7 @@ class ActionOpenCasinoGameMenu: ActionInteractBase {
         if(g_Game.GetUIManager().GetMenu() != NULL) return;
 
         BaseMenu currentGameMenu = GameMenu.Get().GetGameMenu(action_data.m_Target.GetObject().GetPosition());
-        if(GetGame().GetUIManager().GetMenu() == null && currentGameMenu && !currentGameMenu.isMenuOpen) {
+        if(currentGameMenu && !currentGameMenu.isMenuOpen) {
             currentGameMenu.Init();
             GetGame().GetUIManager().ShowScriptedMenu(currentGameMenu, NULL);
         }

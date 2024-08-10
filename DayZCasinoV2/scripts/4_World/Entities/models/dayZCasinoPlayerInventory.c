@@ -107,8 +107,6 @@ class DayZCasinoPlayerInventory {
     }
 
     private int AddChips(int factor, float chipsToAdd, EntityAI entity) {
-
-
         ItemBase item;
         ItemBase.CastTo(item, entity);
 
