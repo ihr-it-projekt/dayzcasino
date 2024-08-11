@@ -5,7 +5,7 @@ modded class MissionGameplay {
     private ref RatRaceClientEventHandler ratRaceClientEventHandler;
 
     override void OnMissionStart() {
-        super.OnInit();
+        super.OnMissionStart();
         GetDayZGame().Event_OnRPC.Insert(HandleEventsCasino);
         Param1<DayZPlayer> paramGetConfig = new Param1<DayZPlayer>(GetGame().GetPlayer());
         GetGame().RPCSingleParam(paramGetConfig.param1, DAYZ_CASINO_GET_CASINO_CONFIG, paramGetConfig, true);
