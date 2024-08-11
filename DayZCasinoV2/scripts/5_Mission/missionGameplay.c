@@ -12,7 +12,7 @@ modded class MissionGameplay {
     }
 
     override void OnMissionFinish() {
-        super.OnInit();
+        super.OnMissionFinish();
         GetDayZGame().Event_OnRPC.Remove(HandleEventsCasino);
     }
 
