@@ -304,12 +304,37 @@ class cfgSoundShaders {
 };
 
 class CfgVehicles {
-    class SmallStone;
-    class CasinoChips: SmallStone {
+    class Inventory_Base;
+    class HouseNoDestruct;
+    class Casino_Pacman: HouseNoDestruct {
         scope = 2;
-        displayName = "Casino Chip";
-        descriptionShort = "With this chip you can play at casino games";
-        model = "DayZCasinoV2\CasinoChips.p3d";
+        model = "DayZCasinoV2\Models\Pacman.p3d";
+        hiddenSelections[] = {
+            "ghost1",
+            "ghost2",
+            "ghost3",
+            "ghost4",
+            "mouth bott",
+            "mouth top",
+            "pacman machine",
+            "pacman"
+        };
+        hiddenSelectionsTextures[] = {
+            "DayZCasinoV2\Models\Data\Pacman\Pacman_Ghost.paa",
+            "DayZCasinoV2\Models\Data\Pacman\Pacman_Ghost.paa",
+            "DayZCasinoV2\Models\Data\Pacman\Pacman_Ghost.paa",
+            "DayZCasinoV2\Models\Data\Pacman\Pacman_Ghost.paa",
+            "DayZCasinoV2\Models\Data\Pacman\Pacman.paa",
+            "DayZCasinoV2\Models\Data\Pacman\Pacman.paa",
+            "DayZCasinoV2\Models\Data\Pacman\Pacman.paa",
+            "DayZCasinoV2\Models\Data\Pacman\Pacman_Ghost.paa"
+        };
+    };
+    class CasinoChips_Base: Inventory_Base {
+        scope = 2;
+        displayName = "#Casino_Chip";
+        descriptionShort = "#With_this_chip_you_can_play_at_casino_games";
+        model = "DayZCasinoV2\Models\CasinoChips.p3d";
         animClass = "NoFireClass";
         weight = 1;
         itemSize[] = {1, 1};
@@ -319,5 +344,33 @@ class CfgVehicles {
         varQuantityMax = 10000;
         varQuantityDestroyOnMin = 1;
         varStackMax = 10000;
+        hiddenSelections[] = {
+            "chipColor"
+        };
+    };
+    class CasinoChip: CasinoChips_Base {
+        hiddenSelectionsTextures[] = {
+            "#(argb,8,8,3)color(0.0,0.0,0.0,1.0,co)"
+        };
+    };
+    class CasinoChip_Red: CasinoChips_Base {
+        hiddenSelectionsTextures[] = {
+            "#(argb,8,8,3)color(1.0,0.0,0.0,1.0,co)"
+        };
+    };
+    class CasinoChip_Green: CasinoChips_Base {
+        hiddenSelectionsTextures[] = {
+            "#(argb,8,8,3)color(0.0,0.5,0.0,1.0,co)"
+        };
+    };
+    class CasinoChip_Blue: CasinoChips_Base {
+        hiddenSelectionsTextures[] = {
+            "#(argb,8,8,3)color(0.0,0.0,1.0,1.0,co)"
+        };
+    };
+    class CasinoChip_Yellow: CasinoChips_Base {
+        hiddenSelectionsTextures[] = {
+            "#(argb,8,8,3)color(1.0,1.0,0.0,1.0,co)"
+        };
     };
 };
