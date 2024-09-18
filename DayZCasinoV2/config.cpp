@@ -331,7 +331,6 @@ class CfgVehicles {
         };
     };
     class CasinoChips_Base: Inventory_Base {
-        scope = 2;
         displayName = "#Casino_Chip";
         descriptionShort = "#With_this_chip_you_can_play_at_casino_games";
         model = "DayZCasinoV2\Models\CasinoChips.p3d";
@@ -349,26 +348,31 @@ class CfgVehicles {
         };
     };
     class CasinoChip: CasinoChips_Base {
+        scope = 2;
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(0.0,0.0,0.0,1.0,co)"
         };
     };
     class CasinoChip_Red: CasinoChips_Base {
+        scope = 2;
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(1.0,0.0,0.0,1.0,co)"
         };
     };
     class CasinoChip_Green: CasinoChips_Base {
+        scope = 2;
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(0.0,0.5,0.0,1.0,co)"
         };
     };
     class CasinoChip_Blue: CasinoChips_Base {
+        scope = 2;
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(0.0,0.0,1.0,1.0,co)"
         };
     };
     class CasinoChip_Yellow: CasinoChips_Base {
+        scope = 2;
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(1.0,1.0,0.0,1.0,co)"
         };
