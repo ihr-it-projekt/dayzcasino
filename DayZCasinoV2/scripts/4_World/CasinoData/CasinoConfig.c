@@ -14,7 +14,7 @@ class CasinoConfig extends BaseConfig {
     ref CasinoGameSettingBlackjack blackJackSettings;
     ref CasinoGameSettingDice diceSettings;
     ref CasinoGameSettingRatRace ratRaceSettings;
-    int configVersion = 2;
+    int configVersion = 3;
     bool enablePlayLogs = true;
     ref map <string, int> currencyValues;
 
@@ -32,6 +32,11 @@ class CasinoConfig extends BaseConfig {
             ratRaceSettings = new CasinoGameSettingRatRace();
             currencyValues = new map<string, int>;
             currencyValues.Set("CasinoChips", 1);
+            currencyValues.Set("CasinoChip_Red", 10);
+            currencyValues.Set("CasinoChip_Green", 100);
+            currencyValues.Set("CasinoChip_Blue", 1000);
+            currencyValues.Set("CasinoChip_Yellow", 10000);
+            configVersion = 3;
             Save(SETTINGSFILE);
         } else {
             Load(SETTINGSFILE);
@@ -40,6 +45,17 @@ class CasinoConfig extends BaseConfig {
                 currencyValues = new map<string, int>;
                 currencyValues.Set("CasinoChips", 1);
 
+                Save(SETTINGSFILE);
+            }
+
+            if(configVersion < 3) {
+                configVersion = 3;
+                if (currencyValues.Contains("CasinoChips")) {
+                    currencyValues.Set("CasinoChip_Red", 10);
+                    currencyValues.Set("CasinoChip_Green", 100);
+                    currencyValues.Set("CasinoChip_Blue", 1000);
+                    currencyValues.Set("CasinoChip_Yellow", 10000);
+                }
                 Save(SETTINGSFILE);
             }
         }
