@@ -31,7 +31,7 @@ class CasinoConfig extends BaseConfig {
             luckyWheelSettings = new CasinoGameSettingLuckyWheel();
             ratRaceSettings = new CasinoGameSettingRatRace();
             currencyValues = new map<string, int>;
-            currencyValues.Set("CasinoChips", 1);
+            currencyValues.Set("CasinoChip", 1);
             currencyValues.Set("CasinoChip_Red", 10);
             currencyValues.Set("CasinoChip_Green", 100);
             currencyValues.Set("CasinoChip_Blue", 1000);
@@ -43,7 +43,7 @@ class CasinoConfig extends BaseConfig {
             if(configVersion < 2) {
                 configVersion = 2;
                 currencyValues = new map<string, int>;
-                currencyValues.Set("CasinoChips", 1);
+                currencyValues.Set("CasinoChip", 1);
 
                 Save(SETTINGSFILE);
             }
@@ -55,6 +55,15 @@ class CasinoConfig extends BaseConfig {
                     currencyValues.Set("CasinoChip_Green", 100);
                     currencyValues.Set("CasinoChip_Blue", 1000);
                     currencyValues.Set("CasinoChip_Yellow", 10000);
+                }
+                Save(SETTINGSFILE);
+            }
+
+            if(configVersion < 4) {
+                configVersion = 4;
+                if (currencyValues.Contains("CasinoChips")) {
+                    currencyValues.Set("CasinoChip", 1);
+                    currencyValues.Remove("CasinoChips");
                 }
                 Save(SETTINGSFILE);
             }
