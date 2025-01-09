@@ -349,30 +349,35 @@ class CfgVehicles {
     };
     class CasinoChip: CasinoChips_Base {
         scope = 2;
+        displayName = "#Casino_Chip_Black";
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(0.0,0.0,0.0,1.0,co)"
         };
     };
     class CasinoChip_Red: CasinoChips_Base {
         scope = 2;
+        displayName = "#Casino_Chip_Red";
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(1.0,0.0,0.0,1.0,co)"
         };
     };
     class CasinoChip_Green: CasinoChips_Base {
         scope = 2;
+        displayName = "#Casino_Chip_Green";
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(0.0,0.5,0.0,1.0,co)"
         };
     };
     class CasinoChip_Blue: CasinoChips_Base {
         scope = 2;
+        displayName = "#Casino_Chip_Blue";
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(0.0,0.0,1.0,1.0,co)"
         };
     };
     class CasinoChip_Yellow: CasinoChips_Base {
         scope = 2;
+        displayName = "#Casino_Chip_Yellow";
         hiddenSelectionsTextures[] = {
             "#(argb,8,8,3)color(1.0,1.0,0.0,1.0,co)"
         };
