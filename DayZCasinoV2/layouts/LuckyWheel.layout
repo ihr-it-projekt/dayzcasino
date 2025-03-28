@@ -213,9 +213,10 @@ FrameWidgetClass rootFrame {
          vexactsize 1
          scaled 1
          draggable 0
+         imageTexture ""
          mode blend
          "src alpha" 1
-         stretch 1
+         "stretch mode" stretch_w_h
         }
         MultilineTextWidgetClass message {
          ignorepointer 1
@@ -232,19 +233,6 @@ FrameWidgetClass rootFrame {
          wrap 1
          "condense whitespace" 1
          "strip newlines" 1
-        }
-        ImageWidgetClass arrow {
-         ignorepointer 1
-         position 916.20502 38.5709
-         size 30 80
-         hexactpos 1
-         vexactpos 1
-         hexactsize 1
-         vexactsize 1
-         scaled 1
-         mode blend
-         "src alpha" 1
-         stretch 1
         }
         MultilineTextWidgetClass TextWidget1 {
          ignorepointer 1

@@ -2,7 +2,6 @@ class LuckyWheelMenu extends BaseMenu {
     static int COUNT_SHUFFLE_BEFORE_SHOW_WIN_WHEEL = 360;
     private ButtonWidget rotate;
     private ImageWidget luckyWheel;
-    private ImageWidget arrow;
     private EffectSound effect_sound;
     private EffectSound lose_sound;
     private EffectSound win_sound;
@@ -34,10 +33,8 @@ class LuckyWheelMenu extends BaseMenu {
         jackpotWidget = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("jackpot"));
         betPerRoll = MultilineTextWidget.Cast(layoutRoot.FindAnyWidget("betPerRoll"));
         winView = TextWidget.Cast(layoutRoot.FindAnyWidget("winView"));
-        arrow = ImageWidget.Cast(layoutRoot.FindAnyWidget("arrow"));
-        arrow.LoadImageFile(0, "DayZCasinoV2/data/luckywheel/arrow.edds");
         luckyWheel = ImageWidget.Cast(layoutRoot.FindAnyWidget("luckyWheel"));
-        luckyWheel.LoadImageFile(0, "DayZCasinoV2/data/luckywheel/luckywheel.edds");
+        luckyWheel.LoadImageFile(0, "DayZCasinoV2/data/luckywheel/tbmWheel.edds");
 
         return layoutRoot;
     }
@@ -50,7 +47,6 @@ class LuckyWheelMenu extends BaseMenu {
         super.OnShow();
 
         betPerRoll.SetText(casinoConfig.luckyWheelSettings.chipsBet.ToString());
-        arrow.SetImage(0);
         luckyWheel.SetImage(0);
         effect_sound = SEffectManager.CreateSound("DayZCasino_FLAP_SoundSet", player.GetPosition());
         win_sound = SEffectManager.CreateSound("DayZCasino_WIN_SoundSet", player.GetPosition());
